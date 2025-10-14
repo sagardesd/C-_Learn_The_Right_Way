@@ -1365,11 +1365,18 @@ int main() {
 ### 🧨 Problem: Shallow Copy
 The compiler automatically generates a **default copy constructor** that performs a **member-wise (shallow) copy**.  
 That means both `obj1` and `obj2` will have their `ptr` pointing to the same memory location.
-
 When both destructors run:
 - `obj1` deletes `ptr`
 - `obj2` also tries to delete the same memory
-
+```
+./a.out
+Foo(int) invoked, *ptr = 10
+~Foo() invoked, deleting ptr
+~Foo() invoked, deleting ptr
+a.out(53252,0x1f91d60c0) malloc: *** error for object 0x6000013a4020: pointer being freed was not allocated
+a.out(53252,0x1f91d60c0) malloc: *** set a breakpoint in malloc_error_break to debug
+[1]    53252 abort      ./a.out
+```
 💥 **Result:** *Double free or corruption* runtime error.
 
 ---
