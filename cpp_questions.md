@@ -1670,7 +1670,7 @@ The C++ Standard Template Library (STL) provides several container types:
 
 ---
 
-### `std::map`
+### What is `std::map` ?
 
 **`std::map`** is an associative container that stores key-value pairs in sorted order (by key).
 
@@ -1741,7 +1741,7 @@ Size: 4
 
 ---
 
-### Using User-Defined Objects as Map Keys
+### How can you use an User-Defined Objects as Map Keys ?
 
 To use a user-defined object as a key in `std::map`, you must provide a way to **compare** keys (for sorting).
 
@@ -1851,7 +1851,7 @@ std::map<Foo, std::string, decltype(comp)> myMap(comp);
 
 ---
 
-### Difference Between `std::map` and `std::set`
+### What is Difference Between `std::map` and `std::set` ?
 
 | Feature | `std::map` | `std::set` |
 |---------|-----------|-----------|
@@ -1916,7 +1916,7 @@ unique_numbers.insert(5);  // Ignored (duplicate)
 
 ---
 
-### Difference Between `std::vector`, `std::list`, and `std::deque`
+### What is Difference Between `std::vector`, `std::list`, and `std::deque` ?
 
 | Feature | `std::vector` | `std::list` | `std::deque` |
 |---------|--------------|------------|-------------|
