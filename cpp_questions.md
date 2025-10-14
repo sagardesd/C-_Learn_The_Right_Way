@@ -2061,3 +2061,61 @@ This guide covers essential advanced C++ topics:
 9. **STL Containers** - Different container types and their use cases
 
 These concepts form the foundation of modern C++ programming!
+
+## Questions
+
+1. Copy constructor:
+    1. What is a copy constructor ?
+    2. Why its needed ?
+    3. Explain why copy constructor takes:  const Foo& for the below class Foo as argument.
+   
+  	class Foo {
+		public:
+			Foo(const Foo& obj); // Copy constructor // Why constant reference
+  	};
+
+2. What is RAII ? (Resource acquisition is initialization) ?
+
+3. What are RAII features available in C++11 ?
+  Ans: Smart pointers
+
+4. What are smart pointers introduced in C++11 ?
+  Ans: unique_ptr<T>, shared_ptr<T>, weak_ptr<T>
+  
+5.  What is the difference between unique_ptr and shared_ptr ?
+
+6. What is the use case for weak_ptr ?
+
+  7. What is move semantics and move constructors, write the move constructor for a class ?
+
+8. What are some of the highlighted features introduced in C++11 ?
+
+9. What is nullptr in C++11 ? How its different from traditional NULL ?
+
+10. What are lambda expressions ? Write the various types of lambda expressions example ?
+    1. Following questions what is capture by value ?
+    2. What is capture by reference ?
+11. What is the new C++11 feature that restricts a class from being inherited into a derived class as a base class.
+
+STL: 
+1. What is the different containers available in STL ?
+2. What is a std::map ?
+3. What special handling has to be done if I need to keep a user defined object as key of a map ?
+  For example:
+  Class Foo {
+  	private:
+		int x;   }
+  std::map<Foo, int> : Here key is a user defined object.
+ 4. What is the difference between a map and a set ?
+ 5. What is difference between a vector, list and duque ?
+ 
+
+
+
+  
+
+
+
+
+
+
