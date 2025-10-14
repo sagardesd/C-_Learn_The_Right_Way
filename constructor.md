@@ -1381,7 +1381,7 @@ a.out(53252,0x1f91d60c0) malloc: *** set a breakpoint in malloc_error_break to d
 
 ---
 
-## 🧪 Step 2: What Valgrind Shows
+## 🧪 Step 2: What Valgrind(linux)/leaks(mac) Shows
 
 If you run this under Valgrind, you’ll see:
 
@@ -1391,6 +1391,17 @@ If you run this under Valgrind, you’ll see:
 ==1234==    by 0x1091C2: Foo::~Foo() (example.cpp:12)
 ==1234==  Address 0x5a52040 is 0 bytes inside a block of size 4 free'd
 ==1234==    by 0x1091C2: Foo::~Foo() (example.cpp:12)
+```
+
+```
+leaks --atExit -- ./a.out
+a.out(56120) MallocStackLogging: could not tag MSL-related memory as no_footprint, so those pages will be included in process footprint - (null)
+a.out(56120) MallocStackLogging: recording malloc (and VM allocation) stacks using lite mode
+Foo(int) invoked, *ptr = 10
+~Foo() invoked, deleting ptr
+~Foo() invoked, deleting ptr
+a.out(56120,0x1f91d60c0) malloc: *** error for object 0x133804080: pointer being freed was not allocated
+a.out(56120,0x1f91d60c0) malloc: *** set a breakpoint in malloc_error_break to debug
 ```
 
 This happens because **two destructors delete the same pointer**.
