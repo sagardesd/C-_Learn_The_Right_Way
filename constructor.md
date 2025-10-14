@@ -1,6 +1,18 @@
 # C++ Constructors and Destructors - Complete Guide
 
-## What are Constructors?
+## Table of Contents
+1. [Constructors](#constructors)
+2. [Destructors](#destructors)
+3. [The `explicit` Keyword](#the-explicit-keyword)
+4. [Constructor Initializer Lists](#constructor-initializer-lists)
+5. [The `this` Pointer and Const Member Functions](#the-this-pointer-and-const-member-functions)
+6. [The `mutable` Keyword](#the-mutable-keyword)
+
+---
+
+<a id="constructors"></a>
+## 1. Constructors
+
 Constructors are special member functions that share the same name as their class.
 
 ### Common Misconception
@@ -15,28 +27,9 @@ Constructors are special functions designed to **initialize** an object immediat
 - Constructors ensure objects start in a valid, well-defined state
 - They are called automatically—you don't invoke them manually
 
----
-
-## What are Destructors?
-Destructors are special member functions that have the same name as the class, but prefixed with a tilde (`~`).
-
-### What Destructors Actually Do
-Destructors are special functions designed to **clean up** an object just before it is destroyed. When an object goes out of scope or is explicitly deleted, the destructor is automatically invoked to perform cleanup operations—releasing dynamically allocated memory, closing file handles, releasing locks, or performing any other necessary cleanup before the object's memory is deallocated.
-
-### Key Points:
-- **Destructor invocation** (cleanup) happens first
-- **Object destruction** (memory deallocation) happens immediately after
-- Destructors ensure proper resource cleanup and prevent memory leaks
-- They are called automatically when an object goes out of scope or is deleted
-- A class can have only **one destructor** (no overloading, no parameters)
-- Destructors are called in **reverse order** of object creation
-
----
-
-## Constructor and Destructor Lifecycle
+### Object Lifetime Flow
 
 ```
-Object Lifetime Flow:
 1. Memory Allocation
 2. Constructor Execution ← Initialization
 3. Object Usage
@@ -44,9 +37,7 @@ Object Lifetime Flow:
 5. Memory Deallocation
 ```
 
----
-
-## Basic Code Example
+### Basic Code Example
 
 ```cpp
 #include <iostream>
@@ -93,7 +84,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-### Output
+#### Output
 
 ```
 ➜  practice g++ -O0 -fno-elide-constructors constructor_example.cpp
@@ -109,7 +100,7 @@ Object Add: 0x16f647034: member : 10
 ~Foo() invoked
 ```
 
-### Explanation
+#### Explanation
 
 This example demonstrates three ways to create objects:
 
@@ -119,11 +110,38 @@ This example demonstrates three ways to create objects:
 
 All three objects are destroyed at the end of `main()` when they go out of scope, invoking their destructors **in reverse order of creation** (obj3 → obj2 → obj1). This ensures that dependencies between objects are properly handled during cleanup.
 
+[↑ Back to Table of Contents](#table-of-contents)
+
 ---
 
-# The `explicit` Keyword in C++ Constructors
+<a id="destructors"></a>
+## 2. Destructors
 
-## Why Implicit Conversions Are Problematic
+Destructors are special member functions that have the same name as the class, but prefixed with a tilde (`~`).
+
+### What Destructors Actually Do
+Destructors are special functions designed to **clean up** an object just before it is destroyed. When an object goes out of scope or is explicitly deleted, the destructor is automatically invoked to perform cleanup operations—releasing dynamically allocated memory, closing file handles, releasing locks, or performing any other necessary cleanup before the object's memory is deallocated.
+
+### Key Points:
+- **Destructor invocation** (cleanup) happens first
+- **Object destruction** (memory deallocation) happens immediately after
+- Destructors ensure proper resource cleanup and prevent memory leaks
+- They are called automatically when an object goes out of scope or is deleted
+- A class can have only **one destructor** (no overloading, no parameters)
+- Destructors are called in **reverse order** of object creation
+
+### Example
+
+See the code example in the [Constructors](#constructors) section above, which demonstrates both constructors and destructors working together.
+
+[↑ Back to Table of Contents](#table-of-contents)
+
+---
+
+<a id="the-explicit-keyword"></a>
+## 3. The `explicit` Keyword
+
+### Why Implicit Conversions Are Problematic
 
 Implicit conversions can lead to several issues:
 
@@ -154,19 +172,13 @@ int main() {
 
 In the above code, you probably meant to pass a `Foo` object, but accidentally passed an `int`. The compiler doesn't complain—it just silently converts `42` to a `Foo` object. This can hide bugs!
 
----
-
-## Solution: The `explicit` Keyword
+### Solution: The `explicit` Keyword
 
 The `explicit` keyword **prevents implicit conversions** by forcing the programmer to explicitly construct objects.
 
-### How It Works
-
 When you mark a constructor as `explicit`, the compiler will **only allow explicit construction** and will **reject implicit conversions**.
 
----
-
-## Code Example with `explicit`
+### Code Example with `explicit`
 
 ```cpp
 #include <iostream>
@@ -214,11 +226,9 @@ int main(int argc, char* argv[]) {
 }
 ```
 
----
+### Benefits of Using `explicit`
 
-## Benefits of Using `explicit`
-
-### 1. **Prevents Accidental Bugs**
+#### 1. **Prevents Accidental Bugs**
 ```cpp
 explicit Foo(int a);
 
@@ -228,18 +238,16 @@ doSomething(42);        // ✗ Compilation error - catches the mistake!
 doSomething(Foo(42));   // ✓ OK - you clearly meant to create a Foo
 ```
 
-### 2. **Makes Code More Readable**
+#### 2. **Makes Code More Readable**
 When someone reads `Foo obj(10)`, it's crystal clear that a `Foo` object is being created. With `Foo obj = 10`, it's less obvious what's happening.
 
-### 3. **Enforces Type Safety**
+#### 3. **Enforces Type Safety**
 You maintain C++'s strong typing system. If you want a `Foo` object, you must explicitly create one—no shortcuts.
 
-### 4. **Reduces Unexpected Behavior**
+#### 4. **Reduces Unexpected Behavior**
 No surprise conversions means no surprise bugs. What you write is what you get.
 
----
-
-## Best Practice Rules
+### Best Practice Rules
 
 ✓ **DO:** Mark single-parameter constructors as `explicit` by default
 
@@ -259,9 +267,7 @@ public:
 };
 ```
 
----
-
-## Comparison: With vs Without `explicit`
+### Comparison: With vs Without `explicit`
 
 | Without `explicit` | With `explicit` |
 |-------------------|-----------------|
@@ -271,11 +277,14 @@ public:
 | Can hide bugs | Catches bugs at compile time |
 | Less clear intent | Crystal clear intent |
 
+[↑ Back to Table of Contents](#table-of-contents)
+
 ---
 
-# Constructor Initializer Lists
+<a id="constructor-initializer-lists"></a>
+## 4. Constructor Initializer Lists
 
-## The Problem with Const Member Variables
+### The Problem with Const Member Variables
 
 Consider this problematic code:
 
@@ -319,13 +328,11 @@ error: assignment of read-only member 'Foo::member'
 
 When you write `this->member = a;` inside the constructor body, you're trying to **assign** to `member` after it has already been created. But `member` is `const`, so assignment is forbidden!
 
----
-
-## Understanding Object Creation Flow
+### Understanding Object Creation Flow
 
 To understand the solution, we need to understand what happens when an object is created:
 
-### Step-by-Step Object Creation:
+#### Step-by-Step Object Creation:
 
 ```
 1. Memory Allocation
@@ -346,13 +353,11 @@ To understand the solution, we need to understand what happens when an object is
 
 **Key Insight:** By the time the constructor body `{ }` executes, all member variables have already been constructed. For `const` members, it's too late to initialize them—you can only initialize them **during step 2**, not during step 3.
 
----
-
-## The Solution: Member Initializer List
+### The Solution: Member Initializer List
 
 The **member initializer list** allows you to initialize member variables **before** the constructor body executes—exactly when they are being constructed.
 
-### Syntax
+#### Syntax
 
 ```cpp
 ClassName(parameters) : member1(value1), member2(value2) {
@@ -362,9 +367,7 @@ ClassName(parameters) : member1(value1), member2(value2) {
 
 The part after `:` and before `{` is the initializer list.
 
----
-
-## Corrected Code Example
+### Corrected Code Example
 
 ```cpp
 #include <iostream>
@@ -403,7 +406,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-### Output
+#### Output
 ```
 Foo() invoked
 Object Add: 0x16fdff04c: member : 0
@@ -413,11 +416,9 @@ Object Add: 0x16fdff048: member : 42
 ~Foo() invoked
 ```
 
----
+### How Initializer Lists Fix the Problem
 
-## How Initializer Lists Fix the Problem
-
-### What Happens with Initializer List:
+#### What Happens with Initializer List:
 
 ```cpp
 Foo(int a) : member(a) {  // Initializer list
@@ -435,7 +436,7 @@ Foo(int a) : member(a) {  // Initializer list
 3. **Constructor Body** - The code inside `{ }` executes
 4. **Object Ready** - Object is fully constructed and ready to use
 
-### What Happens WITHOUT Initializer List:
+#### What Happens WITHOUT Initializer List:
 
 ```cpp
 Foo(int a) {
@@ -453,9 +454,7 @@ Foo(int a) {
    - ❌ **ERROR!** This is **assignment**, not initialization
    - Can't assign to a `const` variable!
 
----
-
-## Key Differences: Initialization vs Assignment
+### Key Differences: Initialization vs Assignment
 
 | Initialization | Assignment |
 |---------------|-----------|
@@ -465,9 +464,7 @@ Foo(int a) {
 | Works with reference members | ❌ Does NOT work with reference members |
 | More efficient (direct construction) | Less efficient (construct then modify) |
 
----
-
-## When You MUST Use Initializer Lists
+### When You MUST Use Initializer Lists
 
 You **must** use initializer lists for:
 
@@ -516,9 +513,7 @@ You **must** use initializer lists for:
    };
    ```
 
----
-
-## Best Practices
+### Best Practices
 
 ✓ **DO:** Use initializer lists for all member variables
 
@@ -554,15 +549,18 @@ Foo(int a) {
 Foo(int a) : member(a) { }  // Direct initialization
 ```
 
+[↑ Back to Table of Contents](#table-of-contents)
+
 ---
 
-# The `this` Pointer and Const Member Functions
+<a id="the-this-pointer-and-const-member-functions"></a>
+## 5. The `this` Pointer and Const Member Functions
 
-## Understanding the `this` Pointer
+### Understanding the `this` Pointer
 
 The `this` pointer is a **hidden pointer** that exists in every non-static member function. It points to the object that called the function.
 
-### How Member Functions Actually Work
+#### How Member Functions Actually Work
 
 When you write:
 ```cpp
@@ -576,14 +574,14 @@ print_obj(&obj);  // Pass the address of obj as a hidden argument
 
 Inside the function, you access members through this hidden pointer called `this`.
 
-### The `this` Pointer Explained
+#### The `this` Pointer Explained
 
 - **`this`** is a pointer to the object that called the member function
 - It's automatically passed to every non-static member function
 - Type: **`ClassName* const`** (constant pointer to the class type)
 - You can use it explicitly (`this->member`) or implicitly (`member`)
 
-### Why is `this` a Constant Pointer?
+#### Why is `this` a Constant Pointer?
 
 The type `Foo* const` means:
 - **`Foo*`** - Pointer to a `Foo` object
@@ -608,9 +606,7 @@ void someFunction() {
 
 **Why this design?** The `this` pointer must always point to the same object throughout the entire function execution. It would be dangerous and nonsensical to allow `this` to be reassigned to point to a different object mid-function!
 
----
-
-## The Problem with Const Objects
+### The Problem with Const Objects
 
 Consider this example:
 
@@ -653,13 +649,13 @@ int main() {
 }
 ```
 
-### Compilation Error
+#### Compilation Error
 
 ```
 error: passing 'const Foo' as 'this' argument discards qualifiers
 ```
 
-### Why Does This Fail?
+#### Why Does This Fail?
 
 Let's understand what's happening behind the scenes:
 
@@ -677,9 +673,7 @@ Let's understand what's happening behind the scenes:
    - Function expects: `Foo* const`
    - This is **not allowed** because it would discard the `const` qualifier!
 
----
-
-## Visualizing the Type Mismatch
+#### Visualizing the Type Mismatch
 
 ```cpp
 void print_obj() {
@@ -701,13 +695,11 @@ obj3.print_obj();
 
 **Why is this dangerous?** If allowed, you could modify a `const` object through the non-const `this` pointer, violating const-correctness!
 
----
-
-## The Solution: Const Member Functions
+### The Solution: Const Member Functions
 
 Mark the member function as `const` to tell the compiler: "This function will not modify the object."
 
-### Corrected Code
+#### Corrected Code
 
 ```cpp
 #include <iostream>
@@ -748,7 +740,7 @@ int main() {
 }
 ```
 
-### Output
+#### Output
 ```
 Foo() invoked
 Object Add: 0x16fdff04c: member : 0
@@ -761,11 +753,9 @@ Object Add: 0x16fdff044: member : 20
 ~Foo() invoked
 ```
 
----
+### How `const` Fixes the Issue
 
-## How `const` Fixes the Issue
-
-### Behind the Scenes: Function Signature
+#### Behind the Scenes: Function Signature
 
 When you add `const` to a member function:
 
@@ -787,7 +777,7 @@ Now:
 - The **object** pointed to by `this` is **const** (first `const`)
 - The **pointer** `this` itself is **const** (second `const`)
 
-### GDB Evidence
+#### GDB Evidence
 
 Using GDB with demangling turned off reveals the true function signature:
 
@@ -822,11 +812,9 @@ This means the function receives: **`const Foo* const`**
 
 This matches what we expect for a const member function!
 
----
+### Type Matching with Const Member Functions
 
-## Type Matching with Const Member Functions
-
-### Without `const` keyword:
+#### Without `const` keyword:
 ```cpp
 void print_obj() {
     // Real signature: void print_obj(Foo* const this)
@@ -841,7 +829,7 @@ obj3.print_obj();
 // ❌ Type mismatch! The object being passed is const, but function could modify it
 ```
 
-### With `const` keyword:
+#### With `const` keyword:
 ```cpp
 void print_obj() const {
     // Real signature: void print_obj(const Foo* const this)
@@ -856,9 +844,7 @@ obj3.print_obj();
 // ✓ Types match perfectly!
 ```
 
----
-
-## What Const Member Functions Promise
+### What Const Member Functions Promise
 
 When you declare a member function as `const`:
 
@@ -873,7 +859,7 @@ void print_obj() const {
 }
 ```
 
-### What You Can and Cannot Do
+#### What You Can and Cannot Do
 
 ```cpp
 class Foo {
@@ -899,9 +885,7 @@ public:
 };
 ```
 
----
-
-## Rules for Const Objects and Functions
+### Rules for Const Objects and Functions
 
 | Scenario | Allowed? | Explanation |
 |----------|----------|-------------|
@@ -910,9 +894,7 @@ public:
 | Const object calling const function | ✓ Yes | Perfect match: both are const |
 | Const object calling non-const function | ❌ No | Unsafe: function might modify const object |
 
----
-
-## Best Practices
+### Best Practices
 
 ✓ **DO:** Mark member functions as `const` if they don't modify the object
 
@@ -959,11 +941,14 @@ void useIt(const Bad& b) {
 }
 ```
 
+[↑ Back to Table of Contents](#table-of-contents)
+
 ---
 
-# The `mutable` Keyword
+<a id="the-mutable-keyword"></a>
+## 6. The `mutable` Keyword
 
-## The Problem: Wanting to Modify Some Members of Const Objects
+### The Problem: Wanting to Modify Some Members of Const Objects
 
 Sometimes you have a `const` object where **most** members should be read-only, but a **few specific members** need to be modifiable. This is common in scenarios like:
 
@@ -972,7 +957,7 @@ Sometimes you have a `const` object where **most** members should be read-only, 
 - **Lazy initialization**: Initializing data only when first accessed
 - **Mutex locks**: Managing thread synchronization in const member functions
 
-### Example Problem
+#### Example Problem
 
 ```cpp
 #include <iostream>
@@ -1009,7 +994,7 @@ int main() {
 }
 ```
 
-### Compilation Error
+#### Compilation Error
 
 ```
 error: assignment of member 'Foo::member' in read-only object
@@ -1017,13 +1002,11 @@ error: assignment of member 'Foo::member' in read-only object
 
 **The Problem:** Even though `can_modify()` is a `const` member function, it cannot modify ANY member variables because `this` has type `const Foo* const`.
 
----
-
-## The Solution: The `mutable` Keyword
+### The Solution: The `mutable` Keyword
 
 The `mutable` keyword allows you to mark specific member variables as **always modifiable**, even in `const` member functions and `const` objects.
 
-### Syntax
+#### Syntax
 
 ```cpp
 class ClassName {
@@ -1031,9 +1014,7 @@ class ClassName {
 };
 ```
 
----
-
-## Corrected Example
+### Corrected Example
 
 ```cpp
 #include <iostream>
@@ -1082,7 +1063,7 @@ int main() {
 }
 ```
 
-### Output
+#### Output
 
 ```
 Foo(int a, int b) invoked
@@ -1094,9 +1075,7 @@ Object: 0x16fdff048, member: 100, readonly: 30
 ~Foo() invoked
 ```
 
----
-
-## How `mutable` Works
+### How `mutable` Works
 
 When you mark a member as `mutable`:
 
@@ -1117,11 +1096,9 @@ public:
 
 **Key Point:** The `mutable` keyword essentially tells the compiler: "Don't apply const restrictions to this particular member, even when the object is const."
 
----
+### Real-World Use Cases
 
-## Real-World Use Cases
-
-### 1. **Caching Expensive Computations**
+#### 1. **Caching Expensive Computations**
 
 ```cpp
 class DataProcessor {
@@ -1147,7 +1124,7 @@ public:
 };
 ```
 
-### 2. **Debug Counters**
+#### 2. **Debug Counters**
 
 ```cpp
 class Service {
@@ -1168,7 +1145,7 @@ public:
 };
 ```
 
-### 3. **Lazy Initialization**
+#### 3. **Lazy Initialization**
 
 ```cpp
 class ExpensiveResource {
@@ -1184,7 +1161,7 @@ public:
 };
 ```
 
-### 4. **Thread Synchronization**
+#### 4. **Thread Synchronization**
 
 ```cpp
 class ThreadSafeCounter {
@@ -1204,23 +1181,19 @@ public:
 };
 ```
 
----
+### Important Characteristics of `mutable`
 
-## Important Characteristics of `mutable`
-
-### What `mutable` Does:
+#### What `mutable` Does:
 - ✓ Allows modification of the member in `const` member functions
 - ✓ Allows modification of the member in `const` objects
 - ✓ Exempts the member from const-correctness rules
 
-### What `mutable` Does NOT Do:
+#### What `mutable` Does NOT Do:
 - ✗ Does not make the member constant
 - ✗ Does not affect the member in non-const contexts
 - ✗ Does not change thread-safety characteristics
 
----
-
-## Comparison: Regular vs Mutable Members
+### Comparison: Regular vs Mutable Members
 
 ```cpp
 class Example {
@@ -1257,9 +1230,7 @@ int main() {
 }
 ```
 
----
-
-## When to Use `mutable`
+### When to Use `mutable`
 
 ✓ **DO use `mutable` for:**
 - Internal caching mechanisms
@@ -1274,11 +1245,9 @@ int main() {
 - As a workaround for poor design
 - When a better design would avoid the need for it
 
----
+### Best Practices
 
-## Best Practices
-
-### Good Use: Caching
+#### Good Use: Caching
 ```cpp
 class MathProcessor {
     std::vector<int> numbers;
@@ -1298,7 +1267,7 @@ public:
 ```
 ✓ **Why it's good:** The cache is an implementation detail. Logically, `getSum()` doesn't modify the object—it just returns a value.
 
-### Bad Use: Breaking Logical Const-ness
+#### Bad Use: Breaking Logical Const-ness
 ```cpp
 class Counter {
     mutable int count;  // ❌ Bad: count is the object's main state!
@@ -1310,6 +1279,8 @@ public:
 };
 ```
 ✗ **Why it's bad:** The count is the object's primary state. If you're modifying it, the object IS changing, so the function shouldn't be `const`.
+
+[↑ Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -1324,3 +1295,5 @@ public:
 **The `mutable` keyword** allows specific member variables to be modified even in `const` member functions and `const` objects. Use it for implementation details like caching, debug counters, and lazy initialization—but not for core object state.
 
 **Bottom Line:** Use `mutable` judiciously for implementation details that don't affect the logical const-ness of your objects. It's a powerful tool for optimization and internal bookkeeping, but shouldn't be used to bypass const-correctness for core object state!
+
+[↑ Back to Table of Contents](#table-of-contents)
