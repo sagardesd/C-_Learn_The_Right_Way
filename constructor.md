@@ -7,6 +7,7 @@
 4. [Constructor Initializer Lists](#constructor-initializer-lists)
 5. [The `this` Pointer and Const Member Functions](#the-this-pointer-and-const-member-functions)
 6. [The `mutable` Keyword](#the-mutable-keyword)
+7. [Copy constructor](#copy-constructor)
 
 ---
 
@@ -1282,6 +1283,282 @@ public:
 
 [↑ Back to Table of Contents](#table-of-contents)
 
+<a id="copy-constructor"></a>
+# 📘 Understanding Copy Constructors in C++
+
+Let’s explore **what a copy constructor is**, **when it’s invoked**, and understand **deep vs shallow copies** and **temporary objects** through examples.
+
+---
+
+## 🧠 What is a Copy Constructor?
+
+A **copy constructor** in C++ is a special constructor used to **create a new object as a copy of an existing object**.
+
+### 📜 Syntax
+```cpp
+ClassName(const ClassName& other);
+```
+
+### ⚙️ Purpose
+- Defines how an object should be copied.
+- Required when your class **manages resources** (like memory, files, sockets).
+- Prevents issues like **double deletion** and **dangling pointers**.
+
+### 🧩 When is it Invoked?
+The compiler automatically calls the copy constructor in these cases:
+
+1. **Object initialization using another object**  
+   ```cpp
+   Foo obj2 = obj1;   // or Foo obj2(obj1);
+   ```
+
+2. **Passing an object by value to a function**  
+   ```cpp
+   void func(Foo obj); // Copy constructor called when passed by value
+   ```
+
+3. **Returning an object by value from a function**  
+   ```cpp
+   Foo get_obj() {
+       Foo temp(10);
+       return temp; // Copy constructor may be invoked (before RVO)
+   }
+   ```
+
+4. **Explicit copying using copy initialization**  
+   ```cpp
+   Foo obj3 = Foo(obj1); // Explicit copy
+   ```
+
+If you do not define a copy constructor, the compiler provides a **default shallow copy constructor**, which may not be safe for classes managing dynamic memory.
+
+---
+
+## 🧩 Step 1: Basic Class Without Copy Constructor
+
+```cpp
+#include <iostream>
+
+class Foo {
+private:
+    int* ptr;
+
+public:
+    Foo(int value) {
+        ptr = new int(value);
+        std::cout << "Foo(int) invoked, *ptr = " << *ptr << "\n";
+    }
+
+    ~Foo() {
+        std::cout << "~Foo() invoked, deleting ptr\n";
+        delete ptr;
+    }
+};
+
+int main() {
+    Foo obj1(10);
+    Foo obj2 = obj1;  // ❌ Problem here
+    return 0;
+}
+```
+
+### 🧨 Problem: Shallow Copy
+The compiler automatically generates a **default copy constructor** that performs a **member-wise (shallow) copy**.  
+That means both `obj1` and `obj2` will have their `ptr` pointing to the same memory location.
+
+When both destructors run:
+- `obj1` deletes `ptr`
+- `obj2` also tries to delete the same memory
+
+💥 **Result:** *Double free or corruption* runtime error.
+
+---
+
+## 🧪 Step 2: What Valgrind Shows
+
+If you run this under Valgrind, you’ll see:
+
+```
+==1234== Invalid free() / delete / delete[]
+==1234==    at 0x4C2B5D5: operator delete(void*) (vg_replace_malloc.c:642)
+==1234==    by 0x1091C2: Foo::~Foo() (example.cpp:12)
+==1234==  Address 0x5a52040 is 0 bytes inside a block of size 4 free'd
+==1234==    by 0x1091C2: Foo::~Foo() (example.cpp:12)
+```
+
+This happens because **two destructors delete the same pointer**.
+
+---
+
+## ✅ Step 3: Add a Custom Copy Constructor (Deep Copy)
+
+We fix this by allocating **new memory** for each object, and **copying the value** instead of the pointer.
+
+```cpp
+#include <iostream>
+
+class Foo {
+private:
+    int* ptr;
+
+public:
+    Foo(int value) {
+        ptr = new int(value);
+        std::cout << "Foo(int) invoked, *ptr = " << *ptr << "\n";
+    }
+
+    // 🟢 Copy Constructor (Deep Copy)
+    Foo(Foo& obj) {
+        ptr = new int(*obj.ptr);
+        std::cout << "Foo(Foo&) invoked (deep copy), *ptr = " << *ptr << "\n";
+    }
+
+    ~Foo() {
+        std::cout << "~Foo() invoked, deleting ptr\n";
+        delete ptr;
+    }
+};
+
+int main() {
+    Foo obj1(10);
+    Foo obj2 = obj1; // Deep copy now, no double delete
+    return 0;
+}
+```
+
+Now each object has its own `ptr`, and deletion is safe.
+
+---
+
+## 🔍 Step 4: Problem with Temporaries (rvalues or prvalues in c++11)
+
+Let’s add a function that **returns a temporary object**:
+
+```cpp
+Foo get_obj() {
+    return Foo(20); // creates a temporary (prvalue)
+}
+
+int main() {
+    Foo obj5 = get_obj(); // ❌ Error with Foo(Foo&)
+    return 0;
+}
+```
+
+### ❌ Error:
+```
+error: no matching constructor for initialization of 'Foo'
+note: candidate constructor not viable: expects an lvalue for 1st argument
+```
+
+Why?
+
+- `return Foo(20)` creates a **temporary object** (a **prvalue**).
+- The parameter type `Foo&` **cannot bind** to a temporary object.
+- In C++, **non-const lvalue references** cannot bind to temporaries.
+
+---
+
+## 🧱 Step 5: Fix by Adding `const` to Copy Constructor
+
+```cpp
+#include <iostream>
+
+class Foo {
+private:
+    int* ptr;
+
+public:
+    Foo(int value) {
+        ptr = new int(value);
+        std::cout << "Foo(int) invoked, *ptr = " << *ptr << "\n";
+    }
+
+    // ✅ Const Copy Constructor
+    Foo(const Foo& obj) {
+        ptr = new int(*obj.ptr);
+        std::cout << "Foo(const Foo&) invoked (deep copy), *ptr = " << *ptr << "\n";
+    }
+
+    ~Foo() {
+        std::cout << "~Foo() invoked, deleting ptr\n";
+        delete ptr;
+    }
+};
+
+Foo get_obj() {
+    return Foo(30);
+}
+
+int main() {
+    Foo obj1(10);
+    Foo obj2 = obj1;      // ✅ lvalue copy
+    Foo obj3 = get_obj(); // ✅ prvalue copy
+    return 0;
+}
+```
+
+Now it works for both:
+- **lvalues** (`obj1`)
+- **temporaries (prvalues)** returned from functions
+
+---
+
+## 🧠 Step 6: Understanding Temporary Objects
+
+### 💡 What is a Temporary (prvalue)?
+- Created by expressions like `Foo(20)` or `return Foo()`.
+- Exists only until the end of the full expression.
+- Cannot be modified (non-const binding forbidden).
+
+That’s why the copy constructor should accept:
+```cpp
+Foo(const Foo& obj);
+```
+so that **temporaries** can be used to create new objects safely.
+
+---
+
+## 🕵️‍♂️ Step 7: Unoptimized Invocations
+
+Before compiler optimizations (like **Return Value Optimization**, RVO),  
+the following may happen when you call `get_obj()`:
+
+1. `Foo(30)` temporary created (constructor invoked)  
+2. Temporary copied into `obj3` (copy constructor invoked)  
+3. Temporary destroyed (destructor invoked)  
+4. `obj3` destroyed (destructor invoked)
+
+Output (unoptimized):
+```
+Foo(int) invoked, *ptr = 30
+Foo(const Foo&) invoked (deep copy), *ptr = 30
+~Foo() invoked, deleting ptr
+~Foo() invoked, deleting ptr
+```
+
+> In optimized builds, modern compilers often **elide** these copies (RVO),  
+> so you might see fewer constructor calls.
+
+---
+
+## 🧾 Summary
+
+| Concept | Description |
+|----------|--------------|
+| **Copy Constructor** | Special constructor used to create an object as a copy of another object |
+| **Shallow Copy** | Copies pointer value → both objects share same memory → leads to double free |
+| **Deep Copy** | Allocates new memory and copies data → each object owns its own copy |
+| **Why `const`?** | Allows binding to temporaries (prvalues) |
+| **Without `const`** | Fails when copying from a temporary |
+| **Temporary (prvalue)** | A short-lived unnamed object like `Foo(10)` or `return Foo()` |
+
+---
+
+Next step 👉 **Move Constructor**  
+(to optimize performance and avoid unnecessary deep copies for temporaries).
+
+[↑ Back to Table of Contents](#table-of-contents)
 ---
 
 ## Summary
