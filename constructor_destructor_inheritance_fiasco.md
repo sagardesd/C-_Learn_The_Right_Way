@@ -6,6 +6,9 @@
 3. [Execution Sequence Analysis](#execution-sequence-analysis)
 4. [Calling Parameterized Base Constructors](#calling-parameterized-base-constructors)
 5. [Complete Example with Explanation](#complete-example-with-explanation)
+6. [Inheriting constructors - C++11](#inheriting-constructors-cpp11)
+7. [Limitation of inherited construtors - C++11](#limitations-of-inherited-constructors)
+8. [Understanding Destructor Execution Order](#destructors-order-inheritance)
 
 ---
 
@@ -1038,6 +1041,71 @@ public:
 
 [↑ Back to Table of Contents](#table-of-contents)
 
+<a id="destructors-order-inheritance"></a>
+## 7.Understanding Destructor Execution Order
+
+When an object of a **derived class** is destroyed, destructors are called in the **reverse order of construction**.
+
+### 🧩 Order of Destruction:
+1. **Derived class destructor** — called **first**  
+2. **Base class destructor** — called **last**
+
+This ensures that the derived class cleans up its resources before the base class is destroyed.
+
+---
+
+### 📘 Example Code
+
+```cpp
+#include <iostream>
+
+class Parent {
+public:
+    Parent() { std::cout << "Inside base class constructor\n"; }
+    ~Parent() { std::cout << "Inside base class destructor\n"; }
+};
+
+class Child : public Parent {
+public:
+    Child() { std::cout << "Inside derived class constructor\n"; }
+    ~Child() { std::cout << "Inside derived class destructor\n"; }
+};
+
+int main() {
+    Child obj;
+    return 0;
+}
+```
+
+---
+
+### 🖥️ Expected Output
+
+```
+Inside base class constructor
+Inside derived class constructor
+Inside derived class destructor
+Inside base class destructor
+```
+
+---
+
+### 💡 Why Destructors Are Called in Reverse Order
+
+- During **construction**, the base class is created **first**, forming a foundation for the derived class.  
+- During **destruction**, the **derived destructor** runs first to clean up resources that might depend on the base class still being valid.  
+- After that, the **base class destructor** runs to finalize the cleanup.
+
+This reverse order:
+- Prevents undefined behavior caused by destroying the base while derived resources still exist.  
+- Maintains **symmetry and safety** — the base’s lifetime always outlasts the derived part.  
+- Applies similarly to **data members**, which are also destroyed in the reverse order of their construction.
+
+---
+
+[↑ Back to Table of Contents](#table-of-contents)
+
+
 ---
 
 ## Complete Summary
@@ -1064,5 +1132,13 @@ public:
 - ⚠️ Derived members need default initialization
 
 **Golden Rule:** Inherited constructors are a convenience feature for simple cases. When you need custom initialization logic, write explicit constructors.
+
+### Destructor execution order
+The **reverse order of destructor calls** ensures:
+- Consistent and safe cleanup  
+- Proper handling of dependencies  
+- No premature destruction of essential components  
+
+In short, **destruction happens bottom-up**, mirroring the **top-down** order of construction.
 
 [↑ Back to Table of Contents](#table-of-contents)
