@@ -209,7 +209,6 @@ if (marks >= 50 && attendance >= 75) {
     cout << "Eligible for certificate" << endl;
 }
 ```
-[↑ Back to Table of Contents](#table-of-contents)
 ---
 
 ## Short-Circuit Evaluation (IMPORTANT!)
@@ -740,7 +739,7 @@ int main() {
 5. **Short-circuit is your friend**: Use it to write safer, faster code
 
 ---
-
+<a id="switch-case"></a>
 ## Switch Case Statement
 
 Executes different code blocks based on the value of a variable. Better than multiple if-else when checking one variable against many values.
@@ -902,7 +901,7 @@ switch (operation) {
         cout << "Invalid operation!" << endl;
 }
 ```
-
+[↑ Back to Table of Contents](#table-of-contents)
 ---
 
 ## Loops
