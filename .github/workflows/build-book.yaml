@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
     paths:
-      - 'docs/**'
       - 'mds/**'
       - 'book.toml'
       - '.github/workflows/build-book.yml'
