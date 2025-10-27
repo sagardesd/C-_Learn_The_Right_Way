@@ -88,44 +88,28 @@ void foo() {
 Storage classes define the **scope**, **lifetime**, and **visibility**
 of variables.
 
-  ------------------------------------------------------------------------------
-  Storage Class  Keyword      Default Value  Scope    Lifetime    Memory Section
-  -------------- ------------ -------------- -------- ----------- --------------
-  Automatic      `auto`       Garbage        Local    Until       Stack
-                 (default)                            function    
-                                                      returns     
+| Storage Class     | Keyword     | Default Value | Scope       | Lifetime      | Memory Section      |
+|------------------|------------|---------------|------------|---------------|-------------------|
+| Automatic         | `auto` (default) | Garbage       | Local      | Until function returns | Stack              |
+| Register          | `register` | Garbage       | Local      | Until function returns | CPU Register / Stack |
+| Static (local)    | `static`   | Zero          | Local      | Entire program | `.data` or `.bss`  |
+| Static (global)   | `static`   | Zero          | Global     | Entire program | `.data` or `.bss`  |
+| Extern            | `extern`   | Depends       | Global     | Entire program | `.data` or `.bss`  |
+| Mutable           | `mutable`  | Depends       | Class member | Until object destroyed | Heap/Stack depending on object |
 
-  Register       `register`   Garbage        Local    Until       CPU Register /
-                                                      function    Stack
-                                                      returns     
-
-  Static (local) `static`     Zero           Local    Entire      `.data` or
-                                                      program     `.bss`
-
-  Static         `static`     Zero           Global   Entire      `.data` or
-  (global)                                            program     `.bss`
-
-  Extern         `extern`     Depends        Global   Entire      `.data` or
-                                                      program     `.bss`
-
-  Mutable        `mutable`    Depends        Class    Until       Heap/Stack
-                                             member   object      depending on
-                                                      destroyed   object
-  ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
 ## 🧠 Mapping Storage Classes to Memory Sections
 
-  Example                      Storage Class            Memory Section
-  ---------------------------- ------------------------ ----------------
-  `int x = 5;` (inside main)   auto                     Stack
-  `static int count;`          static                   .bss
-  `int global = 10;`           extern/global            .data
-  `int* p = new int(3);`       auto + heap allocation   Heap
-  `register int r = 5;`        register                 Register/Stack
+| Example                      | Storage Class            | Memory Section     |
+|------------------------------|--------------------------|--------------------|
+| `int x = 5;` (inside main)   | auto                     | Stack              |
+| `static int count;`          | static                   | .bss               |
+| `int global = 10;`           | extern/global            | .data              |
+| `int* p = new int(3);`       | auto + heap allocation   | Heap               |
+| `register int r = 5;`        | register                 | Register / Stack   |
 
-------------------------------------------------------------------------
 
 ## 🔍 Example Program
 
@@ -178,10 +162,10 @@ int main() {
 
 ## 🧩 Summary
 
--   **Stack:** Local and temporary data.\
--   **Heap:** Dynamic runtime allocations.\
--   **.data:** Initialized globals/statics.\
--   **.bss:** Zero-initialized globals/statics.\
+-   **Stack:** Local and temporary data.
+-   **Heap:** Dynamic runtime allocations.
+-   **.data:** Initialized globals/statics.
+-   **.bss:** Zero-initialized globals/statics.
 -   **.text:** Program instructions.
 
 ------------------------------------------------------------------------
@@ -252,24 +236,34 @@ throughout the program's execution.
 
 ### Summary Table for `static`
 
-  -----------------------------------------------------------------------
-  Property            Local Static              Global Static
-  ------------------- ------------------------- -------------------------
-  Scope               Within function           Within translation unit
-                                                (.cpp file)
+| Property        | Local Static                   | Global Static                     |
+|-----------------|-------------------------------|-----------------------------------|
+| Scope           | Within function               | Within translation unit (.cpp file) |
+| Lifetime        | Entire program                | Entire program                     |
+| Initialization  | Once only                     | Once only                          |
+| Memory Section  | .data / .bss                  | .data / .bss                       |
+| Typical Use     | Retain value between function calls | Hide variable/function from other files |
 
-  Lifetime            Entire program            Entire program
-
-  Initialization      Once only                 Once only
-
-  Memory Section      .data / .bss              .data / .bss
-
-  Typical Use         Retain value between      Hide variable/function
-                      function calls            from other files
-  -----------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 
 Static variables are often misunderstood in C++, but mastering them
 helps in writing efficient and predictable code that maintains internal
 state without global exposure.
+
+# Note on `register` Variables in C++
+
+- Declaring a variable with the `register` keyword:
+
+```cpp
+register int counter = 0;
+```
+
+- **Does NOT guarantee** that the variable will reside in a CPU register.
+- It is only a **compiler optimization hint**.
+- Modern compilers often ignore this keyword and manage registers automatically.
+- Reasons it might not be placed in a register:
+  1. Limited number of CPU registers.
+  2. Compiler optimization strategies determine better storage location.
+
+- Therefore, `register` mainly serves as historical or readability guidance rather than a strict directive.
