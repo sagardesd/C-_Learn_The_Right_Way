@@ -1,4 +1,4 @@
-# Summary
+# Table of Content
 
 * [Introduction](docs/README.md)
 * [Data Types, Variables, and Input/Output in C++](docs/cpp_datatypes_guide.md)
