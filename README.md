@@ -3,7 +3,7 @@
 **“C++ Learn The Right Way”** is an open-source ebook designed to help students and developers master C++ — from fundamentals to modern features — through concise explanations and practical examples.
 
 This book focuses on **clarity, concept depth, and real-world understanding**, making it ideal for:
-- 🎓 **Computer Science & IT students** (especially from Odisha engineering colleges)
+- 🎓 **Computer Science & IT students**
 - 💼 **Beginner to intermediate programmers**
 - ⚙️ **Developers revisiting C++** or preparing for interviews
 
