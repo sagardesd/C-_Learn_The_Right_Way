@@ -10,12 +10,14 @@
 
 ---
 
+<a id="introduction"></a>
 ## Introduction
 
 Think of C++ programming like cooking. Before you start cooking, you need containers (variables) to store your ingredients (data), and you need to know what type of container to use - you wouldn't store soup in a sieve! Similarly, in C++, we need to understand what kind of data we're working with and choose the appropriate "container" for it.
 
 ---
 
+<a id="variables"></a>
 ## Variables - Your Data Containers
 
 ### What is a Variable?
@@ -64,6 +66,7 @@ char c = 'J';    // What does 'c' mean?
 
 ---
 
+<a id="data-types"></a>
 ## Data Types in C++
 
 C++ has several built-in data types. Let's explore each category:
@@ -279,6 +282,7 @@ char myGrade   : 1 bytes
 
 ---
 
+<a id="input-output"></a>
 ## Input and Output
 
 ### Output with `cout`
@@ -397,6 +401,7 @@ int main() {
 
 ---
 
+<a id="choosing-right-type"></a>
 ## Choosing the Right Data Type
 
 ### Decision Guide
@@ -488,6 +493,7 @@ unsigned int transactionCount = 523;
 
 ---
 
+<a id="best-practices"></a>
 ## Common Mistakes and Best Practices
 
 ### ❌ Common Mistakes
