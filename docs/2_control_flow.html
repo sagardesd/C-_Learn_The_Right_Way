@@ -175,7 +175,1321 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h1>
+                        <h1 id="control-flow-in-c---complete-guide"><a class="header" href="#control-flow-in-c---complete-guide">Control Flow in C++ - Complete Guide</a></h1>
+<h2 id="table-of-contents"><a class="header" href="#table-of-contents">Table of Contents</a></h2>
+<ol>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#if-else">Decision Making - if-else</a></li>
+<li><a href="#switch-case">Switch Case Statement</a></li>
+<li><a href="#loops">Loops</a></li>
+<li><a href="#break-continue">Break and Continue</a></li>
+<li><a href="#best-practices">Best Practices</a></li>
+<li><a href="#practice-problems">Practice Problems</a></li>
+</ol>
+<hr />
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Control flow statements allow your program to make decisions and repeat actions. Think of them as traffic signals and road signs that direct the flow of your program's execution.</p>
+<p><strong>Three main categories:</strong></p>
+<ul>
+<li><strong>Decision Making</strong>: if-else, switch (choosing a path)</li>
+<li><strong>Loops</strong>: for, while, do-while (repeating actions)</li>
+<li><strong>Jump Statements</strong>: break, continue (controlling loop behavior)</li>
+</ul>
+<hr />
+<p><a id="if-else"></a></p>
+<h2 id="decision-making---if-else"><a class="header" href="#decision-making---if-else">Decision Making - if-else</a></h2>
+<h3 id="basic-if-statement"><a class="header" href="#basic-if-statement">Basic if Statement</a></h3>
+<p>Executes code only if a condition is true.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">if (condition) {
+    // code to execute if condition is true
+}
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-cpp">int age = 18;
+
+if (age &gt;= 18) {
+    cout &lt;&lt; "You are an adult." &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="if-else-statement"><a class="header" href="#if-else-statement">if-else Statement</a></h3>
+<p>Provides an alternative when the condition is false.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">if (condition) {
+    // code if condition is true
+} else {
+    // code if condition is false
+}
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-cpp">int marks = 45;
+
+if (marks &gt;= 50) {
+    cout &lt;&lt; "You passed!" &lt;&lt; endl;
+} else {
+    cout &lt;&lt; "You failed. Try again!" &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="if-else-if-else-ladder"><a class="header" href="#if-else-if-else-ladder">if-else if-else Ladder</a></h3>
+<p>Tests multiple conditions in sequence.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">if (condition1) {
+    // code if condition1 is true
+} else if (condition2) {
+    // code if condition2 is true
+} else if (condition3) {
+    // code if condition3 is true
+} else {
+    // code if all conditions are false
+}
+</code></pre>
+<p><strong>Example: Grade Calculator</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int marks;
+    cout &lt;&lt; "Enter your marks (0-100): ";
+    cin &gt;&gt; marks;
+    
+    if (marks &gt;= 90) {
+        cout &lt;&lt; "Grade: A+ (Excellent!)" &lt;&lt; endl;
+    } else if (marks &gt;= 80) {
+        cout &lt;&lt; "Grade: A (Very Good)" &lt;&lt; endl;
+    } else if (marks &gt;= 70) {
+        cout &lt;&lt; "Grade: B (Good)" &lt;&lt; endl;
+    } else if (marks &gt;= 60) {
+        cout &lt;&lt; "Grade: C (Average)" &lt;&lt; endl;
+    } else if (marks &gt;= 50) {
+        cout &lt;&lt; "Grade: D (Pass)" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Grade: F (Fail)" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="nested-if-statements"><a class="header" href="#nested-if-statements">Nested if Statements</a></h3>
+<p>if statements inside other if statements.</p>
+<p><strong>Example: Login System</strong></p>
+<pre><code class="language-cpp">string username, password;
+cout &lt;&lt; "Enter username: ";
+cin &gt;&gt; username;
+
+if (username == "admin") {
+    cout &lt;&lt; "Enter password: ";
+    cin &gt;&gt; password;
+    
+    if (password == "1234") {
+        cout &lt;&lt; "Login successful! Welcome, Admin." &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Incorrect password!" &lt;&lt; endl;
+    }
+} else {
+    cout &lt;&lt; "User not found!" &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="ternary-operator-shorthand-if-else"><a class="header" href="#ternary-operator-shorthand-if-else">Ternary Operator (Shorthand if-else)</a></h3>
+<p>A compact way to write simple if-else statements.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">condition ? value_if_true : value_if_false;
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-cpp">int age = 20;
+string status = (age &gt;= 18) ? "Adult" : "Minor";
+cout &lt;&lt; status &lt;&lt; endl;  // Output: Adult
+
+// Equivalent to:
+string status;
+if (age &gt;= 18) {
+    status = "Adult";
+} else {
+    status = "Minor";
+}
+</code></pre>
+<p><strong>More Examples:</strong></p>
+<pre><code class="language-cpp">int a = 10, b = 20;
+int max = (a &gt; b) ? a : b;  // max = 20
+
+int marks = 75;
+cout &lt;&lt; "Result: " &lt;&lt; (marks &gt;= 50 ? "Pass" : "Fail") &lt;&lt; endl;
+</code></pre>
+<h3 id="logical-operators-in-conditions"><a class="header" href="#logical-operators-in-conditions">Logical Operators in Conditions</a></h3>
+<p>Combine multiple conditions:</p>
+<div class="table-wrapper"><table><thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>&amp;&amp;</code></td><td>AND (both must be true)</td><td><code>(age &gt;= 18 &amp;&amp; hasLicense)</code></td></tr>
+<tr><td><code>||</code></td><td>OR (at least one must be true)</td><td><code>(day == "Sat" || day == "Sun")</code></td></tr>
+<tr><td><code>!</code></td><td>NOT (reverses the condition)</td><td><code>!(isRaining)</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>Basic Examples:</strong></p>
+<pre><code class="language-cpp">int age = 25;
+bool hasLicense = true;
+
+// AND operator
+if (age &gt;= 18 &amp;&amp; hasLicense) {
+    cout &lt;&lt; "You can drive!" &lt;&lt; endl;
+}
+
+// OR operator
+string day = "Sunday";
+if (day == "Saturday" || day == "Sunday") {
+    cout &lt;&lt; "It's the weekend!" &lt;&lt; endl;
+}
+
+// NOT operator
+bool isRaining = false;
+if (!isRaining) {
+    cout &lt;&lt; "Let's go outside!" &lt;&lt; endl;
+}
+
+// Complex condition
+int marks = 85;
+int attendance = 75;
+if (marks &gt;= 50 &amp;&amp; attendance &gt;= 75) {
+    cout &lt;&lt; "Eligible for certificate" &lt;&lt; endl;
+}
+</code></pre>
+<hr />
+<h2 id="short-circuit-evaluation-important"><a class="header" href="#short-circuit-evaluation-important">Short-Circuit Evaluation (IMPORTANT!)</a></h2>
+<p>C++ uses <strong>short-circuit evaluation</strong> for logical operators. This is a crucial concept for writing efficient and safe code.</p>
+<h3 id="how--and-short-circuits"><a class="header" href="#how--and-short-circuits">How &amp;&amp; (AND) Short-Circuits</a></h3>
+<p><strong>Rule:</strong> If the <strong>first condition is FALSE</strong>, the remaining conditions are <strong>NOT evaluated</strong>.</p>
+<p><strong>Why?</strong> If one condition in AND is false, the entire expression is false. No need to check further.</p>
+<p><strong>Example 1: Basic Short-Circuit</strong></p>
+<pre><code class="language-cpp">int x = 5;
+int y = 10;
+
+// Second condition is NOT checked because first is false
+if (x &gt; 10 &amp;&amp; y &gt; 5) {
+    cout &lt;&lt; "This won't print" &lt;&lt; endl;
+}
+// x &gt; 10 is false, so y &gt; 5 is never evaluated
+</code></pre>
+<p><strong>Example 2: Demonstrating with Functions</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+bool checkFirst() {
+    cout &lt;&lt; "Checking first condition..." &lt;&lt; endl;
+    return false;
+}
+
+bool checkSecond() {
+    cout &lt;&lt; "Checking second condition..." &lt;&lt; endl;
+    return true;
+}
+
+int main() {
+    cout &lt;&lt; "Testing AND (&amp;&amp;):" &lt;&lt; endl;
+    if (checkFirst() &amp;&amp; checkSecond()) {
+        cout &lt;&lt; "Both true" &lt;&lt; endl;
+    }
+    
+    // Output:
+    // Testing AND (&amp;&amp;):
+    // Checking first condition...
+    // (checkSecond() is NEVER called!)
+    
+    return 0;
+}
+</code></pre>
+<p><strong>Example 3: Preventing Division by Zero</strong></p>
+<pre><code class="language-cpp">int a = 10;
+int b = 0;
+
+// ✅ SAFE: b != 0 is checked first
+if (b != 0 &amp;&amp; a / b &gt; 2) {
+    cout &lt;&lt; "Division result is greater than 2" &lt;&lt; endl;
+}
+// If b is 0, the division never happens!
+
+// ❌ DANGEROUS: Would crash if written the other way
+// if (a / b &gt; 2 &amp;&amp; b != 0) {  // WRONG! Division happens first!
+</code></pre>
+<p><strong>Example 4: Null Pointer Check</strong></p>
+<pre><code class="language-cpp">int* ptr = nullptr;
+
+// ✅ SAFE: Check pointer before dereferencing
+if (ptr != nullptr &amp;&amp; *ptr &gt; 10) {
+    cout &lt;&lt; "Value is greater than 10" &lt;&lt; endl;
+}
+// If ptr is null, *ptr is never accessed
+
+// ❌ DANGEROUS: Would crash
+// if (*ptr &gt; 10 &amp;&amp; ptr != nullptr) {  // WRONG! Dereferencing null pointer!
+</code></pre>
+<h3 id="how--or-short-circuits"><a class="header" href="#how--or-short-circuits">How || (OR) Short-Circuits</a></h3>
+<p><strong>Rule:</strong> If the <strong>first condition is TRUE</strong>, the remaining conditions are <strong>NOT evaluated</strong>.</p>
+<p><strong>Why?</strong> If one condition in OR is true, the entire expression is true. No need to check further.</p>
+<p><strong>Example 1: Basic Short-Circuit</strong></p>
+<pre><code class="language-cpp">int x = 15;
+int y = 10;
+
+// Second condition is NOT checked because first is true
+if (x &gt; 10 || y &gt; 15) {
+    cout &lt;&lt; "At least one condition is true" &lt;&lt; endl;
+}
+// x &gt; 10 is true, so y &gt; 15 is never evaluated
+</code></pre>
+<p><strong>Example 2: Demonstrating with Functions</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+bool checkFirst() {
+    cout &lt;&lt; "Checking first condition..." &lt;&lt; endl;
+    return true;
+}
+
+bool checkSecond() {
+    cout &lt;&lt; "Checking second condition..." &lt;&lt; endl;
+    return false;
+}
+
+int main() {
+    cout &lt;&lt; "Testing OR (||):" &lt;&lt; endl;
+    if (checkFirst() || checkSecond()) {
+        cout &lt;&lt; "At least one is true" &lt;&lt; endl;
+    }
+    
+    // Output:
+    // Testing OR (||):
+    // Checking first condition...
+    // At least one is true
+    // (checkSecond() is NEVER called!)
+    
+    return 0;
+}
+</code></pre>
+<p><strong>Example 3: Default Value Check</strong></p>
+<pre><code class="language-cpp">string username;
+cout &lt;&lt; "Enter username: ";
+cin &gt;&gt; username;
+
+// Check if empty first (fast check)
+if (username.empty() || username == "guest") {
+    username = "Anonymous";
+}
+// If username is empty, the comparison never happens
+</code></pre>
+<p><strong>Example 4: Permission Check</strong></p>
+<pre><code class="language-cpp">bool isAdmin = false;
+bool isOwner = true;
+bool hasPermission = false;
+
+// ✅ Efficient: Checks in order of likelihood
+if (isAdmin || isOwner || hasPermission) {
+    cout &lt;&lt; "Access granted!" &lt;&lt; endl;
+}
+// If isAdmin is true, other checks are skipped
+</code></pre>
+<h3 id="short-circuit-evaluation-comparison"><a class="header" href="#short-circuit-evaluation-comparison">Short-Circuit Evaluation Comparison</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int callCount = 0;
+
+bool expensive_check() {
+    callCount++;
+    cout &lt;&lt; "Expensive check called (count: " &lt;&lt; callCount &lt;&lt; ")" &lt;&lt; endl;
+    return true;
+}
+
+int main() {
+    callCount = 0;
+    
+    // Test 1: AND with false first
+    cout &lt;&lt; "\n=== Test 1: AND with false first ===" &lt;&lt; endl;
+    if (false &amp;&amp; expensive_check()) {
+        cout &lt;&lt; "This won't execute" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Expensive check was called " &lt;&lt; callCount &lt;&lt; " times" &lt;&lt; endl;
+    // Output: 0 times (never called!)
+    
+    // Test 2: AND with true first
+    callCount = 0;
+    cout &lt;&lt; "\n=== Test 2: AND with true first ===" &lt;&lt; endl;
+    if (true &amp;&amp; expensive_check()) {
+        cout &lt;&lt; "This will execute" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Expensive check was called " &lt;&lt; callCount &lt;&lt; " times" &lt;&lt; endl;
+    // Output: 1 time
+    
+    // Test 3: OR with true first
+    callCount = 0;
+    cout &lt;&lt; "\n=== Test 3: OR with true first ===" &lt;&lt; endl;
+    if (true || expensive_check()) {
+        cout &lt;&lt; "This will execute" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Expensive check was called " &lt;&lt; callCount &lt;&lt; " times" &lt;&lt; endl;
+    // Output: 0 times (never called!)
+    
+    // Test 4: OR with false first
+    callCount = 0;
+    cout &lt;&lt; "\n=== Test 4: OR with false first ===" &lt;&lt; endl;
+    if (false || expensive_check()) {
+        cout &lt;&lt; "This will execute" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Expensive check was called " &lt;&lt; callCount &lt;&lt; " times" &lt;&lt; endl;
+    // Output: 1 time
+    
+    return 0;
+}
+</code></pre>
+<hr />
+<h2 id="best-practices-for-logical-operators"><a class="header" href="#best-practices-for-logical-operators">Best Practices for Logical Operators</a></h2>
+<h3 id="1-order-matters-for-safety"><a class="header" href="#1-order-matters-for-safety">1. Order Matters for Safety</a></h3>
+<p><strong>Rule:</strong> Always put safety checks FIRST in AND operations.</p>
+<pre><code class="language-cpp">// ✅ CORRECT: Check for null/zero first
+if (ptr != nullptr &amp;&amp; *ptr &gt; 10) { }
+if (denominator != 0 &amp;&amp; numerator / denominator &gt; 5) { }
+if (!array.empty() &amp;&amp; array[0] == 10) { }
+
+// ❌ WRONG: Dangerous operations first
+if (*ptr &gt; 10 &amp;&amp; ptr != nullptr) { }  // Crash if ptr is null!
+if (numerator / denominator &gt; 5 &amp;&amp; denominator != 0) { }  // Division by zero!
+if (array[0] == 10 &amp;&amp; !array.empty()) { }  // Access invalid memory!
+</code></pre>
+<p><strong>Real-World Example:</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string* namePtr = nullptr;
+    
+    // ✅ SAFE: Check pointer first
+    if (namePtr != nullptr &amp;&amp; namePtr-&gt;length() &gt; 0) {
+        cout &lt;&lt; "Name: " &lt;&lt; *namePtr &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "No name available" &lt;&lt; endl;
+    }
+    
+    // ❌ This would CRASH:
+    // if (namePtr-&gt;length() &gt; 0 &amp;&amp; namePtr != nullptr) { }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="2-order-matters-for-performance"><a class="header" href="#2-order-matters-for-performance">2. Order Matters for Performance</a></h3>
+<p><strong>Rule:</strong> Put <strong>cheap/fast checks</strong> FIRST, <strong>expensive checks</strong> LAST.</p>
+<pre><code class="language-cpp">int age = 25;
+bool hasComplexPermission() {
+    // Imagine this function does expensive database lookup
+    // Takes 100ms to execute
+    return true;
+}
+
+// ✅ EFFICIENT: Fast check first
+if (age &gt;= 18 &amp;&amp; hasComplexPermission()) {
+    cout &lt;&lt; "Access granted" &lt;&lt; endl;
+}
+// If age &lt; 18, expensive function is never called
+
+// ❌ INEFFICIENT: Expensive check first
+if (hasComplexPermission() &amp;&amp; age &gt;= 18) {
+    cout &lt;&lt; "Access granted" &lt;&lt; endl;
+}
+// Expensive function ALWAYS called, even if age &lt; 18
+</code></pre>
+<p><strong>Another Example:</strong></p>
+<pre><code class="language-cpp">string username = "john";
+bool isDatabaseUserValid(string user) {
+    // Expensive: queries database
+    cout &lt;&lt; "Querying database..." &lt;&lt; endl;
+    return true;
+}
+
+// ✅ EFFICIENT: Check local variable first
+if (!username.empty() &amp;&amp; username.length() &gt; 3 &amp;&amp; isDatabaseUserValid(username)) {
+    cout &lt;&lt; "Valid user" &lt;&lt; endl;
+}
+// Database only queried if basic checks pass
+
+// ❌ INEFFICIENT: Database check first
+if (isDatabaseUserValid(username) &amp;&amp; username.length() &gt; 3) {
+    cout &lt;&lt; "Valid user" &lt;&lt; endl;
+}
+// Database queried every time, even for invalid usernames
+</code></pre>
+<h3 id="3-order-for-or-operations"><a class="header" href="#3-order-for-or-operations">3. Order for OR Operations</a></h3>
+<p><strong>Rule:</strong> Put <strong>most likely to be true</strong> conditions FIRST.</p>
+<pre><code class="language-cpp">bool isWeekend(string day) {
+    // ✅ EFFICIENT: Most common cases first
+    if (day == "Saturday" || day == "Sunday") {
+        return true;
+    }
+    return false;
+}
+
+// In a user role check:
+bool hasAccess() {
+    // Put most common role first
+    // ✅ If 80% users are "member", check that first
+    if (role == "member" || role == "admin" || role == "moderator") {
+        return true;
+    }
+    return false;
+}
+</code></pre>
+<h3 id="4-readability-vs-performance-trade-off"><a class="header" href="#4-readability-vs-performance-trade-off">4. Readability vs Performance Trade-off</a></h3>
+<p><strong>Sometimes clarity is more important than micro-optimization:</strong></p>
+<pre><code class="language-cpp">// Option 1: Optimized but less clear
+if (ptr &amp;&amp; *ptr &gt; 10 &amp;&amp; calculate(ptr)) { }
+
+// Option 2: Clearer with separate checks
+if (ptr != nullptr) {
+    if (*ptr &gt; 10) {
+        if (calculate(ptr)) {
+            // do something
+        }
+    }
+}
+</code></pre>
+<p><strong>Best approach: Balance both:</strong></p>
+<pre><code class="language-cpp">// ✅ GOOD: Clear AND efficient
+bool isValid = (ptr != nullptr);
+bool hasValue = isValid &amp;&amp; (*ptr &gt; 10);
+bool passesCalculation = hasValue &amp;&amp; calculate(ptr);
+
+if (passesCalculation) {
+    // do something
+}
+</code></pre>
+<h3 id="5-complex-conditions---use-parentheses"><a class="header" href="#5-complex-conditions---use-parentheses">5. Complex Conditions - Use Parentheses</a></h3>
+<pre><code class="language-cpp">// ❌ Confusing
+if (a &amp;&amp; b || c &amp;&amp; d) { }
+
+// ✅ Clear with parentheses
+if ((a &amp;&amp; b) || (c &amp;&amp; d)) { }
+
+// Even better with meaningful variables
+bool firstConditionMet = (a &amp;&amp; b);
+bool secondConditionMet = (c &amp;&amp; d);
+if (firstConditionMet || secondConditionMet) { }
+</code></pre>
+<h3 id="6-avoid-side-effects-in-conditions"><a class="header" href="#6-avoid-side-effects-in-conditions">6. Avoid Side Effects in Conditions</a></h3>
+<pre><code class="language-cpp">int count = 0;
+
+// ❌ BAD: Side effect (incrementing) in condition
+if (count++ &gt; 5 &amp;&amp; someFunction()) {
+    // count might not increment if first condition is false!
+}
+
+// ✅ GOOD: Separate side effects
+count++;
+if (count &gt; 5 &amp;&amp; someFunction()) {
+    // Clear and predictable
+}
+</code></pre>
+<hr />
+<h2 id="practical-scenarios"><a class="header" href="#practical-scenarios">Practical Scenarios</a></h2>
+<h3 id="scenario-1-form-validation"><a class="header" href="#scenario-1-form-validation">Scenario 1: Form Validation</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string email, password;
+    
+    cout &lt;&lt; "Enter email: ";
+    cin &gt;&gt; email;
+    cout &lt;&lt; "Enter password: ";
+    cin &gt;&gt; password;
+    
+    // ✅ GOOD: Check simple conditions first
+    if (!email.empty() &amp;&amp; 
+        email.find('@') != string::npos &amp;&amp; 
+        password.length() &gt;= 8) {
+        cout &lt;&lt; "Registration successful!" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Invalid email or password too short" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="scenario-2-safe-array-access"><a class="header" href="#scenario-2-safe-array-access">Scenario 2: Safe Array Access</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int scores[] = {85, 90, 78, 92, 88};
+    int size = 5;
+    int index;
+    
+    cout &lt;&lt; "Enter index to view (0-4): ";
+    cin &gt;&gt; index;
+    
+    // ✅ SAFE: Check bounds before accessing
+    if (index &gt;= 0 &amp;&amp; index &lt; size &amp;&amp; scores[index] &gt;= 80) {
+        cout &lt;&lt; "High score: " &lt;&lt; scores[index] &lt;&lt; endl;
+    } else if (index &gt;= 0 &amp;&amp; index &lt; size) {
+        cout &lt;&lt; "Score: " &lt;&lt; scores[index] &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Invalid index!" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="scenario-3-user-permissions"><a class="header" href="#scenario-3-user-permissions">Scenario 3: User Permissions</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string role = "user";
+    int accountAge = 30;  // days
+    bool emailVerified = true;
+    
+    // ✅ Efficient: Check from least to most restrictive
+    // Most users will fail early checks quickly
+    if (emailVerified &amp;&amp; 
+        accountAge &gt;= 7 &amp;&amp; 
+        (role == "admin" || role == "moderator" || role == "premium")) {
+        cout &lt;&lt; "Access to premium features granted!" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Upgrade to premium for this feature" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="scenario-4-game-damage-calculation"><a class="header" href="#scenario-4-game-damage-calculation">Scenario 4: Game Damage Calculation</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int playerHealth = 50;
+    int armor = 30;
+    int incomingDamage = 40;
+    bool hasShield = true;
+    
+    // ✅ Process shields first (cheaper check)
+    if (hasShield &amp;&amp; incomingDamage &gt; 0) {
+        cout &lt;&lt; "Shield absorbed the damage!" &lt;&lt; endl;
+        hasShield = false;
+    } else if (armor &gt; 0 &amp;&amp; incomingDamage &gt; armor) {
+        incomingDamage -= armor;
+        armor = 0;
+        playerHealth -= incomingDamage;
+        cout &lt;&lt; "Armor damaged! Health: " &lt;&lt; playerHealth &lt;&lt; endl;
+    } else if (armor &gt; 0) {
+        armor -= incomingDamage;
+        cout &lt;&lt; "Armor absorbed damage. Remaining: " &lt;&lt; armor &lt;&lt; endl;
+    } else {
+        playerHealth -= incomingDamage;
+        cout &lt;&lt; "Direct hit! Health: " &lt;&lt; playerHealth &lt;&lt; endl;
+    }
+    
+    if (playerHealth &lt;= 0) {
+        cout &lt;&lt; "Game Over!" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<hr />
+<h2 id="summary-logical-operators"><a class="header" href="#summary-logical-operators">Summary: Logical Operators</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Operator</th><th>Short-Circuit</th><th>When to Use</th><th>Order Strategy</th></tr></thead><tbody>
+<tr><td><code>&amp;&amp;</code></td><td>Stops at first FALSE</td><td>All conditions must be true</td><td>Safety checks first, then expensive checks</td></tr>
+<tr><td><code>||</code></td><td>Stops at first TRUE</td><td>At least one must be true</td><td>Most likely true conditions first</td></tr>
+<tr><td><code>!</code></td><td>No short-circuit</td><td>Reverse a condition</td><td>Use sparingly for clarity</td></tr>
+</tbody></table>
+</div>
+<p><strong>Key Takeaways:</strong></p>
+<ol>
+<li><strong>Safety first</strong>: Always check null/zero/bounds before using</li>
+<li><strong>Performance</strong>: Put cheap checks before expensive ones</li>
+<li><strong>Readability</strong>: Use parentheses for complex conditions</li>
+<li><strong>Predictability</strong>: Avoid side effects in conditions</li>
+<li><strong>Short-circuit is your friend</strong>: Use it to write safer, faster code</li>
+</ol>
+<hr />
+<p><a id="switch-case"></a></p>
+<h2 id="switch-case-statement"><a class="header" href="#switch-case-statement">Switch Case Statement</a></h2>
+<p>Executes different code blocks based on the value of a variable. Better than multiple if-else when checking one variable against many values.</p>
+<h3 id="basic-syntax"><a class="header" href="#basic-syntax">Basic Syntax</a></h3>
+<pre><code class="language-cpp">switch (expression) {
+    case value1:
+        // code for value1
+        break;
+    case value2:
+        // code for value2
+        break;
+    case value3:
+        // code for value3
+        break;
+    default:
+        // code if no case matches
+}
+</code></pre>
+<p><strong>⚠️ Important:</strong></p>
+<ul>
+<li><code>break</code> is crucial - without it, execution "falls through" to next case</li>
+<li><code>switch</code> works with <code>int</code>, <code>char</code>, and <code>enum</code> (NOT with <code>string</code> or <code>float</code>)</li>
+<li><code>default</code> is optional but recommended</li>
+</ul>
+<h3 id="example-1-menu-system"><a class="header" href="#example-1-menu-system">Example 1: Menu System</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int choice;
+    cout &lt;&lt; "=== Menu ===" &lt;&lt; endl;
+    cout &lt;&lt; "1. Coffee" &lt;&lt; endl;
+    cout &lt;&lt; "2. Tea" &lt;&lt; endl;
+    cout &lt;&lt; "3. Juice" &lt;&lt; endl;
+    cout &lt;&lt; "4. Water" &lt;&lt; endl;
+    cout &lt;&lt; "Enter your choice (1-4): ";
+    cin &gt;&gt; choice;
+    
+    switch (choice) {
+        case 1:
+            cout &lt;&lt; "You ordered Coffee. Price: $3" &lt;&lt; endl;
+            break;
+        case 2:
+            cout &lt;&lt; "You ordered Tea. Price: $2" &lt;&lt; endl;
+            break;
+        case 3:
+            cout &lt;&lt; "You ordered Juice. Price: $4" &lt;&lt; endl;
+            break;
+        case 4:
+            cout &lt;&lt; "You ordered Water. Price: Free!" &lt;&lt; endl;
+            break;
+        default:
+            cout &lt;&lt; "Invalid choice!" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="example-2-day-of-the-week"><a class="header" href="#example-2-day-of-the-week">Example 2: Day of the Week</a></h3>
+<pre><code class="language-cpp">char day;
+cout &lt;&lt; "Enter first letter of day (M/T/W/F/S): ";
+cin &gt;&gt; day;
+
+switch (day) {
+    case 'M':
+        cout &lt;&lt; "Monday" &lt;&lt; endl;
+        break;
+    case 'T':
+        cout &lt;&lt; "Tuesday or Thursday" &lt;&lt; endl;
+        break;
+    case 'W':
+        cout &lt;&lt; "Wednesday" &lt;&lt; endl;
+        break;
+    case 'F':
+        cout &lt;&lt; "Friday" &lt;&lt; endl;
+        break;
+    case 'S':
+        cout &lt;&lt; "Saturday or Sunday" &lt;&lt; endl;
+        break;
+    default:
+        cout &lt;&lt; "Invalid input!" &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="fall-through-cases-intentional"><a class="header" href="#fall-through-cases-intentional">Fall-Through Cases (Intentional)</a></h3>
+<p>Sometimes you want multiple cases to execute the same code:</p>
+<pre><code class="language-cpp">int month;
+cout &lt;&lt; "Enter month number (1-12): ";
+cin &gt;&gt; month;
+
+switch (month) {
+    case 12:
+    case 1:
+    case 2:
+        cout &lt;&lt; "Winter" &lt;&lt; endl;
+        break;
+    case 3:
+    case 4:
+    case 5:
+        cout &lt;&lt; "Spring" &lt;&lt; endl;
+        break;
+    case 6:
+    case 7:
+    case 8:
+        cout &lt;&lt; "Summer" &lt;&lt; endl;
+        break;
+    case 9:
+    case 10:
+    case 11:
+        cout &lt;&lt; "Fall" &lt;&lt; endl;
+        break;
+    default:
+        cout &lt;&lt; "Invalid month!" &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="calculator-example"><a class="header" href="#calculator-example">Calculator Example</a></h3>
+<pre><code class="language-cpp">double num1, num2;
+char operation;
+
+cout &lt;&lt; "Enter first number: ";
+cin &gt;&gt; num1;
+cout &lt;&lt; "Enter operation (+, -, *, /): ";
+cin &gt;&gt; operation;
+cout &lt;&lt; "Enter second number: ";
+cin &gt;&gt; num2;
+
+switch (operation) {
+    case '+':
+        cout &lt;&lt; "Result: " &lt;&lt; (num1 + num2) &lt;&lt; endl;
+        break;
+    case '-':
+        cout &lt;&lt; "Result: " &lt;&lt; (num1 - num2) &lt;&lt; endl;
+        break;
+    case '*':
+        cout &lt;&lt; "Result: " &lt;&lt; (num1 * num2) &lt;&lt; endl;
+        break;
+    case '/':
+        if (num2 != 0) {
+            cout &lt;&lt; "Result: " &lt;&lt; (num1 / num2) &lt;&lt; endl;
+        } else {
+            cout &lt;&lt; "Error: Division by zero!" &lt;&lt; endl;
+        }
+        break;
+    default:
+        cout &lt;&lt; "Invalid operation!" &lt;&lt; endl;
+}
+</code></pre>
+<h2 id="-back-to-table-of-contents"><a class="header" href="#-back-to-table-of-contents"><a href="#table-of-contents">↑ Back to Table of Contents</a></a></h2>
+<h2 id="loops"><a class="header" href="#loops">Loops</a></h2>
+<p>Loops allow you to execute code repeatedly. C++ has three types of loops.</p>
+<h3 id="1-for-loop"><a class="header" href="#1-for-loop">1. for Loop</a></h3>
+<p>Best when you know how many times to repeat.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">for (initialization; condition; update) {
+    // code to repeat
+}
+</code></pre>
+<p><strong>Execution Flow:</strong></p>
+<ol>
+<li><strong>Initialization</strong>: Runs once at the start</li>
+<li><strong>Condition</strong>: Checked before each iteration</li>
+<li><strong>Code Block</strong>: Executes if condition is true</li>
+<li><strong>Update</strong>: Runs after each iteration</li>
+<li>Repeat steps 2-4 until condition is false</li>
+</ol>
+<p><strong>Example 1: Print 1 to 10</strong></p>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 10; i++) {
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 5 6 7 8 9 10
+</code></pre>
+<p><strong>Example 2: Multiplication Table</strong></p>
+<pre><code class="language-cpp">int num;
+cout &lt;&lt; "Enter a number: ";
+cin &gt;&gt; num;
+
+cout &lt;&lt; "Multiplication table of " &lt;&lt; num &lt;&lt; ":" &lt;&lt; endl;
+for (int i = 1; i &lt;= 10; i++) {
+    cout &lt;&lt; num &lt;&lt; " x " &lt;&lt; i &lt;&lt; " = " &lt;&lt; (num * i) &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>Example 3: Sum of Numbers</strong></p>
+<pre><code class="language-cpp">int n, sum = 0;
+cout &lt;&lt; "Enter a number: ";
+cin &gt;&gt; n;
+
+for (int i = 1; i &lt;= n; i++) {
+    sum += i;  // sum = sum + i
+}
+cout &lt;&lt; "Sum of first " &lt;&lt; n &lt;&lt; " numbers: " &lt;&lt; sum &lt;&lt; endl;
+</code></pre>
+<p><strong>Example 4: Counting Down</strong></p>
+<pre><code class="language-cpp">for (int i = 10; i &gt;= 1; i--) {
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+cout &lt;&lt; "Blast off!" &lt;&lt; endl;
+// Output: 10 9 8 7 6 5 4 3 2 1 Blast off!
+</code></pre>
+<p><strong>Example 5: Nested Loops (Pattern)</strong></p>
+<pre><code class="language-cpp">// Print a square pattern
+for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= 5; col++) {
+        cout &lt;&lt; "* ";
+    }
+    cout &lt;&lt; endl;
+}
+// Output:
+// * * * * *
+// * * * * *
+// * * * * *
+// * * * * *
+// * * * * *
+</code></pre>
+<h3 id="2-while-loop"><a class="header" href="#2-while-loop">2. while Loop</a></h3>
+<p>Best when you don't know how many times to repeat (condition-based).</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">while (condition) {
+    // code to repeat
+}
+</code></pre>
+<p><strong>Example 1: Basic Counter</strong></p>
+<pre><code class="language-cpp">int i = 1;
+while (i &lt;= 5) {
+    cout &lt;&lt; i &lt;&lt; " ";
+    i++;
+}
+// Output: 1 2 3 4 5
+</code></pre>
+<p><strong>Example 2: User Input Validation</strong></p>
+<pre><code class="language-cpp">int password;
+cout &lt;&lt; "Enter password (1234): ";
+cin &gt;&gt; password;
+
+while (password != 1234) {
+    cout &lt;&lt; "Wrong password! Try again: ";
+    cin &gt;&gt; password;
+}
+cout &lt;&lt; "Access granted!" &lt;&lt; endl;
+</code></pre>
+<p><strong>Example 3: Menu System</strong></p>
+<pre><code class="language-cpp">int choice = 0;
+
+while (choice != 4) {
+    cout &lt;&lt; "\n=== Menu ===" &lt;&lt; endl;
+    cout &lt;&lt; "1. Start Game" &lt;&lt; endl;
+    cout &lt;&lt; "2. Load Game" &lt;&lt; endl;
+    cout &lt;&lt; "3. Settings" &lt;&lt; endl;
+    cout &lt;&lt; "4. Exit" &lt;&lt; endl;
+    cout &lt;&lt; "Choice: ";
+    cin &gt;&gt; choice;
+    
+    switch (choice) {
+        case 1:
+            cout &lt;&lt; "Starting game..." &lt;&lt; endl;
+            break;
+        case 2:
+            cout &lt;&lt; "Loading game..." &lt;&lt; endl;
+            break;
+        case 3:
+            cout &lt;&lt; "Opening settings..." &lt;&lt; endl;
+            break;
+        case 4:
+            cout &lt;&lt; "Goodbye!" &lt;&lt; endl;
+            break;
+        default:
+            cout &lt;&lt; "Invalid choice!" &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p><strong>Example 4: Sum Until Negative</strong></p>
+<pre><code class="language-cpp">int num, sum = 0;
+
+cout &lt;&lt; "Enter numbers (negative to stop):" &lt;&lt; endl;
+cin &gt;&gt; num;
+
+while (num &gt;= 0) {
+    sum += num;
+    cin &gt;&gt; num;
+}
+
+cout &lt;&lt; "Sum: " &lt;&lt; sum &lt;&lt; endl;
+</code></pre>
+<h3 id="3-do-while-loop"><a class="header" href="#3-do-while-loop">3. do-while Loop</a></h3>
+<p>Similar to while, but <strong>always executes at least once</strong> (checks condition at the end).</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">do {
+    // code to repeat (runs at least once)
+} while (condition);
+</code></pre>
+<p><strong>Example 1: Basic Usage</strong></p>
+<pre><code class="language-cpp">int i = 1;
+do {
+    cout &lt;&lt; i &lt;&lt; " ";
+    i++;
+} while (i &lt;= 5);
+// Output: 1 2 3 4 5
+</code></pre>
+<p><strong>Example 2: Menu (Guaranteed to Show Once)</strong></p>
+<pre><code class="language-cpp">char choice;
+
+do {
+    cout &lt;&lt; "\n=== Options ===" &lt;&lt; endl;
+    cout &lt;&lt; "A. Add" &lt;&lt; endl;
+    cout &lt;&lt; "B. Delete" &lt;&lt; endl;
+    cout &lt;&lt; "C. View" &lt;&lt; endl;
+    cout &lt;&lt; "Q. Quit" &lt;&lt; endl;
+    cout &lt;&lt; "Choice: ";
+    cin &gt;&gt; choice;
+    
+    switch (choice) {
+        case 'A':
+        case 'a':
+            cout &lt;&lt; "Adding..." &lt;&lt; endl;
+            break;
+        case 'B':
+        case 'b':
+            cout &lt;&lt; "Deleting..." &lt;&lt; endl;
+            break;
+        case 'C':
+        case 'c':
+            cout &lt;&lt; "Viewing..." &lt;&lt; endl;
+            break;
+        case 'Q':
+        case 'q':
+            cout &lt;&lt; "Exiting..." &lt;&lt; endl;
+            break;
+        default:
+            cout &lt;&lt; "Invalid choice!" &lt;&lt; endl;
+    }
+} while (choice != 'Q' &amp;&amp; choice != 'q');
+</code></pre>
+<p><strong>Example 3: Input Validation</strong></p>
+<pre><code class="language-cpp">int age;
+
+do {
+    cout &lt;&lt; "Enter your age (1-120): ";
+    cin &gt;&gt; age;
+    
+    if (age &lt; 1 || age &gt; 120) {
+        cout &lt;&lt; "Invalid age! Please try again." &lt;&lt; endl;
+    }
+} while (age &lt; 1 || age &gt; 120);
+
+cout &lt;&lt; "Age accepted: " &lt;&lt; age &lt;&lt; endl;
+</code></pre>
+<h3 id="loop-comparison"><a class="header" href="#loop-comparison">Loop Comparison</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Loop Type</th><th>When to Use</th><th>Minimum Executions</th></tr></thead><tbody>
+<tr><td><code>for</code></td><td>Know exact iterations</td><td>0</td></tr>
+<tr><td><code>while</code></td><td>Unknown iterations, condition first</td><td>0</td></tr>
+<tr><td><code>do-while</code></td><td>Unknown iterations, run at least once</td><td>1</td></tr>
+</tbody></table>
+</div>
+<p><strong>Choosing the Right Loop:</strong></p>
+<pre><code class="language-cpp">// for - when you know the count
+for (int i = 0; i &lt; 10; i++) { }
+
+// while - checking condition first
+while (userInput != "quit") { }
+
+// do-while - must run at least once (like menus)
+do {
+    showMenu();
+} while (choice != 0);
+</code></pre>
+<hr />
+<h2 id="break-and-continue"><a class="header" href="#break-and-continue">Break and Continue</a></h2>
+<p>Special statements that control loop execution.</p>
+<h3 id="break-statement"><a class="header" href="#break-statement">break Statement</a></h3>
+<p><strong>Purpose:</strong> Immediately <strong>exits</strong> the loop completely.</p>
+<p><strong>Example 1: Exit on Condition</strong></p>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 10; i++) {
+    if (i == 6) {
+        break;  // Stop loop when i equals 6
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 5
+</code></pre>
+<p><strong>Example 2: Search in Loop</strong></p>
+<pre><code class="language-cpp">int numbers[] = {10, 20, 30, 40, 50};
+int target = 30;
+bool found = false;
+
+for (int i = 0; i &lt; 5; i++) {
+    if (numbers[i] == target) {
+        cout &lt;&lt; "Found " &lt;&lt; target &lt;&lt; " at index " &lt;&lt; i &lt;&lt; endl;
+        found = true;
+        break;  // No need to continue searching
+    }
+}
+
+if (!found) {
+    cout &lt;&lt; target &lt;&lt; " not found!" &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>Example 3: Exit on User Command</strong></p>
+<pre><code class="language-cpp">while (true) {  // Infinite loop
+    string command;
+    cout &lt;&lt; "Enter command (type 'exit' to quit): ";
+    cin &gt;&gt; command;
+    
+    if (command == "exit") {
+        cout &lt;&lt; "Goodbye!" &lt;&lt; endl;
+        break;  // Exit the infinite loop
+    }
+    
+    cout &lt;&lt; "You entered: " &lt;&lt; command &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>Example 4: break in switch (already seen)</strong></p>
+<pre><code class="language-cpp">switch (choice) {
+    case 1:
+        cout &lt;&lt; "Option 1" &lt;&lt; endl;
+        break;  // Prevents fall-through
+    case 2:
+        cout &lt;&lt; "Option 2" &lt;&lt; endl;
+        break;
+}
+</code></pre>
+<h3 id="continue-statement"><a class="header" href="#continue-statement">continue Statement</a></h3>
+<p><strong>Purpose:</strong> <strong>Skips</strong> the rest of current iteration and moves to the next iteration.</p>
+<p><strong>Example 1: Skip Specific Values</strong></p>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 10; i++) {
+    if (i == 5) {
+        continue;  // Skip when i is 5
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 6 7 8 9 10 (5 is skipped)
+</code></pre>
+<p><strong>Example 2: Print Only Odd Numbers</strong></p>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 10; i++) {
+    if (i % 2 == 0) {
+        continue;  // Skip even numbers
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 3 5 7 9
+</code></pre>
+<p><strong>Example 3: Skip Negative Numbers</strong></p>
+<pre><code class="language-cpp">int numbers[] = {5, -2, 8, -1, 10, -3, 7};
+
+cout &lt;&lt; "Positive numbers: ";
+for (int i = 0; i &lt; 7; i++) {
+    if (numbers[i] &lt; 0) {
+        continue;  // Skip negative numbers
+    }
+    cout &lt;&lt; numbers[i] &lt;&lt; " ";
+}
+// Output: Positive numbers: 5 8 10 7
+</code></pre>
+<p><strong>Example 4: Input Validation</strong></p>
+<pre><code class="language-cpp">int sum = 0;
+for (int i = 0; i &lt; 5; i++) {
+    int num;
+    cout &lt;&lt; "Enter number " &lt;&lt; (i+1) &lt;&lt; ": ";
+    cin &gt;&gt; num;
+    
+    if (num &lt; 0) {
+        cout &lt;&lt; "Negative numbers not allowed. Skipping..." &lt;&lt; endl;
+        continue;  // Skip this iteration
+    }
+    
+    sum += num;
+}
+cout &lt;&lt; "Sum of valid numbers: " &lt;&lt; sum &lt;&lt; endl;
+</code></pre>
+<h3 id="break-vs-continue-comparison"><a class="header" href="#break-vs-continue-comparison">break vs continue Comparison</a></h3>
+<pre><code class="language-cpp">// Example demonstrating both
+
+cout &lt;&lt; "Using break:" &lt;&lt; endl;
+for (int i = 1; i &lt;= 10; i++) {
+    if (i == 6) {
+        break;  // Exit loop completely
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 5
+
+cout &lt;&lt; "\n\nUsing continue:" &lt;&lt; endl;
+for (int i = 1; i &lt;= 10; i++) {
+    if (i == 6) {
+        continue;  // Skip only 6
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 5 7 8 9 10
+</code></pre>
+<p><strong>Visual Difference:</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Statement</th><th>Effect</th><th>Use When</th></tr></thead><tbody>
+<tr><td><code>break</code></td><td>Exits loop entirely</td><td>Found what you need, or need to stop</td></tr>
+<tr><td><code>continue</code></td><td>Skips to next iteration</td><td>Need to skip certain values but keep looping</td></tr>
+</tbody></table>
+</div>
+<h3 id="nested-loop-control"><a class="header" href="#nested-loop-control">Nested Loop Control</a></h3>
+<pre><code class="language-cpp">// break only exits the innermost loop
+for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
+        if (j == 2) {
+            break;  // Only exits inner loop
+        }
+        cout &lt;&lt; i &lt;&lt; "," &lt;&lt; j &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+}
+// Output:
+// 1,1
+// 2,1
+// 3,1
+
+// continue only affects current loop
+for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
+        if (j == 2) {
+            continue;  // Skip j=2 in inner loop
+        }
+        cout &lt;&lt; i &lt;&lt; "," &lt;&lt; j &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+}
+// Output:
+// 1,1 1,3
+// 2,1 2,3
+// 3,1 3,3
+</code></pre>
+<hr />
+<h2 id="best-practices"><a class="header" href="#best-practices">Best Practices</a></h2>
+<h3 id="1-choosing-the-right-control-structure"><a class="header" href="#1-choosing-the-right-control-structure">1. Choosing the Right Control Structure</a></h3>
+<pre><code class="language-cpp">// ✅ Use switch for multiple discrete values
+switch (menuChoice) {
+    case 1: /* ... */ break;
+    case 2: /* ... */ break;
+}
+
+// ✅ Use if-else for ranges or complex conditions
+if (score &gt;= 90) {
+    // ...
+} else if (score &gt;= 80) {
+    // ...
+}
+
+// ✅ Use for loop when iteration count is known
+for (int i = 0; i &lt; 10; i++) { }
+
+// ✅ Use while when condition-based
+while (userInput != "quit") { }
+
+// ✅ Use do-while for at-least-once execution
+do {
+    showMenu();
+} while (choice != 0);
+</code></pre>
+<h3 id="2-always-use-braces"><a class="header" href="#2-always-use-braces">2. Always Use Braces</a></h3>
+<pre><code class="language-cpp">// ❌ Dangerous (easy to make mistakes)
+if (condition)
+    doSomething();
+
+// ✅ Safe and clear
+if (condition) {
+    doSomething();
+}
+</code></pre>
+<h3 id="3-avoid-deep-nesting"><a class="header" href="#3-avoid-deep-nesting">3. Avoid Deep Nesting</a></h3>
+<pre><code class="language-cpp">// ❌ Hard to read
+if (condition1) {
+    if (condition2) {
+        if (condition3) {
+            // deeply nested code
+        }
+    }
+}
+
+// ✅ Better - early returns
+if (!condition1) return;
+if (!condition2) return;
+if (!condition3) return;
+// main code here
+</code></pre>
+<h3 id="4-initialize-loop-variables"><a class="header" href="#4-initialize-loop-variables">4. Initialize Loop Variables</a></h3>
+<pre><code class="language-cpp">// ✅ Always initialize
+for (int i = 0; i &lt; 10; i++) { }
+
+// ❌ Uninitialized variable
+int i;
+for (i; i &lt; 10; i++) { }  // i has garbage value initially
+</code></pre>
+<h3 id="5-avoid-infinite-loops-unless-intentional"><a class="header" href="#5-avoid-infinite-loops-unless-intentional">5. Avoid Infinite Loops (Unless Intentional)</a></h3>
+<pre><code class="language-cpp">// ❌ Accidental infinite loop
+for (int i = 0; i &lt; 10; i--) {  // i decreases!
+    // never ends
+}
+
+// ✅ Intentional infinite loop with break
+while (true) {
+    if (exitCondition) {
+        break;
+    }
+}
+</code></pre>
+<h3 id="6-use-meaningful-variable-names"><a class="header" href="#6-use-meaningful-variable-names">6. Use Meaningful Variable Names</a></h3>
+<pre><code class="language-cpp">// ❌ Unclear
+for (int i = 0; i &lt; n; i++) { }
+
+// ✅ Clear
+for (int studentIndex = 0; studentIndex &lt; totalStudents; studentIndex++) { }
+
+// ✅ Or use range-based for loop
+for (auto student : students) { }
+</code></pre>
+<h3 id="7-avoid-magic-numbers"><a class="header" href="#7-avoid-magic-numbers">7. Avoid Magic Numbers</a></h3>
+<pre><code class="language-cpp">// ❌ What does 7 mean?
+for (int i = 0; i &lt; 7; i++) { }
+
+// ✅ Use constants
+const int DAYS_IN_WEEK = 7;
+for (int day = 0; day &lt; DAYS_IN_WEEK; day++) { }
+</code></pre>
+<h3 id="8-break-and-continue-guidelines"><a class="header" href="#8-break-and-continue-guidelines">8. break and continue Guidelines</a></h3>
+<pre><code class="language-cpp">// ✅ Use break to exit when found
+for (int i = 0; i &lt; size; i++) {
+    if (array[i] == target) {
+        found = true;
+        break;  // No need to continue searching
+    }
+}
+
+// ✅ Use continue to skip invalid data
+for (int i = 0; i &lt; size; i++) {
+    if (data[i] &lt; 0) {
+        continue;  // Skip negative values
+    }
+    processData(data[i]);
+}
+</code></pre>
+<hr />
+<h2 id="practice-problems"><a class="header" href="#practice-problems">Practice Problems</a></h2>
+<p>Test your understanding with these exercises:</p>
+<h3 id="problem-1-even-or-odd-checker"><a class="header" href="#problem-1-even-or-odd-checker">Problem 1: Even or Odd Checker</a></h3>
+<p>Write a program that asks for a number and tells if it's even or odd.</p>
+<h3 id="problem-2-simple-calculator"><a class="header" href="#problem-2-simple-calculator">Problem 2: Simple Calculator</a></h3>
+<p>Create a calculator using switch-case that performs +, -, *, / operations.</p>
+<h3 id="problem-3-factorial-calculator"><a class="header" href="#problem-3-factorial-calculator">Problem 3: Factorial Calculator</a></h3>
+<p>Calculate factorial of a number using a loop. (5! = 5 × 4 × 3 × 2 × 1 = 120)</p>
+<h3 id="problem-4-prime-number-checker"><a class="header" href="#problem-4-prime-number-checker">Problem 4: Prime Number Checker</a></h3>
+<p>Check if a number is prime (only divisible by 1 and itself).</p>
+<h3 id="problem-5-pattern-printing"><a class="header" href="#problem-5-pattern-printing">Problem 5: Pattern Printing</a></h3>
+<p>Print the following pattern:</p>
+<pre><code>*
+**
+***
+****
+*****
+</code></pre>
+<h3 id="problem-6-number-guessing-game"><a class="header" href="#problem-6-number-guessing-game">Problem 6: Number Guessing Game</a></h3>
+<p>Create a game where the computer picks a random number (1-100) and the user guesses. Use loops and break/continue appropriately.</p>
+<hr />
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<p><strong>Decision Making:</strong></p>
+<ul>
+<li>Use <code>if-else</code> for conditions and ranges</li>
+<li>Use <code>switch-case</code> for multiple discrete values</li>
+<li>Use ternary operator <code>? :</code> for simple conditions</li>
+</ul>
+<p><strong>Loops:</strong></p>
+<ul>
+<li><code>for</code>: When you know iteration count</li>
+<li><code>while</code>: Condition checked first</li>
+<li><code>do-while</code>: Runs at least once</li>
+</ul>
+<p><strong>Control Statements:</strong></p>
+<ul>
+<li><code>break</code>: Exit loop completely</li>
+<li><code>continue</code>: Skip current iteration</li>
+</ul>
+<p><strong>Key Takeaways:</strong></p>
+<ul>
+<li>Always use braces <code>{}</code> for clarity</li>
+<li>Initialize variables before loops</li>
+<li>Avoid infinite loops (unless intentional)</li>
+<li>Use meaningful variable names</li>
+<li>Comment complex logic</li>
+<li>Choose the right control structure for the task</li>
+</ul>
+<p>With these fundamentals, you can now control the flow of any C++ program! 🚀</p>
 
                     </main>
 

@@ -177,10 +177,4400 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="data-types-variables-and-inputoutput-in-c"><a class="header" href="#data-types-variables-and-inputoutput-in-c">Data Types, Variables, and Input/Output in C++</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="storage-classes"><a class="header" href="#storage-classes">Storage Classes</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="constuctors-in-depth"><a class="header" href="#constuctors-in-depth">Constuctors In-depth</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="inheritance-and-construtors"><a class="header" href="#inheritance-and-construtors">Inheritance and Construtors</a></h1>
+<h2 id="table-of-contents"><a class="header" href="#table-of-contents">Table of Contents</a></h2>
+<ol>
+<li><a href="1_datatypes.html#introduction">Introduction</a></li>
+<li><a href="1_datatypes.html#variables">Variables - Your Data Containers</a></li>
+<li><a href="1_datatypes.html#data-types">Data Types in C++</a></li>
+<li><a href="1_datatypes.html#input-output">Input and Output</a></li>
+<li><a href="1_datatypes.html#choosing-right-type">Choosing the Right Data Type</a></li>
+<li><a href="1_datatypes.html#best-practices">Common Mistakes and Best Practices</a></li>
+</ol>
+<hr />
+<p><a id="introduction"></a></p>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Think of C++ programming like cooking. Before you start cooking, you need containers (variables) to store your ingredients (data), and you need to know what type of container to use - you wouldn't store soup in a sieve! Similarly, in C++, we need to understand what kind of data we're working with and choose the appropriate "container" for it.</p>
+<hr />
+<p><a id="variables"></a></p>
+<h2 id="variables---your-data-containers"><a class="header" href="#variables---your-data-containers">Variables - Your Data Containers</a></h2>
+<h3 id="what-is-a-variable"><a class="header" href="#what-is-a-variable">What is a Variable?</a></h3>
+<p>A <strong>variable</strong> is a named storage location in your computer's memory that holds a value. Think of it as a labeled box where you can store information and retrieve it later.</p>
+<h3 id="variable-declaration-syntax"><a class="header" href="#variable-declaration-syntax">Variable Declaration Syntax</a></h3>
+<pre><code class="language-cpp">dataType variableName = value;
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-cpp">int age = 25;           // 'int' is the type, 'age' is the name, '25' is the value
+double price = 19.99;   // Storing a decimal number
+char grade = 'A';       // Storing a single character
+</code></pre>
+<h3 id="variable-naming-rules"><a class="header" href="#variable-naming-rules">Variable Naming Rules</a></h3>
+<p>✅ <strong>Allowed:</strong></p>
+<ul>
+<li>Start with a letter (a-z, A-Z) or underscore (_)</li>
+<li>Contain letters, digits, and underscores</li>
+<li>Examples: <code>age</code>, <code>student_name</code>, <code>price2</code>, <code>_count</code></li>
+</ul>
+<p>❌ <strong>Not Allowed:</strong></p>
+<ul>
+<li>Start with a digit: <code>2names</code> ❌</li>
+<li>Contain spaces: <code>student name</code> ❌</li>
+<li>Use C++ keywords: <code>int</code>, <code>return</code>, <code>class</code> ❌</li>
+<li>Special characters: <code>price$</code>, <code>name@</code> ❌</li>
+</ul>
+<h3 id="best-naming-practices"><a class="header" href="#best-naming-practices">Best Naming Practices</a></h3>
+<pre><code class="language-cpp">// Good - descriptive names
+int studentAge = 18;
+double accountBalance = 1500.50;
+char firstInitial = 'J';
+
+// Bad - unclear names
+int x = 18;      // What does x represent?
+double a = 1500.50;  // What is 'a'?
+char c = 'J';    // What does 'c' mean?
+</code></pre>
+<hr />
+<p><a id="data-types"></a></p>
+<h2 id="data-types-in-c"><a class="header" href="#data-types-in-c">Data Types in C++</a></h2>
+<p>C++ has several built-in data types. Let's explore each category:</p>
+<h3 id="1-integer-types-whole-numbers"><a class="header" href="#1-integer-types-whole-numbers">1. Integer Types (Whole Numbers)</a></h3>
+<p>These store whole numbers without decimal points.</p>
+<p><strong>⚠️ Important Note:</strong> The size of integer types can vary depending on your platform (32-bit vs 64-bit system, compiler, operating system). The table below shows typical sizes, but always verify on your system using <code>sizeof()</code>.</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Typical Size</th><th>Typical Range</th><th>When to Use</th></tr></thead><tbody>
+<tr><td><code>short</code></td><td>2 bytes</td><td>-32,768 to 32,767</td><td>Small numbers, save memory</td></tr>
+<tr><td><code>int</code></td><td>4 bytes (most common)</td><td>-2,147,483,648 to 2,147,483,647</td><td>General purpose counting, IDs, ages</td></tr>
+<tr><td><code>long</code></td><td>4 or 8 bytes*</td><td>Platform dependent</td><td>Large calculations, timestamps</td></tr>
+<tr><td><code>long long</code></td><td>8 bytes (guaranteed)</td><td>Very large numbers</td><td>Scientific calculations, guaranteed 64-bit</td></tr>
+</tbody></table>
+</div>
+<p>*Note: <code>long</code> is 4 bytes on Windows (32/64-bit) and most 32-bit systems, but 8 bytes on 64-bit Linux/Mac.</p>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-cpp">int studentCount = 30;           // Number of students in class
+short temperature = -15;         // Temperature in Celsius
+long worldPopulation = 8000000000L;  // World population
+long long distanceToSun = 149600000000LL;  // Distance in meters
+</code></pre>
+<h4 id="unsigned-integers-only-positive-numbers"><a class="header" href="#unsigned-integers-only-positive-numbers">Unsigned Integers (Only Positive Numbers)</a></h4>
+<p>If you know your number will <strong>never be negative</strong>, use <code>unsigned</code> to double the positive range:</p>
+<pre><code class="language-cpp">unsigned int age = 25;           // Age is never negative
+unsigned short score = 100;      // Score is always positive
+unsigned long fileSize = 5000000;  // File sizes are positive
+</code></pre>
+<h3 id="2-floating-point-types-decimal-numbers"><a class="header" href="#2-floating-point-types-decimal-numbers">2. Floating-Point Types (Decimal Numbers)</a></h3>
+<p>These store numbers with decimal points.</p>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Typical Size</th><th>Precision</th><th>When to Use</th></tr></thead><tbody>
+<tr><td><code>float</code></td><td>4 bytes</td><td>~7 decimal digits</td><td>Basic decimals, graphics</td></tr>
+<tr><td><code>double</code></td><td>8 bytes</td><td>~15 decimal digits</td><td>Scientific calculations (MOST COMMON)</td></tr>
+<tr><td><code>long double</code></td><td>8-16 bytes*</td><td>~19 decimal digits</td><td>Extreme precision needed</td></tr>
+</tbody></table>
+</div>
+<p>*Note: <code>long double</code> size varies: 8 bytes (some systems), 12 bytes (Linux x86), 16 bytes (some 64-bit systems).</p>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-cpp">float pi = 3.14159f;              // 'f' suffix for float
+double accountBalance = 1234.56;  // Most commonly used
+double scientificValue = 3.14159265358979;
+long double preciseValue = 3.141592653589793238L;
+</code></pre>
+<p><strong>💡 Key Point:</strong> Use <code>double</code> by default for decimal numbers. Only use <code>float</code> if memory is critical (like in games with thousands of objects).</p>
+<h3 id="3-character-type"><a class="header" href="#3-character-type">3. Character Type</a></h3>
+<p>Stores a <strong>single character</strong> enclosed in single quotes <code>' '</code>.</p>
+<pre><code class="language-cpp">char grade = 'A';
+char symbol = '$';
+char digit = '5';        // This is a character, not a number!
+char newline = '\n';     // Special character for new line
+</code></pre>
+<p><strong>Special (Escape) Characters:</strong></p>
+<pre><code class="language-cpp">'\n'  // New line
+'\t'  // Tab
+'\\'  // Backslash
+'\''  // Single quote
+'\"'  // Double quote
+</code></pre>
+<h3 id="4-boolean-type"><a class="header" href="#4-boolean-type">4. Boolean Type</a></h3>
+<p>Stores only two values: <code>true</code> or <code>false</code>.</p>
+<pre><code class="language-cpp">bool isStudent = true;
+bool hasLicense = false;
+bool isPassing = (grade &gt;= 60);  // Result of comparison
+</code></pre>
+<p><strong>💡 Use Case:</strong> Perfect for yes/no situations, flags, conditions.</p>
+<h3 id="5-string-type-text"><a class="header" href="#5-string-type-text">5. String Type (Text)</a></h3>
+<p>Stores sequences of characters (words, sentences). <strong>Note:</strong> You need to include <code>&lt;string&gt;</code> header.</p>
+<pre><code class="language-cpp">#include &lt;string&gt;
+
+string name = "John Doe";
+string message = "Hello, World!";
+string empty = "";           // Empty string
+</code></pre>
+<p><strong>String vs Char:</strong></p>
+<pre><code class="language-cpp">char singleLetter = 'A';      // Single character - single quotes
+string word = "A";            // String - double quotes
+string fullName = "Alice";    // Multiple characters
+</code></pre>
+<hr />
+<h2 id="checking-data-type-sizes"><a class="header" href="#checking-data-type-sizes">Checking Data Type Sizes</a></h2>
+<p>Since data type sizes can vary by platform, C++ provides the <code>sizeof()</code> operator to check the actual size on your system.</p>
+<h3 id="the-sizeof-operator"><a class="header" href="#the-sizeof-operator">The <code>sizeof()</code> Operator</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "=== Data Type Sizes on This System ===" &lt;&lt; endl;
+    cout &lt;&lt; "Note: Size is shown in bytes (1 byte = 8 bits)\n" &lt;&lt; endl;
+    
+    // Integer types
+    cout &lt;&lt; "INTEGER TYPES:" &lt;&lt; endl;
+    cout &lt;&lt; "short          : " &lt;&lt; sizeof(short) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "int            : " &lt;&lt; sizeof(int) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "long           : " &lt;&lt; sizeof(long) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "long long      : " &lt;&lt; sizeof(long long) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "unsigned int   : " &lt;&lt; sizeof(unsigned int) &lt;&lt; " bytes" &lt;&lt; endl;
+    
+    // Floating-point types
+    cout &lt;&lt; "\nFLOATING-POINT TYPES:" &lt;&lt; endl;
+    cout &lt;&lt; "float          : " &lt;&lt; sizeof(float) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "double         : " &lt;&lt; sizeof(double) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "long double    : " &lt;&lt; sizeof(long double) &lt;&lt; " bytes" &lt;&lt; endl;
+    
+    // Character and boolean
+    cout &lt;&lt; "\nCHARACTER &amp; BOOLEAN:" &lt;&lt; endl;
+    cout &lt;&lt; "char           : " &lt;&lt; sizeof(char) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "bool           : " &lt;&lt; sizeof(bool) &lt;&lt; " bytes" &lt;&lt; endl;
+    
+    // String (note: string size varies based on content)
+    cout &lt;&lt; "\nSTRING:" &lt;&lt; endl;
+    string emptyStr = "";
+    string shortStr = "Hi";
+    string longStr = "This is a longer string";
+    cout &lt;&lt; "string (empty) : " &lt;&lt; sizeof(emptyStr) &lt;&lt; " bytes (object overhead)" &lt;&lt; endl;
+    cout &lt;&lt; "string (short) : " &lt;&lt; sizeof(shortStr) &lt;&lt; " bytes (same overhead)" &lt;&lt; endl;
+    cout &lt;&lt; "string (long)  : " &lt;&lt; sizeof(longStr) &lt;&lt; " bytes (same overhead)" &lt;&lt; endl;
+    cout &lt;&lt; "Note: String object has fixed size; actual text stored separately" &lt;&lt; endl;
+    
+    // You can also check variable sizes
+    cout &lt;&lt; "\n=== Checking Variable Sizes ===" &lt;&lt; endl;
+    int myAge = 25;
+    double myHeight = 5.9;
+    char myGrade = 'A';
+    
+    cout &lt;&lt; "int myAge      : " &lt;&lt; sizeof(myAge) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "double myHeight: " &lt;&lt; sizeof(myHeight) &lt;&lt; " bytes" &lt;&lt; endl;
+    cout &lt;&lt; "char myGrade   : " &lt;&lt; sizeof(myGrade) &lt;&lt; " bytes" &lt;&lt; endl;
+    
+    return 0;
+}
+</code></pre>
+<h3 id="sample-output-may-vary-on-your-system"><a class="header" href="#sample-output-may-vary-on-your-system">Sample Output (may vary on your system):</a></h3>
+<pre><code>=== Data Type Sizes on This System ===
+Note: Size is shown in bytes (1 byte = 8 bits)
+
+INTEGER TYPES:
+short          : 2 bytes
+int            : 4 bytes
+long           : 8 bytes
+long long      : 8 bytes
+unsigned int   : 4 bytes
+
+FLOATING-POINT TYPES:
+float          : 4 bytes
+double         : 8 bytes
+long double    : 16 bytes
+
+CHARACTER &amp; BOOLEAN:
+char           : 1 bytes
+bool           : 1 bytes
+
+STRING:
+string (empty) : 32 bytes (object overhead)
+string (short) : 32 bytes (same overhead)
+string (long)  : 32 bytes (same overhead)
+Note: String object has fixed size; actual text stored separately
+
+=== Checking Variable Sizes ===
+int myAge      : 4 bytes
+double myHeight: 8 bytes
+char myGrade   : 1 bytes
+</code></pre>
+<p><strong>💡 Key Insights:</strong></p>
+<ul>
+<li><code>sizeof()</code> returns the size in bytes</li>
+<li>Use <code>sizeof(type)</code> or <code>sizeof(variable)</code></li>
+<li>Run this program on your computer to see platform-specific sizes</li>
+<li>String object size doesn't change with content length (uses dynamic memory)</li>
+</ul>
+<hr />
+<p><a id="input-output"></a></p>
+<h2 id="input-and-output"><a class="header" href="#input-and-output">Input and Output</a></h2>
+<h3 id="output-with-cout"><a class="header" href="#output-with-cout">Output with <code>cout</code></a></h3>
+<p><code>cout</code> (console output) displays information to the screen.</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Hello, World!";              // Display text
+    cout &lt;&lt; "Hello" &lt;&lt; " " &lt;&lt; "World";    // Multiple outputs
+    cout &lt;&lt; "Line 1" &lt;&lt; endl;             // endl = new line
+    cout &lt;&lt; "Line 2\n";                   // \n = new line
+    
+    int age = 25;
+    cout &lt;&lt; "Age: " &lt;&lt; age &lt;&lt; endl;       // Mix text and variables
+    
+    return 0;
+}
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code>Hello, World!Hello World
+Line 1
+Line 2
+Age: 25
+</code></pre>
+<h3 id="input-with-cin"><a class="header" href="#input-with-cin">Input with <code>cin</code></a></h3>
+<p><code>cin</code> (console input) reads data from the keyboard.</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int age;
+    cout &lt;&lt; "Enter your age: ";
+    cin &gt;&gt; age;                  // Wait for user input
+    cout &lt;&lt; "You are " &lt;&lt; age &lt;&lt; " years old." &lt;&lt; endl;
+    
+    return 0;
+}
+</code></pre>
+<h3 id="multiple-inputs"><a class="header" href="#multiple-inputs">Multiple Inputs</a></h3>
+<pre><code class="language-cpp">int day, month, year;
+cout &lt;&lt; "Enter date (DD MM YYYY): ";
+cin &gt;&gt; day &gt;&gt; month &gt;&gt; year;
+cout &lt;&lt; "Date: " &lt;&lt; day &lt;&lt; "/" &lt;&lt; month &lt;&lt; "/" &lt;&lt; year &lt;&lt; endl;
+</code></pre>
+<h3 id="input-for-strings"><a class="header" href="#input-for-strings">Input for Strings</a></h3>
+<p><strong>Problem with <code>cin</code> and strings:</strong></p>
+<pre><code class="language-cpp">string name;
+cout &lt;&lt; "Enter your name: ";
+cin &gt;&gt; name;              // Only reads until first space!
+// Input: "John Doe"
+// name = "John" (Doe is ignored!)
+</code></pre>
+<p><strong>Solution - Use <code>getline()</code>:</strong></p>
+<pre><code class="language-cpp">string fullName;
+cout &lt;&lt; "Enter your full name: ";
+getline(cin, fullName);    // Reads entire line including spaces
+</code></pre>
+<h3 id="complete-inputoutput-example"><a class="header" href="#complete-inputoutput-example">Complete Input/Output Example</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    // Declare variables
+    string name;
+    int age;
+    double height;
+    char grade;
+    
+    // Input
+    cout &lt;&lt; "Enter your name: ";
+    getline(cin, name);
+    
+    cout &lt;&lt; "Enter your age: ";
+    cin &gt;&gt; age;
+    
+    cout &lt;&lt; "Enter your height (in meters): ";
+    cin &gt;&gt; height;
+    
+    cout &lt;&lt; "Enter your grade: ";
+    cin &gt;&gt; grade;
+    
+    // Output
+    cout &lt;&lt; "\n--- Your Information ---" &lt;&lt; endl;
+    cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; endl;
+    cout &lt;&lt; "Age: " &lt;&lt; age &lt;&lt; " years" &lt;&lt; endl;
+    cout &lt;&lt; "Height: " &lt;&lt; height &lt;&lt; " meters" &lt;&lt; endl;
+    cout &lt;&lt; "Grade: " &lt;&lt; grade &lt;&lt; endl;
+    
+    return 0;
+}
+</code></pre>
+<hr />
+<p><a id="choosing-right-type"></a></p>
+<h2 id="choosing-the-right-data-type"><a class="header" href="#choosing-the-right-data-type">Choosing the Right Data Type</a></h2>
+<h3 id="decision-guide"><a class="header" href="#decision-guide">Decision Guide</a></h3>
+<p><strong>1. Need to store whole numbers (no decimals)?</strong></p>
+<ul>
+<li>✅ Small numbers (-32,768 to 32,767): <code>short</code></li>
+<li>✅ Regular numbers: <code>int</code> (MOST COMMON)</li>
+<li>✅ Very large numbers: <code>long</code> or <code>long long</code></li>
+<li>✅ Only positive numbers: Add <code>unsigned</code></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-cpp">int studentID = 12345;        // Student IDs
+unsigned int pageViews = 5000; // Website views (never negative)
+long long accountNumber = 9876543210123456LL; // Bank accounts
+</code></pre>
+<p><strong>2. Need decimal numbers?</strong></p>
+<ul>
+<li>✅ Use <code>double</code> (99% of cases)</li>
+<li>✅ Use <code>float</code> only if memory is critical</li>
+<li>✅ Use <code>long double</code> for extreme precision</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-cpp">double price = 29.99;          // Prices, measurements
+double temperature = 36.6;     // Body temperature
+float gamePosition = 10.5f;    // Game coordinates (memory critical)
+</code></pre>
+<p><strong>3. Need a single character?</strong></p>
+<ul>
+<li>✅ Use <code>char</code></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-cpp">char menuChoice = 'A';         // Menu selections
+char yesNo = 'Y';              // Simple yes/no
+</code></pre>
+<p><strong>4. Need text (words/sentences)?</strong></p>
+<ul>
+<li>✅ Use <code>string</code></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-cpp">string username = "alice123";
+string email = "user@example.com";
+string address = "123 Main St, City";
+</code></pre>
+<p><strong>5. Need true/false?</strong></p>
+<ul>
+<li>✅ Use <code>bool</code></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-cpp">bool isLoggedIn = true;
+bool isPremiumUser = false;
+bool hasPermission = (userLevel &gt; 5);
+</code></pre>
+<h3 id="real-world-scenarios"><a class="header" href="#real-world-scenarios">Real-World Scenarios</a></h3>
+<h4 id="scenario-1-student-management-system"><a class="header" href="#scenario-1-student-management-system">Scenario 1: Student Management System</a></h4>
+<pre><code class="language-cpp">int studentID = 1001;              // Unique ID
+string studentName = "Alice Johnson";
+int age = 20;
+double gpa = 3.85;
+char letterGrade = 'A';
+bool isEnrolled = true;
+</code></pre>
+<h4 id="scenario-2-e-commerce-product"><a class="header" href="#scenario-2-e-commerce-product">Scenario 2: E-commerce Product</a></h4>
+<pre><code class="language-cpp">int productID = 5432;
+string productName = "Wireless Mouse";
+double price = 24.99;
+unsigned int stockQuantity = 150;  // Never negative
+bool inStock = (stockQuantity &gt; 0);
+float rating = 4.5f;
+</code></pre>
+<h4 id="scenario-3-banking-application"><a class="header" href="#scenario-3-banking-application">Scenario 3: Banking Application</a></h4>
+<pre><code class="language-cpp">long long accountNumber = 1234567890123456LL;
+string accountHolder = "John Doe";
+double balance = 5432.10;
+bool isActive = true;
+unsigned int transactionCount = 523;
+</code></pre>
+<hr />
+<p><a id="best-practices"></a></p>
+<h2 id="common-mistakes-and-best-practices"><a class="header" href="#common-mistakes-and-best-practices">Common Mistakes and Best Practices</a></h2>
+<h3 id="-common-mistakes"><a class="header" href="#-common-mistakes">❌ Common Mistakes</a></h3>
+<p><strong>1. Integer Division:</strong></p>
+<pre><code class="language-cpp">int a = 5, b = 2;
+int result = a / b;        // result = 2 (not 2.5!)
+// Integers ignore decimals
+
+// Fix:
+double result = 5.0 / 2.0;  // result = 2.5
+</code></pre>
+<p><strong>2. Mixing <code>cin</code> and <code>getline</code>:</strong></p>
+<pre><code class="language-cpp">int age;
+string name;
+
+cin &gt;&gt; age;           // Leaves newline in buffer
+getline(cin, name);   // Reads empty line!
+
+// Fix:
+cin &gt;&gt; age;
+cin.ignore();         // Clear the newline
+getline(cin, name);   // Now works correctly
+</code></pre>
+<p><strong>3. Forgetting Variable Initialization:</strong></p>
+<pre><code class="language-cpp">int count;            // Uninitialized - contains garbage value
+cout &lt;&lt; count;        // Unpredictable output!
+
+// Better:
+int count = 0;        // Always initialize
+</code></pre>
+<p><strong>4. Using Wrong Data Type:</strong></p>
+<pre><code class="language-cpp">int price = 19.99;    // price = 19 (decimal lost!)
+// Should use: double price = 19.99;
+</code></pre>
+<h3 id="-best-practices"><a class="header" href="#-best-practices">✅ Best Practices</a></h3>
+<p><strong>1. Always Initialize Variables:</strong></p>
+<pre><code class="language-cpp">int count = 0;
+double total = 0.0;
+string name = "";
+bool isValid = false;
+</code></pre>
+<p><strong>2. Use Meaningful Names:</strong></p>
+<pre><code class="language-cpp">// Bad
+int d = 7;
+double x = 19.99;
+
+// Good
+int daysInWeek = 7;
+double productPrice = 19.99;
+</code></pre>
+<p><strong>3. Use <code>const</code> for Constants:</strong></p>
+<pre><code class="language-cpp">const double PI = 3.14159;
+const int MAX_STUDENTS = 50;
+const string COMPANY_NAME = "TechCorp";
+</code></pre>
+<p><strong>4. Choose Appropriate Data Types:</strong></p>
+<pre><code class="language-cpp">// Age is always positive and small
+unsigned short age = 25;
+
+// Money needs decimals
+double salary = 75000.50;
+
+// IDs are whole numbers
+int employeeID = 1234;
+</code></pre>
+<p><strong>5. Comment Your Code:</strong></p>
+<pre><code class="language-cpp">int maxAttempts = 3;  // Maximum login attempts allowed
+double taxRate = 0.15;  // 15% tax rate
+</code></pre>
+<hr />
+<h2 id="quick-reference-card"><a class="header" href="#quick-reference-card">Quick Reference Card</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Need</th><th>Use</th><th>Example</th></tr></thead><tbody>
+<tr><td>Whole numbers</td><td><code>int</code></td><td><code>int count = 10;</code></td></tr>
+<tr><td>Large whole numbers</td><td><code>long long</code></td><td><code>long long distance = 1000000000LL;</code></td></tr>
+<tr><td>Positive numbers only</td><td><code>unsigned int</code></td><td><code>unsigned int age = 25;</code></td></tr>
+<tr><td>Decimal numbers</td><td><code>double</code></td><td><code>double price = 19.99;</code></td></tr>
+<tr><td>Single character</td><td><code>char</code></td><td><code>char grade = 'A';</code></td></tr>
+<tr><td>Text</td><td><code>string</code></td><td><code>string name = "John";</code></td></tr>
+<tr><td>True/False</td><td><code>bool</code></td><td><code>bool isActive = true;</code></td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="practice-exercise"><a class="header" href="#practice-exercise">Practice Exercise</a></h2>
+<p>Try creating a simple program to practice:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    // Create a program that asks for:
+    // 1. User's full name (string)
+    // 2. Age (int)
+    // 3. Height in meters (double)
+    // 4. Favorite letter (char)
+    // 5. Are you a student? (bool - input 1 for true, 0 for false)
+    
+    // Then display all information in a formatted way
+    
+    return 0;
+}
+</code></pre>
+<hr />
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<ul>
+<li><strong>Variables</strong> are containers that store data</li>
+<li><strong>Data types</strong> define what kind of data a variable can hold</li>
+<li>Use <code>int</code> for whole numbers, <code>double</code> for decimals, <code>string</code> for text</li>
+<li>Use <code>cout</code> to display output, <code>cin</code> for input</li>
+<li>Always initialize your variables</li>
+<li>Choose data types based on what you're storing</li>
+<li>Use meaningful variable names</li>
+</ul>
+<p>With this foundation, you're ready to write C++ programs that handle different types of data effectively! 🚀</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="control-flow-in-c---complete-guide"><a class="header" href="#control-flow-in-c---complete-guide">Control Flow in C++ - Complete Guide</a></h1>
+<h2 id="table-of-contents-1"><a class="header" href="#table-of-contents-1">Table of Contents</a></h2>
+<ol>
+<li><a href="2_control_flow.html#introduction">Introduction</a></li>
+<li><a href="2_control_flow.html#if-else">Decision Making - if-else</a></li>
+<li><a href="2_control_flow.html#switch-case">Switch Case Statement</a></li>
+<li><a href="2_control_flow.html#loops">Loops</a></li>
+<li><a href="2_control_flow.html#break-continue">Break and Continue</a></li>
+<li><a href="2_control_flow.html#best-practices">Best Practices</a></li>
+<li><a href="2_control_flow.html#practice-problems">Practice Problems</a></li>
+</ol>
+<hr />
+<h2 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h2>
+<p>Control flow statements allow your program to make decisions and repeat actions. Think of them as traffic signals and road signs that direct the flow of your program's execution.</p>
+<p><strong>Three main categories:</strong></p>
+<ul>
+<li><strong>Decision Making</strong>: if-else, switch (choosing a path)</li>
+<li><strong>Loops</strong>: for, while, do-while (repeating actions)</li>
+<li><strong>Jump Statements</strong>: break, continue (controlling loop behavior)</li>
+</ul>
+<hr />
+<p><a id="if-else"></a></p>
+<h2 id="decision-making---if-else"><a class="header" href="#decision-making---if-else">Decision Making - if-else</a></h2>
+<h3 id="basic-if-statement"><a class="header" href="#basic-if-statement">Basic if Statement</a></h3>
+<p>Executes code only if a condition is true.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">if (condition) {
+    // code to execute if condition is true
+}
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-cpp">int age = 18;
+
+if (age &gt;= 18) {
+    cout &lt;&lt; "You are an adult." &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="if-else-statement"><a class="header" href="#if-else-statement">if-else Statement</a></h3>
+<p>Provides an alternative when the condition is false.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">if (condition) {
+    // code if condition is true
+} else {
+    // code if condition is false
+}
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-cpp">int marks = 45;
+
+if (marks &gt;= 50) {
+    cout &lt;&lt; "You passed!" &lt;&lt; endl;
+} else {
+    cout &lt;&lt; "You failed. Try again!" &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="if-else-if-else-ladder"><a class="header" href="#if-else-if-else-ladder">if-else if-else Ladder</a></h3>
+<p>Tests multiple conditions in sequence.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">if (condition1) {
+    // code if condition1 is true
+} else if (condition2) {
+    // code if condition2 is true
+} else if (condition3) {
+    // code if condition3 is true
+} else {
+    // code if all conditions are false
+}
+</code></pre>
+<p><strong>Example: Grade Calculator</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int marks;
+    cout &lt;&lt; "Enter your marks (0-100): ";
+    cin &gt;&gt; marks;
+    
+    if (marks &gt;= 90) {
+        cout &lt;&lt; "Grade: A+ (Excellent!)" &lt;&lt; endl;
+    } else if (marks &gt;= 80) {
+        cout &lt;&lt; "Grade: A (Very Good)" &lt;&lt; endl;
+    } else if (marks &gt;= 70) {
+        cout &lt;&lt; "Grade: B (Good)" &lt;&lt; endl;
+    } else if (marks &gt;= 60) {
+        cout &lt;&lt; "Grade: C (Average)" &lt;&lt; endl;
+    } else if (marks &gt;= 50) {
+        cout &lt;&lt; "Grade: D (Pass)" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Grade: F (Fail)" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="nested-if-statements"><a class="header" href="#nested-if-statements">Nested if Statements</a></h3>
+<p>if statements inside other if statements.</p>
+<p><strong>Example: Login System</strong></p>
+<pre><code class="language-cpp">string username, password;
+cout &lt;&lt; "Enter username: ";
+cin &gt;&gt; username;
+
+if (username == "admin") {
+    cout &lt;&lt; "Enter password: ";
+    cin &gt;&gt; password;
+    
+    if (password == "1234") {
+        cout &lt;&lt; "Login successful! Welcome, Admin." &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Incorrect password!" &lt;&lt; endl;
+    }
+} else {
+    cout &lt;&lt; "User not found!" &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="ternary-operator-shorthand-if-else"><a class="header" href="#ternary-operator-shorthand-if-else">Ternary Operator (Shorthand if-else)</a></h3>
+<p>A compact way to write simple if-else statements.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">condition ? value_if_true : value_if_false;
+</code></pre>
+<p><strong>Example:</strong></p>
+<pre><code class="language-cpp">int age = 20;
+string status = (age &gt;= 18) ? "Adult" : "Minor";
+cout &lt;&lt; status &lt;&lt; endl;  // Output: Adult
+
+// Equivalent to:
+string status;
+if (age &gt;= 18) {
+    status = "Adult";
+} else {
+    status = "Minor";
+}
+</code></pre>
+<p><strong>More Examples:</strong></p>
+<pre><code class="language-cpp">int a = 10, b = 20;
+int max = (a &gt; b) ? a : b;  // max = 20
+
+int marks = 75;
+cout &lt;&lt; "Result: " &lt;&lt; (marks &gt;= 50 ? "Pass" : "Fail") &lt;&lt; endl;
+</code></pre>
+<h3 id="logical-operators-in-conditions"><a class="header" href="#logical-operators-in-conditions">Logical Operators in Conditions</a></h3>
+<p>Combine multiple conditions:</p>
+<div class="table-wrapper"><table><thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
+<tr><td><code>&amp;&amp;</code></td><td>AND (both must be true)</td><td><code>(age &gt;= 18 &amp;&amp; hasLicense)</code></td></tr>
+<tr><td><code>||</code></td><td>OR (at least one must be true)</td><td><code>(day == "Sat" || day == "Sun")</code></td></tr>
+<tr><td><code>!</code></td><td>NOT (reverses the condition)</td><td><code>!(isRaining)</code></td></tr>
+</tbody></table>
+</div>
+<p><strong>Basic Examples:</strong></p>
+<pre><code class="language-cpp">int age = 25;
+bool hasLicense = true;
+
+// AND operator
+if (age &gt;= 18 &amp;&amp; hasLicense) {
+    cout &lt;&lt; "You can drive!" &lt;&lt; endl;
+}
+
+// OR operator
+string day = "Sunday";
+if (day == "Saturday" || day == "Sunday") {
+    cout &lt;&lt; "It's the weekend!" &lt;&lt; endl;
+}
+
+// NOT operator
+bool isRaining = false;
+if (!isRaining) {
+    cout &lt;&lt; "Let's go outside!" &lt;&lt; endl;
+}
+
+// Complex condition
+int marks = 85;
+int attendance = 75;
+if (marks &gt;= 50 &amp;&amp; attendance &gt;= 75) {
+    cout &lt;&lt; "Eligible for certificate" &lt;&lt; endl;
+}
+</code></pre>
+<hr />
+<h2 id="short-circuit-evaluation-important"><a class="header" href="#short-circuit-evaluation-important">Short-Circuit Evaluation (IMPORTANT!)</a></h2>
+<p>C++ uses <strong>short-circuit evaluation</strong> for logical operators. This is a crucial concept for writing efficient and safe code.</p>
+<h3 id="how--and-short-circuits"><a class="header" href="#how--and-short-circuits">How &amp;&amp; (AND) Short-Circuits</a></h3>
+<p><strong>Rule:</strong> If the <strong>first condition is FALSE</strong>, the remaining conditions are <strong>NOT evaluated</strong>.</p>
+<p><strong>Why?</strong> If one condition in AND is false, the entire expression is false. No need to check further.</p>
+<p><strong>Example 1: Basic Short-Circuit</strong></p>
+<pre><code class="language-cpp">int x = 5;
+int y = 10;
+
+// Second condition is NOT checked because first is false
+if (x &gt; 10 &amp;&amp; y &gt; 5) {
+    cout &lt;&lt; "This won't print" &lt;&lt; endl;
+}
+// x &gt; 10 is false, so y &gt; 5 is never evaluated
+</code></pre>
+<p><strong>Example 2: Demonstrating with Functions</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+bool checkFirst() {
+    cout &lt;&lt; "Checking first condition..." &lt;&lt; endl;
+    return false;
+}
+
+bool checkSecond() {
+    cout &lt;&lt; "Checking second condition..." &lt;&lt; endl;
+    return true;
+}
+
+int main() {
+    cout &lt;&lt; "Testing AND (&amp;&amp;):" &lt;&lt; endl;
+    if (checkFirst() &amp;&amp; checkSecond()) {
+        cout &lt;&lt; "Both true" &lt;&lt; endl;
+    }
+    
+    // Output:
+    // Testing AND (&amp;&amp;):
+    // Checking first condition...
+    // (checkSecond() is NEVER called!)
+    
+    return 0;
+}
+</code></pre>
+<p><strong>Example 3: Preventing Division by Zero</strong></p>
+<pre><code class="language-cpp">int a = 10;
+int b = 0;
+
+// ✅ SAFE: b != 0 is checked first
+if (b != 0 &amp;&amp; a / b &gt; 2) {
+    cout &lt;&lt; "Division result is greater than 2" &lt;&lt; endl;
+}
+// If b is 0, the division never happens!
+
+// ❌ DANGEROUS: Would crash if written the other way
+// if (a / b &gt; 2 &amp;&amp; b != 0) {  // WRONG! Division happens first!
+</code></pre>
+<p><strong>Example 4: Null Pointer Check</strong></p>
+<pre><code class="language-cpp">int* ptr = nullptr;
+
+// ✅ SAFE: Check pointer before dereferencing
+if (ptr != nullptr &amp;&amp; *ptr &gt; 10) {
+    cout &lt;&lt; "Value is greater than 10" &lt;&lt; endl;
+}
+// If ptr is null, *ptr is never accessed
+
+// ❌ DANGEROUS: Would crash
+// if (*ptr &gt; 10 &amp;&amp; ptr != nullptr) {  // WRONG! Dereferencing null pointer!
+</code></pre>
+<h3 id="how--or-short-circuits"><a class="header" href="#how--or-short-circuits">How || (OR) Short-Circuits</a></h3>
+<p><strong>Rule:</strong> If the <strong>first condition is TRUE</strong>, the remaining conditions are <strong>NOT evaluated</strong>.</p>
+<p><strong>Why?</strong> If one condition in OR is true, the entire expression is true. No need to check further.</p>
+<p><strong>Example 1: Basic Short-Circuit</strong></p>
+<pre><code class="language-cpp">int x = 15;
+int y = 10;
+
+// Second condition is NOT checked because first is true
+if (x &gt; 10 || y &gt; 15) {
+    cout &lt;&lt; "At least one condition is true" &lt;&lt; endl;
+}
+// x &gt; 10 is true, so y &gt; 15 is never evaluated
+</code></pre>
+<p><strong>Example 2: Demonstrating with Functions</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+bool checkFirst() {
+    cout &lt;&lt; "Checking first condition..." &lt;&lt; endl;
+    return true;
+}
+
+bool checkSecond() {
+    cout &lt;&lt; "Checking second condition..." &lt;&lt; endl;
+    return false;
+}
+
+int main() {
+    cout &lt;&lt; "Testing OR (||):" &lt;&lt; endl;
+    if (checkFirst() || checkSecond()) {
+        cout &lt;&lt; "At least one is true" &lt;&lt; endl;
+    }
+    
+    // Output:
+    // Testing OR (||):
+    // Checking first condition...
+    // At least one is true
+    // (checkSecond() is NEVER called!)
+    
+    return 0;
+}
+</code></pre>
+<p><strong>Example 3: Default Value Check</strong></p>
+<pre><code class="language-cpp">string username;
+cout &lt;&lt; "Enter username: ";
+cin &gt;&gt; username;
+
+// Check if empty first (fast check)
+if (username.empty() || username == "guest") {
+    username = "Anonymous";
+}
+// If username is empty, the comparison never happens
+</code></pre>
+<p><strong>Example 4: Permission Check</strong></p>
+<pre><code class="language-cpp">bool isAdmin = false;
+bool isOwner = true;
+bool hasPermission = false;
+
+// ✅ Efficient: Checks in order of likelihood
+if (isAdmin || isOwner || hasPermission) {
+    cout &lt;&lt; "Access granted!" &lt;&lt; endl;
+}
+// If isAdmin is true, other checks are skipped
+</code></pre>
+<h3 id="short-circuit-evaluation-comparison"><a class="header" href="#short-circuit-evaluation-comparison">Short-Circuit Evaluation Comparison</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int callCount = 0;
+
+bool expensive_check() {
+    callCount++;
+    cout &lt;&lt; "Expensive check called (count: " &lt;&lt; callCount &lt;&lt; ")" &lt;&lt; endl;
+    return true;
+}
+
+int main() {
+    callCount = 0;
+    
+    // Test 1: AND with false first
+    cout &lt;&lt; "\n=== Test 1: AND with false first ===" &lt;&lt; endl;
+    if (false &amp;&amp; expensive_check()) {
+        cout &lt;&lt; "This won't execute" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Expensive check was called " &lt;&lt; callCount &lt;&lt; " times" &lt;&lt; endl;
+    // Output: 0 times (never called!)
+    
+    // Test 2: AND with true first
+    callCount = 0;
+    cout &lt;&lt; "\n=== Test 2: AND with true first ===" &lt;&lt; endl;
+    if (true &amp;&amp; expensive_check()) {
+        cout &lt;&lt; "This will execute" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Expensive check was called " &lt;&lt; callCount &lt;&lt; " times" &lt;&lt; endl;
+    // Output: 1 time
+    
+    // Test 3: OR with true first
+    callCount = 0;
+    cout &lt;&lt; "\n=== Test 3: OR with true first ===" &lt;&lt; endl;
+    if (true || expensive_check()) {
+        cout &lt;&lt; "This will execute" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Expensive check was called " &lt;&lt; callCount &lt;&lt; " times" &lt;&lt; endl;
+    // Output: 0 times (never called!)
+    
+    // Test 4: OR with false first
+    callCount = 0;
+    cout &lt;&lt; "\n=== Test 4: OR with false first ===" &lt;&lt; endl;
+    if (false || expensive_check()) {
+        cout &lt;&lt; "This will execute" &lt;&lt; endl;
+    }
+    cout &lt;&lt; "Expensive check was called " &lt;&lt; callCount &lt;&lt; " times" &lt;&lt; endl;
+    // Output: 1 time
+    
+    return 0;
+}
+</code></pre>
+<hr />
+<h2 id="best-practices-for-logical-operators"><a class="header" href="#best-practices-for-logical-operators">Best Practices for Logical Operators</a></h2>
+<h3 id="1-order-matters-for-safety"><a class="header" href="#1-order-matters-for-safety">1. Order Matters for Safety</a></h3>
+<p><strong>Rule:</strong> Always put safety checks FIRST in AND operations.</p>
+<pre><code class="language-cpp">// ✅ CORRECT: Check for null/zero first
+if (ptr != nullptr &amp;&amp; *ptr &gt; 10) { }
+if (denominator != 0 &amp;&amp; numerator / denominator &gt; 5) { }
+if (!array.empty() &amp;&amp; array[0] == 10) { }
+
+// ❌ WRONG: Dangerous operations first
+if (*ptr &gt; 10 &amp;&amp; ptr != nullptr) { }  // Crash if ptr is null!
+if (numerator / denominator &gt; 5 &amp;&amp; denominator != 0) { }  // Division by zero!
+if (array[0] == 10 &amp;&amp; !array.empty()) { }  // Access invalid memory!
+</code></pre>
+<p><strong>Real-World Example:</strong></p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string* namePtr = nullptr;
+    
+    // ✅ SAFE: Check pointer first
+    if (namePtr != nullptr &amp;&amp; namePtr-&gt;length() &gt; 0) {
+        cout &lt;&lt; "Name: " &lt;&lt; *namePtr &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "No name available" &lt;&lt; endl;
+    }
+    
+    // ❌ This would CRASH:
+    // if (namePtr-&gt;length() &gt; 0 &amp;&amp; namePtr != nullptr) { }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="2-order-matters-for-performance"><a class="header" href="#2-order-matters-for-performance">2. Order Matters for Performance</a></h3>
+<p><strong>Rule:</strong> Put <strong>cheap/fast checks</strong> FIRST, <strong>expensive checks</strong> LAST.</p>
+<pre><code class="language-cpp">int age = 25;
+bool hasComplexPermission() {
+    // Imagine this function does expensive database lookup
+    // Takes 100ms to execute
+    return true;
+}
+
+// ✅ EFFICIENT: Fast check first
+if (age &gt;= 18 &amp;&amp; hasComplexPermission()) {
+    cout &lt;&lt; "Access granted" &lt;&lt; endl;
+}
+// If age &lt; 18, expensive function is never called
+
+// ❌ INEFFICIENT: Expensive check first
+if (hasComplexPermission() &amp;&amp; age &gt;= 18) {
+    cout &lt;&lt; "Access granted" &lt;&lt; endl;
+}
+// Expensive function ALWAYS called, even if age &lt; 18
+</code></pre>
+<p><strong>Another Example:</strong></p>
+<pre><code class="language-cpp">string username = "john";
+bool isDatabaseUserValid(string user) {
+    // Expensive: queries database
+    cout &lt;&lt; "Querying database..." &lt;&lt; endl;
+    return true;
+}
+
+// ✅ EFFICIENT: Check local variable first
+if (!username.empty() &amp;&amp; username.length() &gt; 3 &amp;&amp; isDatabaseUserValid(username)) {
+    cout &lt;&lt; "Valid user" &lt;&lt; endl;
+}
+// Database only queried if basic checks pass
+
+// ❌ INEFFICIENT: Database check first
+if (isDatabaseUserValid(username) &amp;&amp; username.length() &gt; 3) {
+    cout &lt;&lt; "Valid user" &lt;&lt; endl;
+}
+// Database queried every time, even for invalid usernames
+</code></pre>
+<h3 id="3-order-for-or-operations"><a class="header" href="#3-order-for-or-operations">3. Order for OR Operations</a></h3>
+<p><strong>Rule:</strong> Put <strong>most likely to be true</strong> conditions FIRST.</p>
+<pre><code class="language-cpp">bool isWeekend(string day) {
+    // ✅ EFFICIENT: Most common cases first
+    if (day == "Saturday" || day == "Sunday") {
+        return true;
+    }
+    return false;
+}
+
+// In a user role check:
+bool hasAccess() {
+    // Put most common role first
+    // ✅ If 80% users are "member", check that first
+    if (role == "member" || role == "admin" || role == "moderator") {
+        return true;
+    }
+    return false;
+}
+</code></pre>
+<h3 id="4-readability-vs-performance-trade-off"><a class="header" href="#4-readability-vs-performance-trade-off">4. Readability vs Performance Trade-off</a></h3>
+<p><strong>Sometimes clarity is more important than micro-optimization:</strong></p>
+<pre><code class="language-cpp">// Option 1: Optimized but less clear
+if (ptr &amp;&amp; *ptr &gt; 10 &amp;&amp; calculate(ptr)) { }
+
+// Option 2: Clearer with separate checks
+if (ptr != nullptr) {
+    if (*ptr &gt; 10) {
+        if (calculate(ptr)) {
+            // do something
+        }
+    }
+}
+</code></pre>
+<p><strong>Best approach: Balance both:</strong></p>
+<pre><code class="language-cpp">// ✅ GOOD: Clear AND efficient
+bool isValid = (ptr != nullptr);
+bool hasValue = isValid &amp;&amp; (*ptr &gt; 10);
+bool passesCalculation = hasValue &amp;&amp; calculate(ptr);
+
+if (passesCalculation) {
+    // do something
+}
+</code></pre>
+<h3 id="5-complex-conditions---use-parentheses"><a class="header" href="#5-complex-conditions---use-parentheses">5. Complex Conditions - Use Parentheses</a></h3>
+<pre><code class="language-cpp">// ❌ Confusing
+if (a &amp;&amp; b || c &amp;&amp; d) { }
+
+// ✅ Clear with parentheses
+if ((a &amp;&amp; b) || (c &amp;&amp; d)) { }
+
+// Even better with meaningful variables
+bool firstConditionMet = (a &amp;&amp; b);
+bool secondConditionMet = (c &amp;&amp; d);
+if (firstConditionMet || secondConditionMet) { }
+</code></pre>
+<h3 id="6-avoid-side-effects-in-conditions"><a class="header" href="#6-avoid-side-effects-in-conditions">6. Avoid Side Effects in Conditions</a></h3>
+<pre><code class="language-cpp">int count = 0;
+
+// ❌ BAD: Side effect (incrementing) in condition
+if (count++ &gt; 5 &amp;&amp; someFunction()) {
+    // count might not increment if first condition is false!
+}
+
+// ✅ GOOD: Separate side effects
+count++;
+if (count &gt; 5 &amp;&amp; someFunction()) {
+    // Clear and predictable
+}
+</code></pre>
+<hr />
+<h2 id="practical-scenarios"><a class="header" href="#practical-scenarios">Practical Scenarios</a></h2>
+<h3 id="scenario-1-form-validation"><a class="header" href="#scenario-1-form-validation">Scenario 1: Form Validation</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string email, password;
+    
+    cout &lt;&lt; "Enter email: ";
+    cin &gt;&gt; email;
+    cout &lt;&lt; "Enter password: ";
+    cin &gt;&gt; password;
+    
+    // ✅ GOOD: Check simple conditions first
+    if (!email.empty() &amp;&amp; 
+        email.find('@') != string::npos &amp;&amp; 
+        password.length() &gt;= 8) {
+        cout &lt;&lt; "Registration successful!" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Invalid email or password too short" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="scenario-2-safe-array-access"><a class="header" href="#scenario-2-safe-array-access">Scenario 2: Safe Array Access</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int scores[] = {85, 90, 78, 92, 88};
+    int size = 5;
+    int index;
+    
+    cout &lt;&lt; "Enter index to view (0-4): ";
+    cin &gt;&gt; index;
+    
+    // ✅ SAFE: Check bounds before accessing
+    if (index &gt;= 0 &amp;&amp; index &lt; size &amp;&amp; scores[index] &gt;= 80) {
+        cout &lt;&lt; "High score: " &lt;&lt; scores[index] &lt;&lt; endl;
+    } else if (index &gt;= 0 &amp;&amp; index &lt; size) {
+        cout &lt;&lt; "Score: " &lt;&lt; scores[index] &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Invalid index!" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="scenario-3-user-permissions"><a class="header" href="#scenario-3-user-permissions">Scenario 3: User Permissions</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string role = "user";
+    int accountAge = 30;  // days
+    bool emailVerified = true;
+    
+    // ✅ Efficient: Check from least to most restrictive
+    // Most users will fail early checks quickly
+    if (emailVerified &amp;&amp; 
+        accountAge &gt;= 7 &amp;&amp; 
+        (role == "admin" || role == "moderator" || role == "premium")) {
+        cout &lt;&lt; "Access to premium features granted!" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Upgrade to premium for this feature" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="scenario-4-game-damage-calculation"><a class="header" href="#scenario-4-game-damage-calculation">Scenario 4: Game Damage Calculation</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int playerHealth = 50;
+    int armor = 30;
+    int incomingDamage = 40;
+    bool hasShield = true;
+    
+    // ✅ Process shields first (cheaper check)
+    if (hasShield &amp;&amp; incomingDamage &gt; 0) {
+        cout &lt;&lt; "Shield absorbed the damage!" &lt;&lt; endl;
+        hasShield = false;
+    } else if (armor &gt; 0 &amp;&amp; incomingDamage &gt; armor) {
+        incomingDamage -= armor;
+        armor = 0;
+        playerHealth -= incomingDamage;
+        cout &lt;&lt; "Armor damaged! Health: " &lt;&lt; playerHealth &lt;&lt; endl;
+    } else if (armor &gt; 0) {
+        armor -= incomingDamage;
+        cout &lt;&lt; "Armor absorbed damage. Remaining: " &lt;&lt; armor &lt;&lt; endl;
+    } else {
+        playerHealth -= incomingDamage;
+        cout &lt;&lt; "Direct hit! Health: " &lt;&lt; playerHealth &lt;&lt; endl;
+    }
+    
+    if (playerHealth &lt;= 0) {
+        cout &lt;&lt; "Game Over!" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<hr />
+<h2 id="summary-logical-operators"><a class="header" href="#summary-logical-operators">Summary: Logical Operators</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Operator</th><th>Short-Circuit</th><th>When to Use</th><th>Order Strategy</th></tr></thead><tbody>
+<tr><td><code>&amp;&amp;</code></td><td>Stops at first FALSE</td><td>All conditions must be true</td><td>Safety checks first, then expensive checks</td></tr>
+<tr><td><code>||</code></td><td>Stops at first TRUE</td><td>At least one must be true</td><td>Most likely true conditions first</td></tr>
+<tr><td><code>!</code></td><td>No short-circuit</td><td>Reverse a condition</td><td>Use sparingly for clarity</td></tr>
+</tbody></table>
+</div>
+<p><strong>Key Takeaways:</strong></p>
+<ol>
+<li><strong>Safety first</strong>: Always check null/zero/bounds before using</li>
+<li><strong>Performance</strong>: Put cheap checks before expensive ones</li>
+<li><strong>Readability</strong>: Use parentheses for complex conditions</li>
+<li><strong>Predictability</strong>: Avoid side effects in conditions</li>
+<li><strong>Short-circuit is your friend</strong>: Use it to write safer, faster code</li>
+</ol>
+<hr />
+<p><a id="switch-case"></a></p>
+<h2 id="switch-case-statement"><a class="header" href="#switch-case-statement">Switch Case Statement</a></h2>
+<p>Executes different code blocks based on the value of a variable. Better than multiple if-else when checking one variable against many values.</p>
+<h3 id="basic-syntax"><a class="header" href="#basic-syntax">Basic Syntax</a></h3>
+<pre><code class="language-cpp">switch (expression) {
+    case value1:
+        // code for value1
+        break;
+    case value2:
+        // code for value2
+        break;
+    case value3:
+        // code for value3
+        break;
+    default:
+        // code if no case matches
+}
+</code></pre>
+<p><strong>⚠️ Important:</strong></p>
+<ul>
+<li><code>break</code> is crucial - without it, execution "falls through" to next case</li>
+<li><code>switch</code> works with <code>int</code>, <code>char</code>, and <code>enum</code> (NOT with <code>string</code> or <code>float</code>)</li>
+<li><code>default</code> is optional but recommended</li>
+</ul>
+<h3 id="example-1-menu-system"><a class="header" href="#example-1-menu-system">Example 1: Menu System</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int choice;
+    cout &lt;&lt; "=== Menu ===" &lt;&lt; endl;
+    cout &lt;&lt; "1. Coffee" &lt;&lt; endl;
+    cout &lt;&lt; "2. Tea" &lt;&lt; endl;
+    cout &lt;&lt; "3. Juice" &lt;&lt; endl;
+    cout &lt;&lt; "4. Water" &lt;&lt; endl;
+    cout &lt;&lt; "Enter your choice (1-4): ";
+    cin &gt;&gt; choice;
+    
+    switch (choice) {
+        case 1:
+            cout &lt;&lt; "You ordered Coffee. Price: $3" &lt;&lt; endl;
+            break;
+        case 2:
+            cout &lt;&lt; "You ordered Tea. Price: $2" &lt;&lt; endl;
+            break;
+        case 3:
+            cout &lt;&lt; "You ordered Juice. Price: $4" &lt;&lt; endl;
+            break;
+        case 4:
+            cout &lt;&lt; "You ordered Water. Price: Free!" &lt;&lt; endl;
+            break;
+        default:
+            cout &lt;&lt; "Invalid choice!" &lt;&lt; endl;
+    }
+    
+    return 0;
+}
+</code></pre>
+<h3 id="example-2-day-of-the-week"><a class="header" href="#example-2-day-of-the-week">Example 2: Day of the Week</a></h3>
+<pre><code class="language-cpp">char day;
+cout &lt;&lt; "Enter first letter of day (M/T/W/F/S): ";
+cin &gt;&gt; day;
+
+switch (day) {
+    case 'M':
+        cout &lt;&lt; "Monday" &lt;&lt; endl;
+        break;
+    case 'T':
+        cout &lt;&lt; "Tuesday or Thursday" &lt;&lt; endl;
+        break;
+    case 'W':
+        cout &lt;&lt; "Wednesday" &lt;&lt; endl;
+        break;
+    case 'F':
+        cout &lt;&lt; "Friday" &lt;&lt; endl;
+        break;
+    case 'S':
+        cout &lt;&lt; "Saturday or Sunday" &lt;&lt; endl;
+        break;
+    default:
+        cout &lt;&lt; "Invalid input!" &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="fall-through-cases-intentional"><a class="header" href="#fall-through-cases-intentional">Fall-Through Cases (Intentional)</a></h3>
+<p>Sometimes you want multiple cases to execute the same code:</p>
+<pre><code class="language-cpp">int month;
+cout &lt;&lt; "Enter month number (1-12): ";
+cin &gt;&gt; month;
+
+switch (month) {
+    case 12:
+    case 1:
+    case 2:
+        cout &lt;&lt; "Winter" &lt;&lt; endl;
+        break;
+    case 3:
+    case 4:
+    case 5:
+        cout &lt;&lt; "Spring" &lt;&lt; endl;
+        break;
+    case 6:
+    case 7:
+    case 8:
+        cout &lt;&lt; "Summer" &lt;&lt; endl;
+        break;
+    case 9:
+    case 10:
+    case 11:
+        cout &lt;&lt; "Fall" &lt;&lt; endl;
+        break;
+    default:
+        cout &lt;&lt; "Invalid month!" &lt;&lt; endl;
+}
+</code></pre>
+<h3 id="calculator-example"><a class="header" href="#calculator-example">Calculator Example</a></h3>
+<pre><code class="language-cpp">double num1, num2;
+char operation;
+
+cout &lt;&lt; "Enter first number: ";
+cin &gt;&gt; num1;
+cout &lt;&lt; "Enter operation (+, -, *, /): ";
+cin &gt;&gt; operation;
+cout &lt;&lt; "Enter second number: ";
+cin &gt;&gt; num2;
+
+switch (operation) {
+    case '+':
+        cout &lt;&lt; "Result: " &lt;&lt; (num1 + num2) &lt;&lt; endl;
+        break;
+    case '-':
+        cout &lt;&lt; "Result: " &lt;&lt; (num1 - num2) &lt;&lt; endl;
+        break;
+    case '*':
+        cout &lt;&lt; "Result: " &lt;&lt; (num1 * num2) &lt;&lt; endl;
+        break;
+    case '/':
+        if (num2 != 0) {
+            cout &lt;&lt; "Result: " &lt;&lt; (num1 / num2) &lt;&lt; endl;
+        } else {
+            cout &lt;&lt; "Error: Division by zero!" &lt;&lt; endl;
+        }
+        break;
+    default:
+        cout &lt;&lt; "Invalid operation!" &lt;&lt; endl;
+}
+</code></pre>
+<h2 id="-back-to-table-of-contents"><a class="header" href="#-back-to-table-of-contents"><a href="2_control_flow.html#table-of-contents">↑ Back to Table of Contents</a></a></h2>
+<h2 id="loops"><a class="header" href="#loops">Loops</a></h2>
+<p>Loops allow you to execute code repeatedly. C++ has three types of loops.</p>
+<h3 id="1-for-loop"><a class="header" href="#1-for-loop">1. for Loop</a></h3>
+<p>Best when you know how many times to repeat.</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">for (initialization; condition; update) {
+    // code to repeat
+}
+</code></pre>
+<p><strong>Execution Flow:</strong></p>
+<ol>
+<li><strong>Initialization</strong>: Runs once at the start</li>
+<li><strong>Condition</strong>: Checked before each iteration</li>
+<li><strong>Code Block</strong>: Executes if condition is true</li>
+<li><strong>Update</strong>: Runs after each iteration</li>
+<li>Repeat steps 2-4 until condition is false</li>
+</ol>
+<p><strong>Example 1: Print 1 to 10</strong></p>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 10; i++) {
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 5 6 7 8 9 10
+</code></pre>
+<p><strong>Example 2: Multiplication Table</strong></p>
+<pre><code class="language-cpp">int num;
+cout &lt;&lt; "Enter a number: ";
+cin &gt;&gt; num;
+
+cout &lt;&lt; "Multiplication table of " &lt;&lt; num &lt;&lt; ":" &lt;&lt; endl;
+for (int i = 1; i &lt;= 10; i++) {
+    cout &lt;&lt; num &lt;&lt; " x " &lt;&lt; i &lt;&lt; " = " &lt;&lt; (num * i) &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>Example 3: Sum of Numbers</strong></p>
+<pre><code class="language-cpp">int n, sum = 0;
+cout &lt;&lt; "Enter a number: ";
+cin &gt;&gt; n;
+
+for (int i = 1; i &lt;= n; i++) {
+    sum += i;  // sum = sum + i
+}
+cout &lt;&lt; "Sum of first " &lt;&lt; n &lt;&lt; " numbers: " &lt;&lt; sum &lt;&lt; endl;
+</code></pre>
+<p><strong>Example 4: Counting Down</strong></p>
+<pre><code class="language-cpp">for (int i = 10; i &gt;= 1; i--) {
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+cout &lt;&lt; "Blast off!" &lt;&lt; endl;
+// Output: 10 9 8 7 6 5 4 3 2 1 Blast off!
+</code></pre>
+<p><strong>Example 5: Nested Loops (Pattern)</strong></p>
+<pre><code class="language-cpp">// Print a square pattern
+for (int row = 1; row &lt;= 5; row++) {
+    for (int col = 1; col &lt;= 5; col++) {
+        cout &lt;&lt; "* ";
+    }
+    cout &lt;&lt; endl;
+}
+// Output:
+// * * * * *
+// * * * * *
+// * * * * *
+// * * * * *
+// * * * * *
+</code></pre>
+<h3 id="2-while-loop"><a class="header" href="#2-while-loop">2. while Loop</a></h3>
+<p>Best when you don't know how many times to repeat (condition-based).</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">while (condition) {
+    // code to repeat
+}
+</code></pre>
+<p><strong>Example 1: Basic Counter</strong></p>
+<pre><code class="language-cpp">int i = 1;
+while (i &lt;= 5) {
+    cout &lt;&lt; i &lt;&lt; " ";
+    i++;
+}
+// Output: 1 2 3 4 5
+</code></pre>
+<p><strong>Example 2: User Input Validation</strong></p>
+<pre><code class="language-cpp">int password;
+cout &lt;&lt; "Enter password (1234): ";
+cin &gt;&gt; password;
+
+while (password != 1234) {
+    cout &lt;&lt; "Wrong password! Try again: ";
+    cin &gt;&gt; password;
+}
+cout &lt;&lt; "Access granted!" &lt;&lt; endl;
+</code></pre>
+<p><strong>Example 3: Menu System</strong></p>
+<pre><code class="language-cpp">int choice = 0;
+
+while (choice != 4) {
+    cout &lt;&lt; "\n=== Menu ===" &lt;&lt; endl;
+    cout &lt;&lt; "1. Start Game" &lt;&lt; endl;
+    cout &lt;&lt; "2. Load Game" &lt;&lt; endl;
+    cout &lt;&lt; "3. Settings" &lt;&lt; endl;
+    cout &lt;&lt; "4. Exit" &lt;&lt; endl;
+    cout &lt;&lt; "Choice: ";
+    cin &gt;&gt; choice;
+    
+    switch (choice) {
+        case 1:
+            cout &lt;&lt; "Starting game..." &lt;&lt; endl;
+            break;
+        case 2:
+            cout &lt;&lt; "Loading game..." &lt;&lt; endl;
+            break;
+        case 3:
+            cout &lt;&lt; "Opening settings..." &lt;&lt; endl;
+            break;
+        case 4:
+            cout &lt;&lt; "Goodbye!" &lt;&lt; endl;
+            break;
+        default:
+            cout &lt;&lt; "Invalid choice!" &lt;&lt; endl;
+    }
+}
+</code></pre>
+<p><strong>Example 4: Sum Until Negative</strong></p>
+<pre><code class="language-cpp">int num, sum = 0;
+
+cout &lt;&lt; "Enter numbers (negative to stop):" &lt;&lt; endl;
+cin &gt;&gt; num;
+
+while (num &gt;= 0) {
+    sum += num;
+    cin &gt;&gt; num;
+}
+
+cout &lt;&lt; "Sum: " &lt;&lt; sum &lt;&lt; endl;
+</code></pre>
+<h3 id="3-do-while-loop"><a class="header" href="#3-do-while-loop">3. do-while Loop</a></h3>
+<p>Similar to while, but <strong>always executes at least once</strong> (checks condition at the end).</p>
+<p><strong>Syntax:</strong></p>
+<pre><code class="language-cpp">do {
+    // code to repeat (runs at least once)
+} while (condition);
+</code></pre>
+<p><strong>Example 1: Basic Usage</strong></p>
+<pre><code class="language-cpp">int i = 1;
+do {
+    cout &lt;&lt; i &lt;&lt; " ";
+    i++;
+} while (i &lt;= 5);
+// Output: 1 2 3 4 5
+</code></pre>
+<p><strong>Example 2: Menu (Guaranteed to Show Once)</strong></p>
+<pre><code class="language-cpp">char choice;
+
+do {
+    cout &lt;&lt; "\n=== Options ===" &lt;&lt; endl;
+    cout &lt;&lt; "A. Add" &lt;&lt; endl;
+    cout &lt;&lt; "B. Delete" &lt;&lt; endl;
+    cout &lt;&lt; "C. View" &lt;&lt; endl;
+    cout &lt;&lt; "Q. Quit" &lt;&lt; endl;
+    cout &lt;&lt; "Choice: ";
+    cin &gt;&gt; choice;
+    
+    switch (choice) {
+        case 'A':
+        case 'a':
+            cout &lt;&lt; "Adding..." &lt;&lt; endl;
+            break;
+        case 'B':
+        case 'b':
+            cout &lt;&lt; "Deleting..." &lt;&lt; endl;
+            break;
+        case 'C':
+        case 'c':
+            cout &lt;&lt; "Viewing..." &lt;&lt; endl;
+            break;
+        case 'Q':
+        case 'q':
+            cout &lt;&lt; "Exiting..." &lt;&lt; endl;
+            break;
+        default:
+            cout &lt;&lt; "Invalid choice!" &lt;&lt; endl;
+    }
+} while (choice != 'Q' &amp;&amp; choice != 'q');
+</code></pre>
+<p><strong>Example 3: Input Validation</strong></p>
+<pre><code class="language-cpp">int age;
+
+do {
+    cout &lt;&lt; "Enter your age (1-120): ";
+    cin &gt;&gt; age;
+    
+    if (age &lt; 1 || age &gt; 120) {
+        cout &lt;&lt; "Invalid age! Please try again." &lt;&lt; endl;
+    }
+} while (age &lt; 1 || age &gt; 120);
+
+cout &lt;&lt; "Age accepted: " &lt;&lt; age &lt;&lt; endl;
+</code></pre>
+<h3 id="loop-comparison"><a class="header" href="#loop-comparison">Loop Comparison</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Loop Type</th><th>When to Use</th><th>Minimum Executions</th></tr></thead><tbody>
+<tr><td><code>for</code></td><td>Know exact iterations</td><td>0</td></tr>
+<tr><td><code>while</code></td><td>Unknown iterations, condition first</td><td>0</td></tr>
+<tr><td><code>do-while</code></td><td>Unknown iterations, run at least once</td><td>1</td></tr>
+</tbody></table>
+</div>
+<p><strong>Choosing the Right Loop:</strong></p>
+<pre><code class="language-cpp">// for - when you know the count
+for (int i = 0; i &lt; 10; i++) { }
+
+// while - checking condition first
+while (userInput != "quit") { }
+
+// do-while - must run at least once (like menus)
+do {
+    showMenu();
+} while (choice != 0);
+</code></pre>
+<hr />
+<h2 id="break-and-continue"><a class="header" href="#break-and-continue">Break and Continue</a></h2>
+<p>Special statements that control loop execution.</p>
+<h3 id="break-statement"><a class="header" href="#break-statement">break Statement</a></h3>
+<p><strong>Purpose:</strong> Immediately <strong>exits</strong> the loop completely.</p>
+<p><strong>Example 1: Exit on Condition</strong></p>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 10; i++) {
+    if (i == 6) {
+        break;  // Stop loop when i equals 6
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 5
+</code></pre>
+<p><strong>Example 2: Search in Loop</strong></p>
+<pre><code class="language-cpp">int numbers[] = {10, 20, 30, 40, 50};
+int target = 30;
+bool found = false;
+
+for (int i = 0; i &lt; 5; i++) {
+    if (numbers[i] == target) {
+        cout &lt;&lt; "Found " &lt;&lt; target &lt;&lt; " at index " &lt;&lt; i &lt;&lt; endl;
+        found = true;
+        break;  // No need to continue searching
+    }
+}
+
+if (!found) {
+    cout &lt;&lt; target &lt;&lt; " not found!" &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>Example 3: Exit on User Command</strong></p>
+<pre><code class="language-cpp">while (true) {  // Infinite loop
+    string command;
+    cout &lt;&lt; "Enter command (type 'exit' to quit): ";
+    cin &gt;&gt; command;
+    
+    if (command == "exit") {
+        cout &lt;&lt; "Goodbye!" &lt;&lt; endl;
+        break;  // Exit the infinite loop
+    }
+    
+    cout &lt;&lt; "You entered: " &lt;&lt; command &lt;&lt; endl;
+}
+</code></pre>
+<p><strong>Example 4: break in switch (already seen)</strong></p>
+<pre><code class="language-cpp">switch (choice) {
+    case 1:
+        cout &lt;&lt; "Option 1" &lt;&lt; endl;
+        break;  // Prevents fall-through
+    case 2:
+        cout &lt;&lt; "Option 2" &lt;&lt; endl;
+        break;
+}
+</code></pre>
+<h3 id="continue-statement"><a class="header" href="#continue-statement">continue Statement</a></h3>
+<p><strong>Purpose:</strong> <strong>Skips</strong> the rest of current iteration and moves to the next iteration.</p>
+<p><strong>Example 1: Skip Specific Values</strong></p>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 10; i++) {
+    if (i == 5) {
+        continue;  // Skip when i is 5
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 6 7 8 9 10 (5 is skipped)
+</code></pre>
+<p><strong>Example 2: Print Only Odd Numbers</strong></p>
+<pre><code class="language-cpp">for (int i = 1; i &lt;= 10; i++) {
+    if (i % 2 == 0) {
+        continue;  // Skip even numbers
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 3 5 7 9
+</code></pre>
+<p><strong>Example 3: Skip Negative Numbers</strong></p>
+<pre><code class="language-cpp">int numbers[] = {5, -2, 8, -1, 10, -3, 7};
+
+cout &lt;&lt; "Positive numbers: ";
+for (int i = 0; i &lt; 7; i++) {
+    if (numbers[i] &lt; 0) {
+        continue;  // Skip negative numbers
+    }
+    cout &lt;&lt; numbers[i] &lt;&lt; " ";
+}
+// Output: Positive numbers: 5 8 10 7
+</code></pre>
+<p><strong>Example 4: Input Validation</strong></p>
+<pre><code class="language-cpp">int sum = 0;
+for (int i = 0; i &lt; 5; i++) {
+    int num;
+    cout &lt;&lt; "Enter number " &lt;&lt; (i+1) &lt;&lt; ": ";
+    cin &gt;&gt; num;
+    
+    if (num &lt; 0) {
+        cout &lt;&lt; "Negative numbers not allowed. Skipping..." &lt;&lt; endl;
+        continue;  // Skip this iteration
+    }
+    
+    sum += num;
+}
+cout &lt;&lt; "Sum of valid numbers: " &lt;&lt; sum &lt;&lt; endl;
+</code></pre>
+<h3 id="break-vs-continue-comparison"><a class="header" href="#break-vs-continue-comparison">break vs continue Comparison</a></h3>
+<pre><code class="language-cpp">// Example demonstrating both
+
+cout &lt;&lt; "Using break:" &lt;&lt; endl;
+for (int i = 1; i &lt;= 10; i++) {
+    if (i == 6) {
+        break;  // Exit loop completely
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 5
+
+cout &lt;&lt; "\n\nUsing continue:" &lt;&lt; endl;
+for (int i = 1; i &lt;= 10; i++) {
+    if (i == 6) {
+        continue;  // Skip only 6
+    }
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+// Output: 1 2 3 4 5 7 8 9 10
+</code></pre>
+<p><strong>Visual Difference:</strong></p>
+<div class="table-wrapper"><table><thead><tr><th>Statement</th><th>Effect</th><th>Use When</th></tr></thead><tbody>
+<tr><td><code>break</code></td><td>Exits loop entirely</td><td>Found what you need, or need to stop</td></tr>
+<tr><td><code>continue</code></td><td>Skips to next iteration</td><td>Need to skip certain values but keep looping</td></tr>
+</tbody></table>
+</div>
+<h3 id="nested-loop-control"><a class="header" href="#nested-loop-control">Nested Loop Control</a></h3>
+<pre><code class="language-cpp">// break only exits the innermost loop
+for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
+        if (j == 2) {
+            break;  // Only exits inner loop
+        }
+        cout &lt;&lt; i &lt;&lt; "," &lt;&lt; j &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+}
+// Output:
+// 1,1
+// 2,1
+// 3,1
+
+// continue only affects current loop
+for (int i = 1; i &lt;= 3; i++) {
+    for (int j = 1; j &lt;= 3; j++) {
+        if (j == 2) {
+            continue;  // Skip j=2 in inner loop
+        }
+        cout &lt;&lt; i &lt;&lt; "," &lt;&lt; j &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+}
+// Output:
+// 1,1 1,3
+// 2,1 2,3
+// 3,1 3,3
+</code></pre>
+<hr />
+<h2 id="best-practices"><a class="header" href="#best-practices">Best Practices</a></h2>
+<h3 id="1-choosing-the-right-control-structure"><a class="header" href="#1-choosing-the-right-control-structure">1. Choosing the Right Control Structure</a></h3>
+<pre><code class="language-cpp">// ✅ Use switch for multiple discrete values
+switch (menuChoice) {
+    case 1: /* ... */ break;
+    case 2: /* ... */ break;
+}
+
+// ✅ Use if-else for ranges or complex conditions
+if (score &gt;= 90) {
+    // ...
+} else if (score &gt;= 80) {
+    // ...
+}
+
+// ✅ Use for loop when iteration count is known
+for (int i = 0; i &lt; 10; i++) { }
+
+// ✅ Use while when condition-based
+while (userInput != "quit") { }
+
+// ✅ Use do-while for at-least-once execution
+do {
+    showMenu();
+} while (choice != 0);
+</code></pre>
+<h3 id="2-always-use-braces"><a class="header" href="#2-always-use-braces">2. Always Use Braces</a></h3>
+<pre><code class="language-cpp">// ❌ Dangerous (easy to make mistakes)
+if (condition)
+    doSomething();
+
+// ✅ Safe and clear
+if (condition) {
+    doSomething();
+}
+</code></pre>
+<h3 id="3-avoid-deep-nesting"><a class="header" href="#3-avoid-deep-nesting">3. Avoid Deep Nesting</a></h3>
+<pre><code class="language-cpp">// ❌ Hard to read
+if (condition1) {
+    if (condition2) {
+        if (condition3) {
+            // deeply nested code
+        }
+    }
+}
+
+// ✅ Better - early returns
+if (!condition1) return;
+if (!condition2) return;
+if (!condition3) return;
+// main code here
+</code></pre>
+<h3 id="4-initialize-loop-variables"><a class="header" href="#4-initialize-loop-variables">4. Initialize Loop Variables</a></h3>
+<pre><code class="language-cpp">// ✅ Always initialize
+for (int i = 0; i &lt; 10; i++) { }
+
+// ❌ Uninitialized variable
+int i;
+for (i; i &lt; 10; i++) { }  // i has garbage value initially
+</code></pre>
+<h3 id="5-avoid-infinite-loops-unless-intentional"><a class="header" href="#5-avoid-infinite-loops-unless-intentional">5. Avoid Infinite Loops (Unless Intentional)</a></h3>
+<pre><code class="language-cpp">// ❌ Accidental infinite loop
+for (int i = 0; i &lt; 10; i--) {  // i decreases!
+    // never ends
+}
+
+// ✅ Intentional infinite loop with break
+while (true) {
+    if (exitCondition) {
+        break;
+    }
+}
+</code></pre>
+<h3 id="6-use-meaningful-variable-names"><a class="header" href="#6-use-meaningful-variable-names">6. Use Meaningful Variable Names</a></h3>
+<pre><code class="language-cpp">// ❌ Unclear
+for (int i = 0; i &lt; n; i++) { }
+
+// ✅ Clear
+for (int studentIndex = 0; studentIndex &lt; totalStudents; studentIndex++) { }
+
+// ✅ Or use range-based for loop
+for (auto student : students) { }
+</code></pre>
+<h3 id="7-avoid-magic-numbers"><a class="header" href="#7-avoid-magic-numbers">7. Avoid Magic Numbers</a></h3>
+<pre><code class="language-cpp">// ❌ What does 7 mean?
+for (int i = 0; i &lt; 7; i++) { }
+
+// ✅ Use constants
+const int DAYS_IN_WEEK = 7;
+for (int day = 0; day &lt; DAYS_IN_WEEK; day++) { }
+</code></pre>
+<h3 id="8-break-and-continue-guidelines"><a class="header" href="#8-break-and-continue-guidelines">8. break and continue Guidelines</a></h3>
+<pre><code class="language-cpp">// ✅ Use break to exit when found
+for (int i = 0; i &lt; size; i++) {
+    if (array[i] == target) {
+        found = true;
+        break;  // No need to continue searching
+    }
+}
+
+// ✅ Use continue to skip invalid data
+for (int i = 0; i &lt; size; i++) {
+    if (data[i] &lt; 0) {
+        continue;  // Skip negative values
+    }
+    processData(data[i]);
+}
+</code></pre>
+<hr />
+<h2 id="practice-problems"><a class="header" href="#practice-problems">Practice Problems</a></h2>
+<p>Test your understanding with these exercises:</p>
+<h3 id="problem-1-even-or-odd-checker"><a class="header" href="#problem-1-even-or-odd-checker">Problem 1: Even or Odd Checker</a></h3>
+<p>Write a program that asks for a number and tells if it's even or odd.</p>
+<h3 id="problem-2-simple-calculator"><a class="header" href="#problem-2-simple-calculator">Problem 2: Simple Calculator</a></h3>
+<p>Create a calculator using switch-case that performs +, -, *, / operations.</p>
+<h3 id="problem-3-factorial-calculator"><a class="header" href="#problem-3-factorial-calculator">Problem 3: Factorial Calculator</a></h3>
+<p>Calculate factorial of a number using a loop. (5! = 5 × 4 × 3 × 2 × 1 = 120)</p>
+<h3 id="problem-4-prime-number-checker"><a class="header" href="#problem-4-prime-number-checker">Problem 4: Prime Number Checker</a></h3>
+<p>Check if a number is prime (only divisible by 1 and itself).</p>
+<h3 id="problem-5-pattern-printing"><a class="header" href="#problem-5-pattern-printing">Problem 5: Pattern Printing</a></h3>
+<p>Print the following pattern:</p>
+<pre><code>*
+**
+***
+****
+*****
+</code></pre>
+<h3 id="problem-6-number-guessing-game"><a class="header" href="#problem-6-number-guessing-game">Problem 6: Number Guessing Game</a></h3>
+<p>Create a game where the computer picks a random number (1-100) and the user guesses. Use loops and break/continue appropriately.</p>
+<hr />
+<h2 id="summary-1"><a class="header" href="#summary-1">Summary</a></h2>
+<p><strong>Decision Making:</strong></p>
+<ul>
+<li>Use <code>if-else</code> for conditions and ranges</li>
+<li>Use <code>switch-case</code> for multiple discrete values</li>
+<li>Use ternary operator <code>? :</code> for simple conditions</li>
+</ul>
+<p><strong>Loops:</strong></p>
+<ul>
+<li><code>for</code>: When you know iteration count</li>
+<li><code>while</code>: Condition checked first</li>
+<li><code>do-while</code>: Runs at least once</li>
+</ul>
+<p><strong>Control Statements:</strong></p>
+<ul>
+<li><code>break</code>: Exit loop completely</li>
+<li><code>continue</code>: Skip current iteration</li>
+</ul>
+<p><strong>Key Takeaways:</strong></p>
+<ul>
+<li>Always use braces <code>{}</code> for clarity</li>
+<li>Initialize variables before loops</li>
+<li>Avoid infinite loops (unless intentional)</li>
+<li>Use meaningful variable names</li>
+<li>Comment complex logic</li>
+<li>Choose the right control structure for the task</li>
+</ul>
+<p>With these fundamentals, you can now control the flow of any C++ program! 🚀</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="understanding-memory-layout-and-storage-classes-in-c"><a class="header" href="#understanding-memory-layout-and-storage-classes-in-c">Understanding Memory Layout and Storage Classes in C++</a></h1>
+<p>C++ programs are organized in memory into several <strong>sections</strong> or
+<strong>segments</strong>. Understanding these helps us know where variables are
+stored, how they persist, and their lifetimes.</p>
+<hr />
+<h2 id="-sections-of-a-c-program-in-memory"><a class="header" href="#-sections-of-a-c-program-in-memory">🧩 Sections of a C++ Program in Memory</a></h2>
+<p>A typical C++ program's memory layout looks like this:</p>
+<pre><code>+---------------------------+
+|        Stack              |
+|   (local variables)       |
++---------------------------+
+|        Heap               |
+| (dynamic allocations)     |
++---------------------------+
+|   Uninitialized Data (.bss)|
+| (global/static = 0)       |
++---------------------------+
+|   Initialized Data (.data) |
+| (global/static ≠ 0)       |
++---------------------------+
+|         Code (.text)       |
+| (compiled instructions)    |
++---------------------------+
+</code></pre>
+<h3 id="1-code-section-text"><a class="header" href="#1-code-section-text">1. <strong>Code Section (.text)</strong></a></h3>
+<ul>
+<li>Contains the <strong>compiled instructions</strong> of your program.</li>
+<li>Read-only to prevent accidental modification of executable code.</li>
+<li>Example: function bodies.</li>
+</ul>
+<pre><code class="language-cpp">void greet() { 
+    std::cout &lt;&lt; "Hello, World!"; 
+}
+</code></pre>
+<h3 id="2-initialized-data-section-data"><a class="header" href="#2-initialized-data-section-data">2. <strong>Initialized Data Section (.data)</strong></a></h3>
+<ul>
+<li>Stores <strong>global</strong> and <strong>static</strong> variables <strong>initialized</strong> with a
+non-zero value.</li>
+<li>Exists throughout the program lifetime.</li>
+</ul>
+<pre><code class="language-cpp">int global_var = 10;  // Stored in .data
+</code></pre>
+<h3 id="3-uninitialized-data-section-bss"><a class="header" href="#3-uninitialized-data-section-bss">3. <strong>Uninitialized Data Section (.bss)</strong></a></h3>
+<ul>
+<li>Stores <strong>global</strong> and <strong>static</strong> variables <strong>initialized to zero</strong>
+or <strong>not initialized</strong>.</li>
+<li>Allocated at runtime, initialized to zero automatically.</li>
+</ul>
+<pre><code class="language-cpp">static int counter;   // Stored in .bss (default 0)
+</code></pre>
+<h3 id="4-heap-section"><a class="header" href="#4-heap-section">4. <strong>Heap Section</strong></a></h3>
+<ul>
+<li>Used for <strong>dynamic memory allocation</strong> via <code>new</code>, <code>malloc</code>, etc.</li>
+<li>Managed manually by the programmer.</li>
+<li>Grows upward.</li>
+</ul>
+<pre><code class="language-cpp">int* ptr = new int(5); // Stored in heap
+</code></pre>
+<h3 id="5-stack-section"><a class="header" href="#5-stack-section">5. <strong>Stack Section</strong></a></h3>
+<ul>
+<li>Used for <strong>function calls</strong> and <strong>local variables</strong>.</li>
+<li>Memory is automatically managed (pushed and popped).</li>
+<li>Grows downward.</li>
+</ul>
+<pre><code class="language-cpp">void foo() {
+    int local = 42; // Stored in stack
+}
+</code></pre>
+<hr />
+<h2 id="-storage-classes-in-c"><a class="header" href="#-storage-classes-in-c">⚙️ Storage Classes in C++</a></h2>
+<p>Storage classes define the <strong>scope</strong>, <strong>lifetime</strong>, and <strong>visibility</strong>
+of variables.</p>
+<div class="table-wrapper"><table><thead><tr><th>Storage Class</th><th>Keyword</th><th>Default Value</th><th>Scope</th><th>Lifetime</th><th>Memory Section</th></tr></thead><tbody>
+<tr><td>Automatic</td><td><code>auto</code> (default)</td><td>Garbage</td><td>Local</td><td>Until function returns</td><td>Stack</td></tr>
+<tr><td>Register</td><td><code>register</code></td><td>Garbage</td><td>Local</td><td>Until function returns</td><td>CPU Register / Stack</td></tr>
+<tr><td>Static (local)</td><td><code>static</code></td><td>Zero</td><td>Local</td><td>Entire program</td><td><code>.data</code> or <code>.bss</code></td></tr>
+<tr><td>Static (global)</td><td><code>static</code></td><td>Zero</td><td>Global</td><td>Entire program</td><td><code>.data</code> or <code>.bss</code></td></tr>
+<tr><td>Extern</td><td><code>extern</code></td><td>Depends</td><td>Global</td><td>Entire program</td><td><code>.data</code> or <code>.bss</code></td></tr>
+<tr><td>Mutable</td><td><code>mutable</code></td><td>Depends</td><td>Class member</td><td>Until object destroyed</td><td>Heap/Stack depending on object</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="-mapping-storage-classes-to-memory-sections"><a class="header" href="#-mapping-storage-classes-to-memory-sections">🧠 Mapping Storage Classes to Memory Sections</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Example</th><th>Storage Class</th><th>Memory Section</th></tr></thead><tbody>
+<tr><td><code>int x = 5;</code> (inside main)</td><td>auto</td><td>Stack</td></tr>
+<tr><td><code>static int count;</code></td><td>static</td><td>.bss</td></tr>
+<tr><td><code>int global = 10;</code></td><td>extern/global</td><td>.data</td></tr>
+<tr><td><code>int* p = new int(3);</code></td><td>auto + heap allocation</td><td>Heap</td></tr>
+<tr><td><code>register int r = 5;</code></td><td>register</td><td>Register / Stack</td></tr>
+</tbody></table>
+</div>
+<h2 id="-example-program"><a class="header" href="#-example-program">🔍 Example Program</a></h2>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int global_var = 10;        // .data
+static int static_global;   // .bss
+
+void demo() {
+    int local = 5;          // stack
+    static int static_local = 7; // .data
+    int* heap_ptr = new int(42); // heap
+    cout &lt;&lt; "Local: " &lt;&lt; local &lt;&lt; ", Heap: " &lt;&lt; *heap_ptr &lt;&lt; endl;
+    delete heap_ptr;
+}
+
+int main() {
+    demo();
+    return 0;
+}
+</code></pre>
+<hr />
+<h2 id="-diagram-complete-memory-layout"><a class="header" href="#-diagram-complete-memory-layout">🧭 Diagram: Complete Memory Layout</a></h2>
+<pre><code>        +----------------------------------+
+        |           Stack                  |
+        |   - Function call frames         |
+        |   - Local variables              |
+        +----------------------------------+
+        |           Heap                   |
+        |   - Dynamic memory               |
+        +----------------------------------+
+        |   Uninitialized (.bss)           |
+        |   - static int x;                |
+        |   - int global_uninit;           |
+        +----------------------------------+
+        |   Initialized (.data)            |
+        |   - int global_init = 5;         |
+        |   - static int local_init = 7;   |
+        +----------------------------------+
+        |           Code (.text)           |
+        |   - main(), demo(), etc.         |
+        +----------------------------------+
+</code></pre>
+<hr />
+<h2 id="-summary"><a class="header" href="#-summary">🧩 Summary</a></h2>
+<ul>
+<li><strong>Stack:</strong> Local and temporary data.</li>
+<li><strong>Heap:</strong> Dynamic runtime allocations.</li>
+<li><strong>.data:</strong> Initialized globals/statics.</li>
+<li><strong>.bss:</strong> Zero-initialized globals/statics.</li>
+<li><strong>.text:</strong> Program instructions.</li>
+</ul>
+<hr />
+<h2 id="-understanding-static-variables-in-depth"><a class="header" href="#-understanding-static-variables-in-depth">🧱 Understanding Static Variables in Depth</a></h2>
+<h3 id="what-makes-static-special"><a class="header" href="#what-makes-static-special">What Makes <code>static</code> Special?</a></h3>
+<ul>
+<li>A <strong>static variable</strong> inside a function is <strong>initialized only
+once</strong>, not every time the function is called.</li>
+<li>It <strong>retains its value</strong> between function calls.</li>
+<li>It has <strong>local scope</strong> (not visible outside the function) but
+<strong>global lifetime</strong>.</li>
+</ul>
+<h3 id="key-points"><a class="header" href="#key-points">Key Points:</a></h3>
+<ul>
+<li>Initialized only once at program startup (if not explicitly
+initialized, it defaults to zero).</li>
+<li>Memory is allocated in the <strong>.data</strong> (if initialized) or <strong>.bss</strong>
+(if uninitialized) section.</li>
+<li>Value persists across multiple calls to the same function.</li>
+</ul>
+<h3 id="example"><a class="header" href="#example">Example:</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void counterFunction() {
+    static int count = 0; // initialized once
+    count++;
+    cout &lt;&lt; "Count = " &lt;&lt; count &lt;&lt; endl;
+}
+
+int main() {
+    counterFunction();  // Output: Count = 1
+    counterFunction();  // Output: Count = 2
+    counterFunction();  // Output: Count = 3
+    return 0;
+}
+</code></pre>
+<h3 id="how-it-works-internally"><a class="header" href="#how-it-works-internally">How It Works Internally:</a></h3>
+<ol>
+<li>The first time <code>counterFunction()</code> is called, <code>count</code> is initialized
+to <code>0</code>.</li>
+<li>On subsequent calls, <code>count</code> retains its last value instead of
+reinitializing.</li>
+<li>This behavior makes static variables ideal for maintaining <strong>state</strong>
+between function calls.</li>
+</ol>
+<h3 id="visual-representation"><a class="header" href="#visual-representation">Visual Representation:</a></h3>
+<pre><code>+---------------------------------------------+
+| Function Call Stack                         |
+|   local variables -&gt; destroyed after return  |
++---------------------------------------------+
+| .data section                               |
+|   static int count = 0;  ← persists forever |
++---------------------------------------------+
+</code></pre>
+<p>This shows that even though <code>count</code> is declared inside a function, its
+memory <strong>does not live on the stack</strong>.<br />
+Instead, it resides in the <strong>data segment</strong>, making it available
+throughout the program's execution.</p>
+<hr />
+<h3 id="summary-table-for-static"><a class="header" href="#summary-table-for-static">Summary Table for <code>static</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Property</th><th>Local Static</th><th>Global Static</th></tr></thead><tbody>
+<tr><td>Scope</td><td>Within function</td><td>Within translation unit (.cpp file)</td></tr>
+<tr><td>Lifetime</td><td>Entire program</td><td>Entire program</td></tr>
+<tr><td>Initialization</td><td>Once only</td><td>Once only</td></tr>
+<tr><td>Memory Section</td><td>.data / .bss</td><td>.data / .bss</td></tr>
+<tr><td>Typical Use</td><td>Retain value between function calls</td><td>Hide variable/function from other files</td></tr>
+</tbody></table>
+</div>
+<hr />
+<p>Static variables are often misunderstood in C++, but mastering them
+helps in writing efficient and predictable code that maintains internal
+state without global exposure.</p>
+<h1 id="note-on-register-variables-in-c"><a class="header" href="#note-on-register-variables-in-c">Note on <code>register</code> Variables in C++</a></h1>
+<ul>
+<li>Declaring a variable with the <code>register</code> keyword:</li>
+</ul>
+<pre><code class="language-cpp">register int counter = 0;
+</code></pre>
+<ul>
+<li>
+<p><strong>Does NOT guarantee</strong> that the variable will reside in a CPU register.</p>
+</li>
+<li>
+<p>It is only a <strong>compiler optimization hint</strong>.</p>
+</li>
+<li>
+<p>Modern compilers often ignore this keyword and manage registers automatically.</p>
+</li>
+<li>
+<p>Reasons it might not be placed in a register:</p>
+<ol>
+<li>Limited number of CPU registers.</li>
+<li>Compiler optimization strategies determine better storage location.</li>
+</ol>
+</li>
+<li>
+<p>Therefore, <code>register</code> mainly serves as historical or readability guidance rather than a strict directive.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="c-constructors-and-destructors---complete-guide"><a class="header" href="#c-constructors-and-destructors---complete-guide">C++ Constructors and Destructors - Complete Guide</a></h1>
+<h2 id="table-of-contents-2"><a class="header" href="#table-of-contents-2">Table of Contents</a></h2>
+<ol>
+<li><a href="4_constrctor.html#constructors">Constructors</a></li>
+<li><a href="4_constrctor.html#destructors">Destructors</a></li>
+<li><a href="4_constrctor.html#the-explicit-keyword">The <code>explicit</code> Keyword</a></li>
+<li><a href="4_constrctor.html#constructor-initializer-lists">Constructor Initializer Lists</a></li>
+<li><a href="4_constrctor.html#the-this-pointer-and-const-member-functions">The <code>this</code> Pointer and Const Member Functions</a></li>
+<li><a href="4_constrctor.html#the-mutable-keyword">The <code>mutable</code> Keyword</a></li>
+<li><a href="4_constrctor.html#copy-constructor">Copy constructor</a></li>
+</ol>
+<hr />
+<p><a id="constructors"></a></p>
+<h2 id="1-constructors"><a class="header" href="#1-constructors">1. Constructors</a></h2>
+<p>Constructors are special member functions that share the same name as their class.</p>
+<h3 id="common-misconception"><a class="header" href="#common-misconception">Common Misconception</a></h3>
+<p>Many people believe constructors create objects, but this isn't accurate.</p>
+<h3 id="what-constructors-actually-do"><a class="header" href="#what-constructors-actually-do">What Constructors Actually Do</a></h3>
+<p>Constructors are special functions designed to <strong>initialize</strong> an object immediately after it has been created. When an object is instantiated, memory is first allocated for it, and then the constructor is automatically invoked to set up the object's initial state—assigning values to member variables, allocating resources, or performing any other setup operations needed before the object is ready to use.</p>
+<h3 id="key-points-1"><a class="header" href="#key-points-1">Key Points:</a></h3>
+<ul>
+<li><strong>Object creation</strong> (memory allocation) happens first</li>
+<li><strong>Constructor invocation</strong> (initialization) happens immediately after</li>
+<li>Constructors ensure objects start in a valid, well-defined state</li>
+<li>They are called automatically—you don't invoke them manually</li>
+</ul>
+<h3 id="object-lifetime-flow"><a class="header" href="#object-lifetime-flow">Object Lifetime Flow</a></h3>
+<pre><code>1. Memory Allocation
+2. Constructor Execution ← Initialization
+3. Object Usage
+4. Destructor Execution ← Cleanup
+5. Memory Deallocation
+</code></pre>
+<h3 id="basic-code-example"><a class="header" href="#basic-code-example">Basic Code Example</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+    private:
+        int member;
+    public:
+        /* Default Constructor */
+        Foo() { 
+            std::cout &lt;&lt; "Foo() invoked\n"; 
+        }
+        
+        /* Parameterized constructor */
+        Foo(int a) {
+            this-&gt;member = a;
+            std::cout &lt;&lt; "Foo(int a) invoked\n";
+        }
+        
+        /* Destructor */
+        ~Foo() {
+            std::cout &lt;&lt; "~Foo() invoked\n";
+        }
+
+        void print_obj() {
+            std::cout &lt;&lt; "Object Add: " &lt;&lt; this &lt;&lt; ": member : " &lt;&lt; this-&gt;member &lt;&lt; std::endl;
+        }
+};
+
+int main(int argc, char* argv[]) {
+    Foo obj1; // Default constructor invoke
+    obj1.print_obj();
+    
+    Foo obj2(2); // Explicitly Parameterized constructor invoked
+                 // Explicit conversion
+    obj2.print_obj();
+    
+    Foo obj3 = 10; // Parameterized constructor will be invoked 
+                   // Implicit type conversion from int to Foo Type 
+    obj3.print_obj();
+    
+    return 0;
+    // Destructors are called here automatically in reverse order: obj3, obj2, obj1
+}
+</code></pre>
+<h4 id="output"><a class="header" href="#output">Output</a></h4>
+<pre><code>➜  practice g++ -O0 -fno-elide-constructors constructor_example.cpp
+➜  practice ./a.out       
+Foo() invoked
+Object Add: 0x16f64704c: member : 1
+Foo(int a) invoked
+Object Add: 0x16f647038: member : 2
+Foo(int a) invoked
+Object Add: 0x16f647034: member : 10
+~Foo() invoked
+~Foo() invoked
+~Foo() invoked
+</code></pre>
+<h4 id="explanation"><a class="header" href="#explanation">Explanation</a></h4>
+<p>This example demonstrates three ways to create objects:</p>
+<ol>
+<li><strong><code>Foo obj1;</code></strong> - Calls the default constructor (no parameters)</li>
+<li><strong><code>Foo obj2(2);</code></strong> - Calls the parameterized constructor with explicit syntax</li>
+<li><strong><code>Foo obj3 = 10;</code></strong> - Calls the parameterized constructor through implicit conversion from <code>int</code> to <code>Foo</code></li>
+</ol>
+<p>All three objects are destroyed at the end of <code>main()</code> when they go out of scope, invoking their destructors <strong>in reverse order of creation</strong> (obj3 → obj2 → obj1). This ensures that dependencies between objects are properly handled during cleanup.</p>
+<p><a href="4_constrctor.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="destructors"></a></p>
+<h2 id="2-destructors"><a class="header" href="#2-destructors">2. Destructors</a></h2>
+<p>Destructors are special member functions that have the same name as the class, but prefixed with a tilde (<code>~</code>).</p>
+<h3 id="what-destructors-actually-do"><a class="header" href="#what-destructors-actually-do">What Destructors Actually Do</a></h3>
+<p>Destructors are special functions designed to <strong>clean up</strong> an object just before it is destroyed. When an object goes out of scope or is explicitly deleted, the destructor is automatically invoked to perform cleanup operations—releasing dynamically allocated memory, closing file handles, releasing locks, or performing any other necessary cleanup before the object's memory is deallocated.</p>
+<h3 id="key-points-2"><a class="header" href="#key-points-2">Key Points:</a></h3>
+<ul>
+<li><strong>Destructor invocation</strong> (cleanup) happens first</li>
+<li><strong>Object destruction</strong> (memory deallocation) happens immediately after</li>
+<li>Destructors ensure proper resource cleanup and prevent memory leaks</li>
+<li>They are called automatically when an object goes out of scope or is deleted</li>
+<li>A class can have only <strong>one destructor</strong> (no overloading, no parameters)</li>
+<li>Destructors are called in <strong>reverse order</strong> of object creation</li>
+</ul>
+<h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
+<p>See the code example in the <a href="4_constrctor.html#constructors">Constructors</a> section above, which demonstrates both constructors and destructors working together.</p>
+<p><a href="4_constrctor.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="the-explicit-keyword"></a></p>
+<h2 id="3-the-explicit-keyword"><a class="header" href="#3-the-explicit-keyword">3. The <code>explicit</code> Keyword</a></h2>
+<h3 id="why-implicit-conversions-are-problematic"><a class="header" href="#why-implicit-conversions-are-problematic">Why Implicit Conversions Are Problematic</a></h3>
+<p>Implicit conversions can lead to several issues:</p>
+<ol>
+<li><strong>Unintended Behavior</strong> - The compiler silently converts types, which may not be what you intended</li>
+<li><strong>Harder to Debug</strong> - When something goes wrong, it's difficult to trace back to an implicit conversion</li>
+<li><strong>Reduces Code Clarity</strong> - Other developers reading your code may not realize a conversion is happening</li>
+<li><strong>Potential Performance Issues</strong> - Unnecessary temporary objects may be created</li>
+<li><strong>Type Safety Loss</strong> - You lose the strict type checking that helps catch errors at compile time</li>
+</ol>
+<h3 id="example-of-the-problem"><a class="header" href="#example-of-the-problem">Example of the Problem</a></h3>
+<pre><code class="language-cpp">class Foo {
+    int member;
+public:
+    Foo(int a) { member = a; }
+};
+
+void process(Foo obj) {
+    // Does something with Foo object
+}
+
+int main() {
+    process(42);  // Compiles! But is this really what you meant?
+                  // 42 is implicitly converted to Foo object
+}
+</code></pre>
+<p>In the above code, you probably meant to pass a <code>Foo</code> object, but accidentally passed an <code>int</code>. The compiler doesn't complain—it just silently converts <code>42</code> to a <code>Foo</code> object. This can hide bugs!</p>
+<h3 id="solution-the-explicit-keyword"><a class="header" href="#solution-the-explicit-keyword">Solution: The <code>explicit</code> Keyword</a></h3>
+<p>The <code>explicit</code> keyword <strong>prevents implicit conversions</strong> by forcing the programmer to explicitly construct objects.</p>
+<p>When you mark a constructor as <code>explicit</code>, the compiler will <strong>only allow explicit construction</strong> and will <strong>reject implicit conversions</strong>.</p>
+<h3 id="code-example-with-explicit"><a class="header" href="#code-example-with-explicit">Code Example with <code>explicit</code></a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+    private:
+        int member;
+    public:
+        /* Default Constructor */
+        explicit Foo() { 
+            std::cout &lt;&lt; "Foo() invoked\n"; 
+        }
+        
+        /* Parameterized constructor marked as explicit */
+        explicit Foo(int a) {
+            this-&gt;member = a;
+            std::cout &lt;&lt; "Foo(int a) invoked\n";
+        }
+        
+        ~Foo() {
+            std::cout &lt;&lt; "~Foo() invoked\n";
+        }
+
+        void print_obj() {
+            std::cout &lt;&lt; "Object Add: " &lt;&lt; this &lt;&lt; ": member : " &lt;&lt; this-&gt;member &lt;&lt; std::endl;
+        }
+};
+
+int main(int argc, char* argv[]) {
+    Foo obj1;      // ✓ OK: Default constructor invoked explicitly
+    obj1.print_obj();
+    
+    Foo obj2(2);   // ✓ OK: Parameterized constructor invoked explicitly
+    obj2.print_obj();
+    
+    // ✗ COMPILATION ERROR: Implicit conversion not allowed!
+    // Foo obj3 = 10;  
+    
+    // ✓ OK: If you really want to convert, you must do it explicitly:
+    // Foo obj3 = Foo(10);  // This would work
+    // or
+    // Foo obj3{10};        // This would also work
+    
+    return 0;
+}
+</code></pre>
+<h3 id="benefits-of-using-explicit"><a class="header" href="#benefits-of-using-explicit">Benefits of Using <code>explicit</code></a></h3>
+<h4 id="1-prevents-accidental-bugs"><a class="header" href="#1-prevents-accidental-bugs">1. <strong>Prevents Accidental Bugs</strong></a></h4>
+<pre><code class="language-cpp">explicit Foo(int a);
+
+void doSomething(Foo obj) { }
+
+doSomething(42);        // ✗ Compilation error - catches the mistake!
+doSomething(Foo(42));   // ✓ OK - you clearly meant to create a Foo
+</code></pre>
+<h4 id="2-makes-code-more-readable"><a class="header" href="#2-makes-code-more-readable">2. <strong>Makes Code More Readable</strong></a></h4>
+<p>When someone reads <code>Foo obj(10)</code>, it's crystal clear that a <code>Foo</code> object is being created. With <code>Foo obj = 10</code>, it's less obvious what's happening.</p>
+<h4 id="3-enforces-type-safety"><a class="header" href="#3-enforces-type-safety">3. <strong>Enforces Type Safety</strong></a></h4>
+<p>You maintain C++'s strong typing system. If you want a <code>Foo</code> object, you must explicitly create one—no shortcuts.</p>
+<h4 id="4-reduces-unexpected-behavior"><a class="header" href="#4-reduces-unexpected-behavior">4. <strong>Reduces Unexpected Behavior</strong></a></h4>
+<p>No surprise conversions means no surprise bugs. What you write is what you get.</p>
+<h3 id="best-practice-rules"><a class="header" href="#best-practice-rules">Best Practice Rules</a></h3>
+<p>✓ <strong>DO:</strong> Mark single-parameter constructors as <code>explicit</code> by default</p>
+<pre><code class="language-cpp">class String {
+public:
+    explicit String(int size);  // Good!
+};
+</code></pre>
+<p>✗ <strong>DON'T:</strong> Allow implicit conversions unless you have a very good reason</p>
+<pre><code class="language-cpp">class String {
+public:
+    String(int size);  // Dangerous! int could be silently converted to String
+};
+</code></pre>
+<h3 id="comparison-with-vs-without-explicit"><a class="header" href="#comparison-with-vs-without-explicit">Comparison: With vs Without <code>explicit</code></a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Without <code>explicit</code></th><th>With <code>explicit</code></th></tr></thead><tbody>
+<tr><td><code>Foo obj = 10;</code> ✓ compiles</td><td><code>Foo obj = 10;</code> ✗ error</td></tr>
+<tr><td><code>Foo obj(10);</code> ✓ compiles</td><td><code>Foo obj(10);</code> ✓ compiles</td></tr>
+<tr><td>Implicit conversions allowed</td><td>Only explicit conversions allowed</td></tr>
+<tr><td>Can hide bugs</td><td>Catches bugs at compile time</td></tr>
+<tr><td>Less clear intent</td><td>Crystal clear intent</td></tr>
+</tbody></table>
+</div>
+<p><a href="4_constrctor.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="constructor-initializer-lists"></a></p>
+<h2 id="4-constructor-initializer-lists"><a class="header" href="#4-constructor-initializer-lists">4. Constructor Initializer Lists</a></h2>
+<h3 id="the-problem-with-const-member-variables"><a class="header" href="#the-problem-with-const-member-variables">The Problem with Const Member Variables</a></h3>
+<p>Consider this problematic code:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+    private:
+        /* We have a member whose storage is const */
+        const int member;
+    public:
+        /* Default Constructor */
+        explicit Foo() { 
+            std::cout &lt;&lt; "Foo() invoked\n"; 
+        }
+        
+        /* Parameterized constructor - THIS WILL NOT COMPILE! */
+        explicit Foo(int a){
+            this-&gt;member = a;  // ❌ ERROR: Cannot assign to const member!
+            std::cout &lt;&lt; "Foo(int a) invoked\n";
+        }
+        
+        ~Foo() {
+            std::cout &lt;&lt; "~Foo() invoked\n";
+        }
+
+        void print_obj() {
+            std::cout &lt;&lt; "Object Add: " &lt;&lt; this &lt;&lt; ": member : " &lt;&lt; this-&gt;member &lt;&lt; std::endl;
+        }
+};
+</code></pre>
+<h3 id="why-this-fails"><a class="header" href="#why-this-fails">Why This Fails</a></h3>
+<p>The above code <strong>will not compile</strong>! The compiler will give an error like:</p>
+<pre><code>error: assignment of read-only member 'Foo::member'
+</code></pre>
+<p><strong>The Problem:</strong> You cannot <strong>assign</strong> a value to a <code>const</code> member variable. Once a <code>const</code> variable is created, it cannot be changed.</p>
+<p>When you write <code>this-&gt;member = a;</code> inside the constructor body, you're trying to <strong>assign</strong> to <code>member</code> after it has already been created. But <code>member</code> is <code>const</code>, so assignment is forbidden!</p>
+<h3 id="understanding-object-creation-flow"><a class="header" href="#understanding-object-creation-flow">Understanding Object Creation Flow</a></h3>
+<p>To understand the solution, we need to understand what happens when an object is created:</p>
+<h4 id="step-by-step-object-creation"><a class="header" href="#step-by-step-object-creation">Step-by-Step Object Creation:</a></h4>
+<pre><code>1. Memory Allocation
+   └─&gt; Space for the object is allocated on stack/heap
+
+2. Member Variable Construction (BEFORE constructor body)
+   └─&gt; All member variables are constructed/created
+   └─&gt; This happens BEFORE the constructor body executes
+   └─&gt; For const members, they MUST be initialized here!
+
+3. Constructor Body Execution
+   └─&gt; The code inside { } of the constructor runs
+   └─&gt; At this point, all members already exist
+   └─&gt; You can only ASSIGN values here, not INITIALIZE
+
+4. Object is Ready to Use
+</code></pre>
+<p><strong>Key Insight:</strong> By the time the constructor body <code>{ }</code> executes, all member variables have already been constructed. For <code>const</code> members, it's too late to initialize them—you can only initialize them <strong>during step 2</strong>, not during step 3.</p>
+<h3 id="the-solution-member-initializer-list"><a class="header" href="#the-solution-member-initializer-list">The Solution: Member Initializer List</a></h3>
+<p>The <strong>member initializer list</strong> allows you to initialize member variables <strong>before</strong> the constructor body executes—exactly when they are being constructed.</p>
+<h4 id="syntax"><a class="header" href="#syntax">Syntax</a></h4>
+<pre><code class="language-cpp">ClassName(parameters) : member1(value1), member2(value2) {
+    // Constructor body
+}
+</code></pre>
+<p>The part after <code>:</code> and before <code>{</code> is the initializer list.</p>
+<h3 id="corrected-code-example"><a class="header" href="#corrected-code-example">Corrected Code Example</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+    private:
+        const int member;  // const member variable
+    public:
+        /* Default Constructor with initializer list */
+        explicit Foo() : member(0) {  // Initialize member to 0
+            std::cout &lt;&lt; "Foo() invoked\n"; 
+        }
+        
+        /* Parameterized constructor with initializer list */
+        explicit Foo(int a) : member(a) {  // Initialize member with 'a'
+            std::cout &lt;&lt; "Foo(int a) invoked\n";
+        }
+        
+        ~Foo() {
+            std::cout &lt;&lt; "~Foo() invoked\n";
+        }
+
+        void print_obj() {
+            std::cout &lt;&lt; "Object Add: " &lt;&lt; this &lt;&lt; ": member : " &lt;&lt; this-&gt;member &lt;&lt; std::endl;
+        }
+};
+
+int main(int argc, char* argv[]) {
+    Foo obj1;      // Default constructor - member initialized to 0
+    obj1.print_obj();
+    
+    Foo obj2(42);  // Parameterized constructor - member initialized to 42
+    obj2.print_obj();
+    
+    return 0;
+}
+</code></pre>
+<h4 id="output-1"><a class="header" href="#output-1">Output</a></h4>
+<pre><code>Foo() invoked
+Object Add: 0x16fdff04c: member : 0
+Foo(int a) invoked
+Object Add: 0x16fdff048: member : 42
+~Foo() invoked
+~Foo() invoked
+</code></pre>
+<h3 id="how-initializer-lists-fix-the-problem"><a class="header" href="#how-initializer-lists-fix-the-problem">How Initializer Lists Fix the Problem</a></h3>
+<h4 id="what-happens-with-initializer-list"><a class="header" href="#what-happens-with-initializer-list">What Happens with Initializer List:</a></h4>
+<pre><code class="language-cpp">Foo(int a) : member(a) {  // Initializer list
+    // Constructor body
+}
+</code></pre>
+<p><strong>Step-by-Step Flow:</strong></p>
+<ol>
+<li><strong>Memory Allocation</strong> - Space for <code>Foo</code> object allocated</li>
+<li><strong>Member Initialization</strong> - <code>member</code> is <strong>initialized</strong> (not assigned) with value <code>a</code>
+<ul>
+<li>This happens via the initializer list <code>: member(a)</code></li>
+<li>The <code>const int member</code> is created and given its value in one step</li>
+<li>Since it's initialization (not assignment), it works with <code>const</code>!</li>
+</ul>
+</li>
+<li><strong>Constructor Body</strong> - The code inside <code>{ }</code> executes</li>
+<li><strong>Object Ready</strong> - Object is fully constructed and ready to use</li>
+</ol>
+<h4 id="what-happens-without-initializer-list"><a class="header" href="#what-happens-without-initializer-list">What Happens WITHOUT Initializer List:</a></h4>
+<pre><code class="language-cpp">Foo(int a) {
+    this-&gt;member = a;  // ❌ Trying to assign
+}
+</code></pre>
+<p><strong>Step-by-Step Flow:</strong></p>
+<ol>
+<li><strong>Memory Allocation</strong> - Space for <code>Foo</code> object allocated</li>
+<li><strong>Member Default Construction</strong> - <code>member</code> is created but uninitialized (or default-initialized)
+<ul>
+<li>For <code>const</code> members, this is where they need their value!</li>
+<li>But we didn't provide one via initializer list</li>
+</ul>
+</li>
+<li><strong>Constructor Body</strong> - Try to execute <code>this-&gt;member = a;</code>
+<ul>
+<li>❌ <strong>ERROR!</strong> This is <strong>assignment</strong>, not initialization</li>
+<li>Can't assign to a <code>const</code> variable!</li>
+</ul>
+</li>
+</ol>
+<h3 id="key-differences-initialization-vs-assignment"><a class="header" href="#key-differences-initialization-vs-assignment">Key Differences: Initialization vs Assignment</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Initialization</th><th>Assignment</th></tr></thead><tbody>
+<tr><td>Happens when variable is <strong>created</strong></td><td>Happens <strong>after</strong> variable exists</td></tr>
+<tr><td>Uses initializer list <code>: member(value)</code></td><td>Uses <code>=</code> operator in constructor body</td></tr>
+<tr><td>Works with <code>const</code> members</td><td>❌ Does NOT work with <code>const</code> members</td></tr>
+<tr><td>Works with reference members</td><td>❌ Does NOT work with reference members</td></tr>
+<tr><td>More efficient (direct construction)</td><td>Less efficient (construct then modify)</td></tr>
+</tbody></table>
+</div>
+<h3 id="when-you-must-use-initializer-lists"><a class="header" href="#when-you-must-use-initializer-lists">When You MUST Use Initializer Lists</a></h3>
+<p>You <strong>must</strong> use initializer lists for:</p>
+<ol>
+<li>
+<p><strong>Const member variables</strong></p>
+<pre><code class="language-cpp">class Foo {
+    const int x;
+public:
+    Foo(int val) : x(val) { }  // Required!
+};
+</code></pre>
+</li>
+<li>
+<p><strong>Reference member variables</strong></p>
+<pre><code class="language-cpp">class Foo {
+    int&amp; ref;
+public:
+    Foo(int&amp; r) : ref(r) { }  // Required!
+};
+</code></pre>
+</li>
+<li>
+<p><strong>Member objects without default constructors</strong></p>
+<pre><code class="language-cpp">class Bar {
+public:
+    Bar(int x) { }  // No default constructor
+};
+
+class Foo {
+    Bar b;
+public:
+    Foo() : b(10) { }  // Required! Bar needs a value
+};
+</code></pre>
+</li>
+<li>
+<p><strong>Base class initialization (inheritance)</strong></p>
+<pre><code class="language-cpp">class Base {
+public:
+    Base(int x) { }
+};
+
+class Derived : public Base {
+public:
+    Derived(int x) : Base(x) { }  // Required!
+};
+</code></pre>
+</li>
+</ol>
+<h3 id="best-practices-1"><a class="header" href="#best-practices-1">Best Practices</a></h3>
+<p>✓ <strong>DO:</strong> Use initializer lists for all member variables</p>
+<pre><code class="language-cpp">class Person {
+    std::string name;
+    int age;
+public:
+    Person(std::string n, int a) : name(n), age(a) { }
+};
+</code></pre>
+<p>✓ <strong>DO:</strong> Initialize members in the same order they are declared in the class</p>
+<pre><code class="language-cpp">class Foo {
+    int x;    // Declared first
+    int y;    // Declared second
+public:
+    Foo(int a, int b) : x(a), y(b) { }  // Initialize in same order
+};
+</code></pre>
+<p>✗ <strong>DON'T:</strong> Mix initialization and assignment unnecessarily</p>
+<pre><code class="language-cpp">// Bad - Inefficient
+Foo(int a) {
+    member = a;  // Default construct, then assign
+}
+
+// Good - Efficient
+Foo(int a) : member(a) { }  // Direct initialization
+</code></pre>
+<p><a href="4_constrctor.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="the-this-pointer-and-const-member-functions"></a></p>
+<h2 id="5-the-this-pointer-and-const-member-functions"><a class="header" href="#5-the-this-pointer-and-const-member-functions">5. The <code>this</code> Pointer and Const Member Functions</a></h2>
+<h3 id="understanding-the-this-pointer"><a class="header" href="#understanding-the-this-pointer">Understanding the <code>this</code> Pointer</a></h3>
+<p>The <code>this</code> pointer is a <strong>hidden pointer</strong> that exists in every non-static member function. It points to the object that called the function.</p>
+<h4 id="how-member-functions-actually-work"><a class="header" href="#how-member-functions-actually-work">How Member Functions Actually Work</a></h4>
+<p>When you write:</p>
+<pre><code class="language-cpp">obj.print_obj();
+</code></pre>
+<p>The compiler <strong>secretly transforms</strong> this into something like:</p>
+<pre><code class="language-cpp">print_obj(&amp;obj);  // Pass the address of obj as a hidden argument
+</code></pre>
+<p>Inside the function, you access members through this hidden pointer called <code>this</code>.</p>
+<h4 id="the-this-pointer-explained"><a class="header" href="#the-this-pointer-explained">The <code>this</code> Pointer Explained</a></h4>
+<ul>
+<li><strong><code>this</code></strong> is a pointer to the object that called the member function</li>
+<li>It's automatically passed to every non-static member function</li>
+<li>Type: <strong><code>ClassName* const</code></strong> (constant pointer to the class type)</li>
+<li>You can use it explicitly (<code>this-&gt;member</code>) or implicitly (<code>member</code>)</li>
+</ul>
+<h4 id="why-is-this-a-constant-pointer"><a class="header" href="#why-is-this-a-constant-pointer">Why is <code>this</code> a Constant Pointer?</a></h4>
+<p>The type <code>Foo* const</code> means:</p>
+<ul>
+<li><strong><code>Foo*</code></strong> - Pointer to a <code>Foo</code> object</li>
+<li><strong><code>const</code></strong> (after the <code>*</code>) - The pointer itself is constant</li>
+</ul>
+<p>This means:</p>
+<ul>
+<li>✓ You <strong>CAN</strong> modify the object that <code>this</code> points to (change member variables)</li>
+<li>✗ You <strong>CANNOT</strong> reassign <code>this</code> to point to a different object</li>
+</ul>
+<pre><code class="language-cpp">void someFunction() {
+    // this has type: Foo* const
+    
+    this-&gt;member = 10;     // ✓ OK: Can modify the object
+    member = 20;           // ✓ OK: Same thing (implicit this)
+    
+    Foo other;
+    this = &amp;other;         // ❌ ERROR: Cannot reassign 'this'!
+                          // 'this' is a constant pointer
+}
+</code></pre>
+<p><strong>Why this design?</strong> The <code>this</code> pointer must always point to the same object throughout the entire function execution. It would be dangerous and nonsensical to allow <code>this</code> to be reassigned to point to a different object mid-function!</p>
+<h3 id="the-problem-with-const-objects"><a class="header" href="#the-problem-with-const-objects">The Problem with Const Objects</a></h3>
+<p>Consider this example:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+    private:
+        const int member;
+    public:
+        explicit Foo() : member(0) { 
+            std::cout &lt;&lt; "Foo() invoked\n"; 
+        }
+        
+        explicit Foo(int a) : member(a) {
+            std::cout &lt;&lt; "Foo(int a) invoked\n";
+        }
+        
+        ~Foo() {
+            std::cout &lt;&lt; "~Foo() invoked\n";
+        }
+
+        // Non-const member function
+        void print_obj() {
+            std::cout &lt;&lt; "Object Add: " &lt;&lt; this &lt;&lt; ": member : " &lt;&lt; this-&gt;member &lt;&lt; std::endl;
+        }
+};
+
+int main() {
+    Foo obj1;
+    obj1.print_obj();  // ✓ Works fine
+    
+    Foo obj2(2);
+    obj2.print_obj();  // ✓ Works fine
+    
+    const Foo obj3(20);  // const object
+    obj3.print_obj();    // ❌ COMPILATION ERROR!
+    
+    return 0;
+}
+</code></pre>
+<h4 id="compilation-error"><a class="header" href="#compilation-error">Compilation Error</a></h4>
+<pre><code>error: passing 'const Foo' as 'this' argument discards qualifiers
+</code></pre>
+<h4 id="why-does-this-fail"><a class="header" href="#why-does-this-fail">Why Does This Fail?</a></h4>
+<p>Let's understand what's happening behind the scenes:</p>
+<ol>
+<li>
+<p><strong>When you call <code>obj3.print_obj()</code></strong> on a <code>const</code> object:</p>
+<ul>
+<li>The compiler tries to pass <code>&amp;obj3</code> to <code>print_obj()</code></li>
+<li>Type of <code>&amp;obj3</code> is <code>const Foo*</code> (pointer to const Foo)</li>
+</ul>
+</li>
+<li>
+<p><strong>What <code>print_obj()</code> expects:</strong></p>
+<ul>
+<li>Type: <code>Foo* const</code> (constant pointer to non-const Foo)</li>
+<li>The function signature is really: <code>void print_obj(Foo* const this)</code></li>
+<li>This means <code>this</code> cannot be reassigned, but the object can be modified</li>
+</ul>
+</li>
+<li>
+<p><strong>Type Mismatch:</strong></p>
+<ul>
+<li>You're trying to pass: <code>const Foo*</code></li>
+<li>Function expects: <code>Foo* const</code></li>
+<li>This is <strong>not allowed</strong> because it would discard the <code>const</code> qualifier!</li>
+</ul>
+</li>
+</ol>
+<h4 id="visualizing-the-type-mismatch"><a class="header" href="#visualizing-the-type-mismatch">Visualizing the Type Mismatch</a></h4>
+<pre><code class="language-cpp">void print_obj() {
+    // Behind the scenes, this function signature is:
+    // void print_obj(Foo* const this)
+    //                ^^^^ ^^^^^
+    //                |    |
+    //                |    'this' pointer itself is constant (can't be reassigned)
+    //                The object pointed to is non-const (can be modified)
+}
+
+const Foo obj3(20);
+obj3.print_obj();
+// Trying to pass: const Foo*
+// Function expects: Foo* const
+// ❌ ERROR: Cannot convert const Foo* to Foo* const
+// The issue is the first 'const' - it protects the object from modification
+</code></pre>
+<p><strong>Why is this dangerous?</strong> If allowed, you could modify a <code>const</code> object through the non-const <code>this</code> pointer, violating const-correctness!</p>
+<h3 id="the-solution-const-member-functions"><a class="header" href="#the-solution-const-member-functions">The Solution: Const Member Functions</a></h3>
+<p>Mark the member function as <code>const</code> to tell the compiler: "This function will not modify the object."</p>
+<h4 id="corrected-code"><a class="header" href="#corrected-code">Corrected Code</a></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+    private:
+        const int member;
+    public:
+        explicit Foo() : member(0) { 
+            std::cout &lt;&lt; "Foo() invoked\n"; 
+        }
+        
+        explicit Foo(int a) : member(a) {
+            std::cout &lt;&lt; "Foo(int a) invoked\n";
+        }
+        
+        ~Foo() {
+            std::cout &lt;&lt; "~Foo() invoked\n";
+        }
+
+        // Const member function - note the 'const' after parameter list
+        void print_obj() const {
+            std::cout &lt;&lt; "Object Add: " &lt;&lt; this &lt;&lt; ": member : " &lt;&lt; this-&gt;member &lt;&lt; std::endl;
+        }
+};
+
+int main() {
+    Foo obj1;
+    obj1.print_obj();  // ✓ Works
+    
+    Foo obj2(2);
+    obj2.print_obj();  // ✓ Works
+    
+    const Foo obj3(20);  // const object
+    obj3.print_obj();    // ✓ Now works!
+    
+    return 0;
+}
+</code></pre>
+<h4 id="output-2"><a class="header" href="#output-2">Output</a></h4>
+<pre><code>Foo() invoked
+Object Add: 0x16fdff04c: member : 0
+Foo(int a) invoked
+Object Add: 0x16fdff048: member : 2
+Foo(int a) invoked
+Object Add: 0x16fdff044: member : 20
+~Foo() invoked
+~Foo() invoked
+~Foo() invoked
+</code></pre>
+<h3 id="how-const-fixes-the-issue"><a class="header" href="#how-const-fixes-the-issue">How <code>const</code> Fixes the Issue</a></h3>
+<h4 id="behind-the-scenes-function-signature"><a class="header" href="#behind-the-scenes-function-signature">Behind the Scenes: Function Signature</a></h4>
+<p>When you add <code>const</code> to a member function:</p>
+<pre><code class="language-cpp">void print_obj() const {
+    // Behind the scenes:
+    // void print_obj(const Foo* const this)
+    //                ^^^^^ ^^^   ^^^^^
+    //                |     |     |
+    //                |     |     'this' pointer is constant (can't be reassigned)
+    //                |     pointer
+    //                Object is const (cannot be modified)
+}
+</code></pre>
+<p>The <code>const</code> keyword changes the type of the <code>this</code> pointer from <code>Foo* const</code> to <code>const Foo* const</code>.</p>
+<p>Now:</p>
+<ul>
+<li>The <strong>object</strong> pointed to by <code>this</code> is <strong>const</strong> (first <code>const</code>)</li>
+<li>The <strong>pointer</strong> <code>this</code> itself is <strong>const</strong> (second <code>const</code>)</li>
+</ul>
+<h4 id="gdb-evidence"><a class="header" href="#gdb-evidence">GDB Evidence</a></h4>
+<p>Using GDB with demangling turned off reveals the true function signature:</p>
+<pre><code>(gdb) set print demangle off
+(gdb) info functions Foo::print_obj
+All functions matching regular expression "Foo::print_obj":
+
+File const.cpp:
+22: void _ZNK3Foo9print_objEv(const Foo * const);
+                ^^                ^^^^^
+                ||                |||||
+                ||                const Foo* const
+                ||
+                'K' indicates const member function
+</code></pre>
+<p><strong>Breakdown of the mangled name <code>_ZNK3Foo9print_objEv</code>:</strong></p>
+<ul>
+<li><code>_Z</code> = Start of mangled name</li>
+<li><code>N</code> = Nested name</li>
+<li><strong><code>K</code></strong> = <strong>const member function</strong> (this is the key!)</li>
+<li><code>3Foo</code> = Class name "Foo" (3 characters)</li>
+<li><code>9print_obj</code> = Function name "print_obj" (9 characters)</li>
+<li><code>Ev</code> = Return type void, no parameters (except hidden <code>this</code>)</li>
+</ul>
+<p>The signature shows: <code>void _ZNK3Foo9print_objEv(const Foo * const);</code></p>
+<p>This means the function receives: <strong><code>const Foo* const</code></strong></p>
+<ul>
+<li>First <code>const</code>: The <strong>object</strong> pointed to cannot be modified</li>
+<li><code>*</code>: Pointer</li>
+<li>Second <code>const</code>: The <strong>pointer itself</strong> cannot be reassigned</li>
+</ul>
+<p>This matches what we expect for a const member function!</p>
+<h3 id="type-matching-with-const-member-functions"><a class="header" href="#type-matching-with-const-member-functions">Type Matching with Const Member Functions</a></h3>
+<h4 id="without-const-keyword"><a class="header" href="#without-const-keyword">Without <code>const</code> keyword:</a></h4>
+<pre><code class="language-cpp">void print_obj() {
+    // Real signature: void print_obj(Foo* const this)
+    //                                 ^^^^ ^^^^^
+    //                                 Can modify object, pointer is constant
+}
+
+const Foo obj3(20);
+obj3.print_obj();
+// Passing: const Foo* const
+// Expects: Foo* const
+// ❌ Type mismatch! The object being passed is const, but function could modify it
+</code></pre>
+<h4 id="with-const-keyword"><a class="header" href="#with-const-keyword">With <code>const</code> keyword:</a></h4>
+<pre><code class="language-cpp">void print_obj() const {
+    // Real signature: void print_obj(const Foo* const this)
+    //                                 ^^^^^ ^^^   ^^^^^
+    //                                 Cannot modify object, pointer is constant
+}
+
+const Foo obj3(20);
+obj3.print_obj();
+// Passing: const Foo* const
+// Expects: const Foo* const
+// ✓ Types match perfectly!
+</code></pre>
+<h3 id="what-const-member-functions-promise"><a class="header" href="#what-const-member-functions-promise">What Const Member Functions Promise</a></h3>
+<p>When you declare a member function as <code>const</code>:</p>
+<pre><code class="language-cpp">void print_obj() const {
+    // Inside this function:
+    // - 'this' has type: const Foo* const
+    // - You CANNOT modify any member variables (object is const)
+    // - You CANNOT reassign 'this' pointer (pointer is const)
+    // - You CAN read member variables
+    // - You CAN only call other const member functions
+}
+</code></pre>
+<h4 id="what-you-can-and-cannot-do"><a class="header" href="#what-you-can-and-cannot-do">What You Can and Cannot Do</a></h4>
+<pre><code class="language-cpp">class Foo {
+    int x;
+    int y;
+public:
+    void readOnly() const {
+        std::cout &lt;&lt; x;     // ✓ OK: Reading is allowed
+        std::cout &lt;&lt; y;     // ✓ OK: Reading is allowed
+        
+        // x = 10;          // ❌ ERROR: Cannot modify members
+        // y = 20;          // ❌ ERROR: Cannot modify members
+    }
+    
+    void modify() {
+        x = 10;             // ✓ OK: Non-const function can modify
+    }
+    
+    void anotherConst() const {
+        readOnly();         // ✓ OK: Can call const functions
+        // modify();        // ❌ ERROR: Cannot call non-const functions
+    }
+};
+</code></pre>
+<h3 id="rules-for-const-objects-and-functions"><a class="header" href="#rules-for-const-objects-and-functions">Rules for Const Objects and Functions</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Scenario</th><th>Allowed?</th><th>Explanation</th></tr></thead><tbody>
+<tr><td>Non-const object calling non-const function</td><td>✓ Yes</td><td>Normal case</td></tr>
+<tr><td>Non-const object calling const function</td><td>✓ Yes</td><td>Safe: const function won't modify</td></tr>
+<tr><td>Const object calling const function</td><td>✓ Yes</td><td>Perfect match: both are const</td></tr>
+<tr><td>Const object calling non-const function</td><td>❌ No</td><td>Unsafe: function might modify const object</td></tr>
+</tbody></table>
+</div>
+<h3 id="best-practices-2"><a class="header" href="#best-practices-2">Best Practices</a></h3>
+<p>✓ <strong>DO:</strong> Mark member functions as <code>const</code> if they don't modify the object</p>
+<pre><code class="language-cpp">class Person {
+    std::string name;
+    int age;
+public:
+    // Getters should be const - they only read data
+    std::string getName() const { return name; }
+    int getAge() const { return age; }
+    
+    // Setters should NOT be const - they modify data
+    void setName(const std::string&amp; n) { name = n; }
+    void setAge(int a) { age = a; }
+    
+    // Display functions should be const - they only read
+    void display() const {
+        std::cout &lt;&lt; name &lt;&lt; " is " &lt;&lt; age &lt;&lt; " years old\n";
+    }
+};
+</code></pre>
+<p>✓ <strong>DO:</strong> Use const-correctness throughout your code</p>
+<pre><code class="language-cpp">void processUser(const Person&amp; p) {
+    p.display();    // ✓ OK: display() is const
+    // p.setAge(30); // ❌ ERROR: setAge() is not const
+}
+</code></pre>
+<p>✗ <strong>DON'T:</strong> Forget to mark read-only functions as const</p>
+<pre><code class="language-cpp">class Bad {
+    int x;
+public:
+    int getValue() { return x; }  // ❌ Bad: Should be const!
+};
+
+void useIt(const Bad&amp; b) {
+    // int val = b.getValue();  // ❌ Won't compile!
+}
+</code></pre>
+<p><a href="4_constrctor.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="the-mutable-keyword"></a></p>
+<h2 id="6-the-mutable-keyword"><a class="header" href="#6-the-mutable-keyword">6. The <code>mutable</code> Keyword</a></h2>
+<h3 id="the-problem-wanting-to-modify-some-members-of-const-objects"><a class="header" href="#the-problem-wanting-to-modify-some-members-of-const-objects">The Problem: Wanting to Modify Some Members of Const Objects</a></h3>
+<p>Sometimes you have a <code>const</code> object where <strong>most</strong> members should be read-only, but a <strong>few specific members</strong> need to be modifiable. This is common in scenarios like:</p>
+<ul>
+<li><strong>Caching</strong>: Storing computed results to avoid recalculation</li>
+<li><strong>Debugging counters</strong>: Tracking how many times a function is called</li>
+<li><strong>Lazy initialization</strong>: Initializing data only when first accessed</li>
+<li><strong>Mutex locks</strong>: Managing thread synchronization in const member functions</li>
+</ul>
+<h4 id="example-problem"><a class="header" href="#example-problem">Example Problem</a></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+    private:
+        int member;
+        int readonly_member;
+    public:
+        explicit Foo(int a, int b) : member(a), readonly_member(b) {
+            std::cout &lt;&lt; "Foo(int a, int b) invoked\n";
+        }
+
+        void print_obj() const {
+            std::cout &lt;&lt; "Object: " &lt;&lt; this 
+                      &lt;&lt; ", member: " &lt;&lt; member 
+                      &lt;&lt; ", readonly: " &lt;&lt; readonly_member &lt;&lt; std::endl;
+        }
+        
+        void can_modify(int data) const {
+            this-&gt;member = data;           // ❌ ERROR: Cannot modify in const function!
+            // this-&gt;readonly_member = data; // ❌ ERROR: Cannot modify in const function!
+        }
+};
+
+int main() {
+    const Foo obj1(20, 30);
+    obj1.print_obj();
+    
+    // I want to modify 'member' but keep the object const
+    obj1.can_modify(100);  // ❌ Won't compile!
+    
+    return 0;
+}
+</code></pre>
+<h4 id="compilation-error-1"><a class="header" href="#compilation-error-1">Compilation Error</a></h4>
+<pre><code>error: assignment of member 'Foo::member' in read-only object
+</code></pre>
+<p><strong>The Problem:</strong> Even though <code>can_modify()</code> is a <code>const</code> member function, it cannot modify ANY member variables because <code>this</code> has type <code>const Foo* const</code>.</p>
+<h3 id="the-solution-the-mutable-keyword"><a class="header" href="#the-solution-the-mutable-keyword">The Solution: The <code>mutable</code> Keyword</a></h3>
+<p>The <code>mutable</code> keyword allows you to mark specific member variables as <strong>always modifiable</strong>, even in <code>const</code> member functions and <code>const</code> objects.</p>
+<h4 id="syntax-1"><a class="header" href="#syntax-1">Syntax</a></h4>
+<pre><code class="language-cpp">class ClassName {
+    mutable Type memberName;  // This member can be modified even in const contexts
+};
+</code></pre>
+<h3 id="corrected-example"><a class="header" href="#corrected-example">Corrected Example</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+    private:
+        mutable int member;        // mutable: can be modified even in const functions
+        int readonly_member;       // regular: cannot be modified in const functions
+    public:
+        explicit Foo() : member(0), readonly_member(0) { 
+            std::cout &lt;&lt; "Foo() invoked\n"; 
+        }
+        
+        explicit Foo(int a, int b) : member(a), readonly_member(b) {
+            std::cout &lt;&lt; "Foo(int a, int b) invoked\n";
+        }
+        
+        ~Foo() {
+            std::cout &lt;&lt; "~Foo() invoked\n";
+        }
+
+        void print_obj() const {
+            std::cout &lt;&lt; "Object: " &lt;&lt; this 
+                      &lt;&lt; ", member: " &lt;&lt; member 
+                      &lt;&lt; ", readonly: " &lt;&lt; readonly_member &lt;&lt; std::endl;
+        }
+        
+        void can_modify(int data) const {
+            this-&gt;member = data;              // ✓ OK: member is mutable
+            // this-&gt;readonly_member = data;  // ❌ ERROR: readonly_member is not mutable
+        }
+};
+
+int main() {
+    // Creating a constant object
+    const Foo obj1(20, 30);
+    std::cout &lt;&lt; "Initial state:\n";
+    obj1.print_obj();
+    
+    // Modifying the mutable member through a const function
+    std::cout &lt;&lt; "\nModifying mutable member to 100:\n";
+    obj1.can_modify(100);
+    obj1.print_obj();
+    
+    return 0;
+}
+</code></pre>
+<h4 id="output-3"><a class="header" href="#output-3">Output</a></h4>
+<pre><code>Foo(int a, int b) invoked
+Initial state:
+Object: 0x16fdff048, member: 20, readonly: 30
+
+Modifying mutable member to 100:
+Object: 0x16fdff048, member: 100, readonly: 30
+~Foo() invoked
+</code></pre>
+<h3 id="how-mutable-works"><a class="header" href="#how-mutable-works">How <code>mutable</code> Works</a></h3>
+<p>When you mark a member as <code>mutable</code>:</p>
+<pre><code class="language-cpp">class Foo {
+    mutable int counter;  // Can be modified even in const functions
+    int value;            // Cannot be modified in const functions
+    
+public:
+    void someConstFunction() const {
+        // this has type: const Foo* const
+        
+        counter++;     // ✓ OK: counter is mutable
+        // value++;    // ❌ ERROR: value is not mutable
+    }
+};
+</code></pre>
+<p><strong>Key Point:</strong> The <code>mutable</code> keyword essentially tells the compiler: "Don't apply const restrictions to this particular member, even when the object is const."</p>
+<h3 id="real-world-use-cases"><a class="header" href="#real-world-use-cases">Real-World Use Cases</a></h3>
+<h4 id="1-caching-expensive-computations"><a class="header" href="#1-caching-expensive-computations">1. <strong>Caching Expensive Computations</strong></a></h4>
+<pre><code class="language-cpp">class DataProcessor {
+    std::vector&lt;int&gt; data;
+    mutable bool cached;
+    mutable double cachedResult;
+    
+public:
+    DataProcessor(const std::vector&lt;int&gt;&amp; d) 
+        : data(d), cached(false), cachedResult(0.0) {}
+    
+    // This function doesn't logically modify the object,
+    // but it caches the result for performance
+    double getAverage() const {
+        if (!cached) {
+            double sum = 0;
+            for (int val : data) sum += val;
+            cachedResult = sum / data.size();  // ✓ OK: mutable
+            cached = true;                      // ✓ OK: mutable
+        }
+        return cachedResult;
+    }
+};
+</code></pre>
+<h4 id="2-debug-counters"><a class="header" href="#2-debug-counters">2. <strong>Debug Counters</strong></a></h4>
+<pre><code class="language-cpp">class Service {
+    mutable int callCount;  // Track how many times methods are called
+    std::string data;
+    
+public:
+    Service(const std::string&amp; d) : callCount(0), data(d) {}
+    
+    std::string getData() const {
+        callCount++;  // ✓ OK: Track calls even in const function
+        return data;
+    }
+    
+    int getCallCount() const {
+        return callCount;
+    }
+};
+</code></pre>
+<h4 id="3-lazy-initialization"><a class="header" href="#3-lazy-initialization">3. <strong>Lazy Initialization</strong></a></h4>
+<pre><code class="language-cpp">class ExpensiveResource {
+    mutable std::unique_ptr&lt;Resource&gt; resource;  // Initialized on first use
+    
+public:
+    const Resource&amp; getResource() const {
+        if (!resource) {
+            resource = std::make_unique&lt;Resource&gt;();  // ✓ OK: Lazy init
+        }
+        return *resource;
+    }
+};
+</code></pre>
+<h4 id="4-thread-synchronization"><a class="header" href="#4-thread-synchronization">4. <strong>Thread Synchronization</strong></a></h4>
+<pre><code class="language-cpp">class ThreadSafeCounter {
+    mutable std::mutex mtx;  // Mutex must be lockable in const functions
+    int count;
+    
+public:
+    int getCount() const {
+        std::lock_guard&lt;std::mutex&gt; lock(mtx);  // ✓ OK: Can lock mutable mutex
+        return count;
+    }
+    
+    void increment() {
+        std::lock_guard&lt;std::mutex&gt; lock(mtx);
+        count++;
+    }
+};
+</code></pre>
+<h3 id="important-characteristics-of-mutable"><a class="header" href="#important-characteristics-of-mutable">Important Characteristics of <code>mutable</code></a></h3>
+<h4 id="what-mutable-does"><a class="header" href="#what-mutable-does">What <code>mutable</code> Does:</a></h4>
+<ul>
+<li>✓ Allows modification of the member in <code>const</code> member functions</li>
+<li>✓ Allows modification of the member in <code>const</code> objects</li>
+<li>✓ Exempts the member from const-correctness rules</li>
+</ul>
+<h4 id="what-mutable-does-not-do"><a class="header" href="#what-mutable-does-not-do">What <code>mutable</code> Does NOT Do:</a></h4>
+<ul>
+<li>✗ Does not make the member constant</li>
+<li>✗ Does not affect the member in non-const contexts</li>
+<li>✗ Does not change thread-safety characteristics</li>
+</ul>
+<h3 id="comparison-regular-vs-mutable-members"><a class="header" href="#comparison-regular-vs-mutable-members">Comparison: Regular vs Mutable Members</a></h3>
+<pre><code class="language-cpp">class Example {
+    int regular;
+    mutable int mutableMember;
+    
+public:
+    // Non-const member function
+    void modify() {
+        regular = 1;        // ✓ OK
+        mutableMember = 2;  // ✓ OK
+    }
+    
+    // Const member function
+    void constModify() const {
+        // regular = 1;        // ❌ ERROR
+        mutableMember = 2;     // ✓ OK
+    }
+};
+
+int main() {
+    // Non-const object
+    Example obj1;
+    obj1.regular = 10;        // ✓ OK
+    obj1.mutableMember = 20;  // ✓ OK
+    
+    // Const object
+    const Example obj2;
+    // obj2.regular = 10;        // ❌ ERROR
+    // obj2.mutableMember = 20;  // ❌ ERROR: Direct access still not allowed
+    
+    // But mutable members CAN be modified through const member functions
+    obj2.constModify();  // ✓ OK: Modifies mutableMember internally
+}
+</code></pre>
+<h3 id="when-to-use-mutable"><a class="header" href="#when-to-use-mutable">When to Use <code>mutable</code></a></h3>
+<p>✓ <strong>DO use <code>mutable</code> for:</strong></p>
+<ul>
+<li>Internal caching mechanisms</li>
+<li>Debug/logging counters</li>
+<li>Lazy initialization</li>
+<li>Synchronization primitives (mutexes)</li>
+<li>Implementation details that don't affect logical const-ness</li>
+</ul>
+<p>✗ <strong>DON'T use <code>mutable</code> for:</strong></p>
+<ul>
+<li>Core data that defines the object's state</li>
+<li>When it breaks the logical const-ness of the object</li>
+<li>As a workaround for poor design</li>
+<li>When a better design would avoid the need for it</li>
+</ul>
+<h3 id="best-practices-3"><a class="header" href="#best-practices-3">Best Practices</a></h3>
+<h4 id="good-use-caching"><a class="header" href="#good-use-caching">Good Use: Caching</a></h4>
+<pre><code class="language-cpp">class MathProcessor {
+    std::vector&lt;int&gt; numbers;
+    mutable bool sumCached;
+    mutable int cachedSum;
+    
+public:
+    int getSum() const {
+        if (!sumCached) {
+            cachedSum = 0;
+            for (int n : numbers) cachedSum += n;
+            sumCached = true;
+        }
+        return cachedSum;
+    }
+};
+</code></pre>
+<p>✓ <strong>Why it's good:</strong> The cache is an implementation detail. Logically, <code>getSum()</code> doesn't modify the object—it just returns a value.</p>
+<h4 id="bad-use-breaking-logical-const-ness"><a class="header" href="#bad-use-breaking-logical-const-ness">Bad Use: Breaking Logical Const-ness</a></h4>
+<pre><code class="language-cpp">class Counter {
+    mutable int count;  // ❌ Bad: count is the object's main state!
+    
+public:
+    void increment() const {  // ❌ Bad: This should NOT be const!
+        count++;
+    }
+};
+</code></pre>
+<p>✗ <strong>Why it's bad:</strong> The count is the object's primary state. If you're modifying it, the object IS changing, so the function shouldn't be <code>const</code>.</p>
+<p><a href="4_constrctor.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<p><a id="copy-constructor"></a></p>
+<h1 id="-understanding-copy-constructors-in-c"><a class="header" href="#-understanding-copy-constructors-in-c">📘 Understanding Copy Constructors in C++</a></h1>
+<p>Let’s explore <strong>what a copy constructor is</strong>, <strong>when it’s invoked</strong>, and understand <strong>deep vs shallow copies</strong> and <strong>temporary objects</strong> through examples.</p>
+<hr />
+<h2 id="-what-is-a-copy-constructor"><a class="header" href="#-what-is-a-copy-constructor">🧠 What is a Copy Constructor?</a></h2>
+<p>A <strong>copy constructor</strong> in C++ is a special constructor used to <strong>create a new object as a copy of an existing object</strong>.</p>
+<h3 id="-syntax"><a class="header" href="#-syntax">📜 Syntax</a></h3>
+<pre><code class="language-cpp">ClassName(const ClassName&amp; other);
+</code></pre>
+<h3 id="-purpose"><a class="header" href="#-purpose">⚙️ Purpose</a></h3>
+<ul>
+<li>Defines how an object should be copied.</li>
+<li>Required when your class <strong>manages resources</strong> (like memory, files, sockets).</li>
+<li>Prevents issues like <strong>double deletion</strong> and <strong>dangling pointers</strong>.</li>
+</ul>
+<h3 id="-when-is-it-invoked"><a class="header" href="#-when-is-it-invoked">🧩 When is it Invoked?</a></h3>
+<p>The compiler automatically calls the copy constructor in these cases:</p>
+<ol>
+<li>
+<p><strong>Object initialization using another object</strong></p>
+<pre><code class="language-cpp">Foo obj2 = obj1;   // or Foo obj2(obj1);
+</code></pre>
+</li>
+<li>
+<p><strong>Passing an object by value to a function</strong></p>
+<pre><code class="language-cpp">void func(Foo obj); // Copy constructor called when passed by value
+</code></pre>
+</li>
+<li>
+<p><strong>Returning an object by value from a function</strong></p>
+<pre><code class="language-cpp">Foo get_obj() {
+    Foo temp(10);
+    return temp; // Copy constructor may be invoked (before RVO)
+}
+</code></pre>
+</li>
+<li>
+<p><strong>Explicit copying using copy initialization</strong></p>
+<pre><code class="language-cpp">Foo obj3 = Foo(obj1); // Explicit copy
+</code></pre>
+</li>
+</ol>
+<p>If you do not define a copy constructor, the compiler provides a <strong>default shallow copy constructor</strong>, which may not be safe for classes managing dynamic memory.</p>
+<hr />
+<h2 id="-step-1-basic-class-without-copy-constructor"><a class="header" href="#-step-1-basic-class-without-copy-constructor">🧩 Step 1: Basic Class Without Copy Constructor</a></h2>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+private:
+    int* ptr;
+
+public:
+    Foo(int value) {
+        ptr = new int(value);
+        std::cout &lt;&lt; "Foo(int) invoked, *ptr = " &lt;&lt; *ptr &lt;&lt; "\n";
+    }
+
+    ~Foo() {
+        std::cout &lt;&lt; "~Foo() invoked, deleting ptr\n";
+        delete ptr;
+    }
+};
+
+int main() {
+    Foo obj1(10);
+    Foo obj2 = obj1;  // ❌ Problem here
+    return 0;
+}
+</code></pre>
+<h3 id="-problem-shallow-copy"><a class="header" href="#-problem-shallow-copy">🧨 Problem: Shallow Copy</a></h3>
+<p>The compiler automatically generates a <strong>default copy constructor</strong> that performs a <strong>member-wise (shallow) copy</strong>.<br />
+That means both <code>obj1</code> and <code>obj2</code> will have their <code>ptr</code> pointing to the same memory location.
+When both destructors run:</p>
+<ul>
+<li><code>obj1</code> deletes <code>ptr</code></li>
+<li><code>obj2</code> also tries to delete the same memory</li>
+</ul>
+<pre><code>./a.out
+Foo(int) invoked, *ptr = 10
+~Foo() invoked, deleting ptr
+~Foo() invoked, deleting ptr
+a.out(53252,0x1f91d60c0) malloc: *** error for object 0x6000013a4020: pointer being freed was not allocated
+a.out(53252,0x1f91d60c0) malloc: *** set a breakpoint in malloc_error_break to debug
+[1]    53252 abort      ./a.out
+</code></pre>
+<p>💥 <strong>Result:</strong> <em>Double free or corruption</em> runtime error.</p>
+<hr />
+<h2 id="-step-2-what-valgrindlinuxleaksmac-shows"><a class="header" href="#-step-2-what-valgrindlinuxleaksmac-shows">🧪 Step 2: What Valgrind(linux)/leaks(mac) Shows</a></h2>
+<p>If you run this under Valgrind, you’ll see:</p>
+<pre><code>==1234== Invalid free() / delete / delete[]
+==1234==    at 0x4C2B5D5: operator delete(void*) (vg_replace_malloc.c:642)
+==1234==    by 0x1091C2: Foo::~Foo() (example.cpp:12)
+==1234==  Address 0x5a52040 is 0 bytes inside a block of size 4 free'd
+==1234==    by 0x1091C2: Foo::~Foo() (example.cpp:12)
+</code></pre>
+<pre><code>leaks --atExit -- ./a.out
+a.out(56120) MallocStackLogging: could not tag MSL-related memory as no_footprint, so those pages will be included in process footprint - (null)
+a.out(56120) MallocStackLogging: recording malloc (and VM allocation) stacks using lite mode
+Foo(int) invoked, *ptr = 10
+~Foo() invoked, deleting ptr
+~Foo() invoked, deleting ptr
+a.out(56120,0x1f91d60c0) malloc: *** error for object 0x133804080: pointer being freed was not allocated
+a.out(56120,0x1f91d60c0) malloc: *** set a breakpoint in malloc_error_break to debug
+</code></pre>
+<p>This happens because <strong>two destructors delete the same pointer</strong>.</p>
+<hr />
+<h2 id="-step-3-add-a-custom-copy-constructor-deep-copy"><a class="header" href="#-step-3-add-a-custom-copy-constructor-deep-copy">✅ Step 3: Add a Custom Copy Constructor (Deep Copy)</a></h2>
+<p>We fix this by allocating <strong>new memory</strong> for each object, and <strong>copying the value</strong> instead of the pointer.</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+private:
+    int* ptr;
+
+public:
+    Foo(int value) {
+        ptr = new int(value);
+        std::cout &lt;&lt; "Foo(int) invoked, *ptr = " &lt;&lt; *ptr &lt;&lt; "\n";
+    }
+
+    // 🟢 Copy Constructor (Deep Copy)
+    Foo(Foo&amp; obj) {
+        ptr = new int(*obj.ptr);
+        std::cout &lt;&lt; "Foo(Foo&amp;) invoked (deep copy), *ptr = " &lt;&lt; *ptr &lt;&lt; "\n";
+    }
+
+    ~Foo() {
+        std::cout &lt;&lt; "~Foo() invoked, deleting ptr\n";
+        delete ptr;
+    }
+};
+
+int main() {
+    Foo obj1(10);
+    Foo obj2 = obj1; // Deep copy now, no double delete
+    return 0;
+}
+</code></pre>
+<p>Now each object has its own <code>ptr</code>, and deletion is safe.</p>
+<hr />
+<h2 id="-step-4-problem-with-temporaries-rvalues-or-prvalues-in-c11"><a class="header" href="#-step-4-problem-with-temporaries-rvalues-or-prvalues-in-c11">🔍 Step 4: Problem with Temporaries (rvalues or prvalues in c++11)</a></h2>
+<p>Let’s add a function that <strong>returns a temporary object</strong>:</p>
+<pre><code class="language-cpp">Foo get_obj() {
+    return Foo(20); // creates a temporary (prvalue)
+}
+
+int main() {
+    Foo obj5 = get_obj(); // ❌ Error with Foo(Foo&amp;)
+    return 0;
+}
+</code></pre>
+<h3 id="-error"><a class="header" href="#-error">❌ Error:</a></h3>
+<pre><code>error: no matching constructor for initialization of 'Foo'
+note: candidate constructor not viable: expects an lvalue for 1st argument
+</code></pre>
+<p>Why?</p>
+<ul>
+<li><code>return Foo(20)</code> creates a <strong>temporary object</strong> (a <strong>prvalue</strong>).</li>
+<li>The parameter type <code>Foo&amp;</code> <strong>cannot bind</strong> to a temporary object.</li>
+<li>In C++, <strong>non-const lvalue references</strong> cannot bind to temporaries.</li>
+</ul>
+<hr />
+<h2 id="-step-5-fix-by-adding-const-to-copy-constructor"><a class="header" href="#-step-5-fix-by-adding-const-to-copy-constructor">🧱 Step 5: Fix by Adding <code>const</code> to Copy Constructor</a></h2>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Foo {
+private:
+    int* ptr;
+
+public:
+    Foo(int value) {
+        ptr = new int(value);
+        std::cout &lt;&lt; "Foo(int) invoked, *ptr = " &lt;&lt; *ptr &lt;&lt; "\n";
+    }
+
+    // ✅ Const Copy Constructor
+    Foo(const Foo&amp; obj) {
+        ptr = new int(*obj.ptr);
+        std::cout &lt;&lt; "Foo(const Foo&amp;) invoked (deep copy), *ptr = " &lt;&lt; *ptr &lt;&lt; "\n";
+    }
+
+    ~Foo() {
+        std::cout &lt;&lt; "~Foo() invoked, deleting ptr\n";
+        delete ptr;
+    }
+};
+
+Foo get_obj() {
+    return Foo(30);
+}
+
+int main() {
+    Foo obj1(10);
+    Foo obj2 = obj1;      // ✅ lvalue copy
+    Foo obj3 = get_obj(); // ✅ prvalue copy
+    return 0;
+}
+</code></pre>
+<p>Now it works for both:</p>
+<ul>
+<li><strong>lvalues</strong> (<code>obj1</code>)</li>
+<li><strong>temporaries (prvalues)</strong> returned from functions</li>
+</ul>
+<hr />
+<h2 id="-step-6-understanding-temporary-objects"><a class="header" href="#-step-6-understanding-temporary-objects">🧠 Step 6: Understanding Temporary Objects</a></h2>
+<h3 id="-what-is-a-temporary-prvalue"><a class="header" href="#-what-is-a-temporary-prvalue">💡 What is a Temporary (prvalue)?</a></h3>
+<ul>
+<li>Created by expressions like <code>Foo(20)</code> or <code>return Foo()</code>.</li>
+<li>Exists only until the end of the full expression.</li>
+<li>Cannot be modified (non-const binding forbidden).</li>
+</ul>
+<p>That’s why the copy constructor should accept:</p>
+<pre><code class="language-cpp">Foo(const Foo&amp; obj);
+</code></pre>
+<p>so that <strong>temporaries</strong> can be used to create new objects safely.</p>
+<hr />
+<h2 id="-step-7-unoptimized-invocations"><a class="header" href="#-step-7-unoptimized-invocations">🕵️‍♂️ Step 7: Unoptimized Invocations</a></h2>
+<p>Before compiler optimizations (like <strong>Return Value Optimization</strong>, RVO),<br />
+the following may happen when you call <code>get_obj()</code>:</p>
+<ol>
+<li><code>Foo(30)</code> temporary created (constructor invoked)</li>
+<li>Temporary copied into <code>obj3</code> (copy constructor invoked)</li>
+<li>Temporary destroyed (destructor invoked)</li>
+<li><code>obj3</code> destroyed (destructor invoked)</li>
+</ol>
+<p>Output (unoptimized):</p>
+<pre><code>Foo(int) invoked, *ptr = 30
+Foo(const Foo&amp;) invoked (deep copy), *ptr = 30
+~Foo() invoked, deleting ptr
+~Foo() invoked, deleting ptr
+</code></pre>
+<blockquote>
+<p>In optimized builds, modern compilers often <strong>elide</strong> these copies (RVO),<br />
+so you might see fewer constructor calls.</p>
+</blockquote>
+<hr />
+<h2 id="-summary-1"><a class="header" href="#-summary-1">🧾 Summary</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Concept</th><th>Description</th></tr></thead><tbody>
+<tr><td><strong>Copy Constructor</strong></td><td>Special constructor used to create an object as a copy of another object</td></tr>
+<tr><td><strong>Shallow Copy</strong></td><td>Copies pointer value → both objects share same memory → leads to double free</td></tr>
+<tr><td><strong>Deep Copy</strong></td><td>Allocates new memory and copies data → each object owns its own copy</td></tr>
+<tr><td><strong>Why <code>const</code>?</strong></td><td>Allows binding to temporaries (prvalues)</td></tr>
+<tr><td><strong>Without <code>const</code></strong></td><td>Fails when copying from a temporary</td></tr>
+<tr><td><strong>Temporary (prvalue)</strong></td><td>A short-lived unnamed object like <code>Foo(10)</code> or <code>return Foo()</code></td></tr>
+</tbody></table>
+</div>
+<hr />
+<p>Next step 👉 <strong>Move Constructor</strong><br />
+(to optimize performance and avoid unnecessary deep copies for temporaries).</p>
+<h2 id="-back-to-table-of-contents-1"><a class="header" href="#-back-to-table-of-contents-1"><a href="4_constrctor.html#table-of-contents">↑ Back to Table of Contents</a></a></h2>
+<h2 id="summary-2"><a class="header" href="#summary-2">Summary</a></h2>
+<p><strong>Constructors</strong> initialize objects after memory allocation, while <strong>destructors</strong> clean up resources before memory deallocation. Using the <code>explicit</code> keyword on constructors is a best practice that prevents implicit type conversions, making your code safer, clearer, and more maintainable.</p>
+<p><strong>Member initializer lists</strong> allow you to initialize member variables at the moment of their construction, which is essential for <code>const</code> and reference members, and more efficient for all member variables.</p>
+<p><strong>The <code>this</code> pointer</strong> is a hidden pointer passed to every member function that points to the calling object. When working with <code>const</code> objects, member functions must be marked as <code>const</code> to accept a <code>const Foo* const</code> instead of <code>Foo* const</code>, ensuring const-correctness and type safety.</p>
+<p><strong>The <code>mutable</code> keyword</strong> allows specific member variables to be modified even in <code>const</code> member functions and <code>const</code> objects. Use it for implementation details like caching, debug counters, and lazy initialization—but not for core object state.</p>
+<p><strong>Bottom Line:</strong> Use <code>mutable</code> judiciously for implementation details that don't affect the logical const-ness of your objects. It's a powerful tool for optimization and internal bookkeeping, but shouldn't be used to bypass const-correctness for core object state!</p>
+<p><a href="4_constrctor.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="constructor-execution-in-inheritance---c"><a class="header" href="#constructor-execution-in-inheritance---c">Constructor Execution in Inheritance - C++</a></h1>
+<h2 id="table-of-contents-3"><a class="header" href="#table-of-contents-3">Table of Contents</a></h2>
+<ol>
+<li><a href="5_constructor_and_inheritance.html#understanding-constructor-execution-order">Understanding Constructor Execution Order</a></li>
+<li><a href="5_constructor_and_inheritance.html#default-constructor-behavior">Default Constructor Behavior</a></li>
+<li><a href="5_constructor_and_inheritance.html#execution-sequence-analysis">Execution Sequence Analysis</a></li>
+<li><a href="5_constructor_and_inheritance.html#calling-parameterized-base-constructors">Calling Parameterized Base Constructors</a></li>
+<li><a href="5_constructor_and_inheritance.html#complete-example-with-explanation">Complete Example with Explanation</a></li>
+<li><a href="5_constructor_and_inheritance.html#inheriting-constructors-cpp11">Inheriting constructors - C++11</a></li>
+<li><a href="5_constructor_and_inheritance.html#limitations-of-inherited-constructors">Limitation of inherited construtors - C++11</a></li>
+<li><a href="5_constructor_and_inheritance.html#destructors-order-inheritance">Understanding Destructor Execution Order</a></li>
+</ol>
+<hr />
+<p><a id="understanding-constructor-execution-order"></a></p>
+<h2 id="1-understanding-constructor-execution-order"><a class="header" href="#1-understanding-constructor-execution-order">1. Understanding Constructor Execution Order</a></h2>
+<p>When creating an object of a derived class, constructors are called in a specific order:</p>
+<h3 id="order-of-construction"><a class="header" href="#order-of-construction">Order of Construction:</a></h3>
+<ol>
+<li><strong>Base class constructor</strong> (top of hierarchy) - <strong>First</strong></li>
+<li><strong>Intermediate class constructors</strong> (if any)</li>
+<li><strong>Derived class constructor</strong> (bottom of hierarchy) - <strong>Last</strong></li>
+</ol>
+<h3 id="order-of-destruction-reverse-order"><a class="header" href="#order-of-destruction-reverse-order">Order of Destruction: (Reverse order)</a></h3>
+<ol>
+<li><strong>Derived class destructor</strong> - <strong>First</strong></li>
+<li><strong>Intermediate class destructors</strong></li>
+<li><strong>Base class destructor</strong> - <strong>Last</strong></li>
+</ol>
+<h3 id="why-this-order"><a class="header" href="#why-this-order">Why This Order?</a></h3>
+<p>The derived class depends on the base class being fully constructed first. You can't build a house's roof before building its foundation!</p>
+<pre><code>Construction:  Base → Intermediate → Derived (Bottom-up)
+Destruction:   Derived → Intermediate → Base (Top-down)
+</code></pre>
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="default-constructor-behavior"></a></p>
+<h2 id="2-default-constructor-behavior"><a class="header" href="#2-default-constructor-behavior">2. Default Constructor Behavior</a></h2>
+<h3 id="original-example"><a class="header" href="#original-example">Original Example</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class A {
+public:
+    A() : a(1) {
+        std::cout &lt;&lt; "A(): a = " &lt;&lt; a &lt;&lt; std::endl;
+    }
+    A(int a) : a(a) {
+        std::cout &lt;&lt; "A(int): a = " &lt;&lt; a &lt;&lt; std::endl;
+    }
+private:
+    int a;
+};
+
+class B : public A {
+public:
+    B() : b(2) {
+        std::cout &lt;&lt; "B(): b = " &lt;&lt; b &lt;&lt; std::endl;
+    }
+    B(int b) : b(b) {
+        std::cout &lt;&lt; "B(int): b = " &lt;&lt; b &lt;&lt; std::endl;
+    }
+private:
+    int b;
+};
+
+class C : public B {
+public:
+    C() : c(3) {
+        std::cout &lt;&lt; "C(): c = " &lt;&lt; c &lt;&lt; std::endl;
+    }
+    C(int c) : c(c) {
+        std::cout &lt;&lt; "C(int): c = " &lt;&lt; c &lt;&lt; std::endl;
+    }
+private:
+    int c;
+};
+
+int main(int argc, char* argv[]) {
+    std::cout &lt;&lt; "Without parameter:" &lt;&lt; std::endl;
+    C c_obj{};
+    std::cout &lt;&lt; "\nWith parameter:" &lt;&lt; std::endl;
+    C c_obj_param{30};
+    return 0;
+}
+</code></pre>
+<h3 id="output-4"><a class="header" href="#output-4">Output</a></h3>
+<pre><code>Without parameter:
+A(): a = 1
+B(): b = 2
+C(): c = 3
+
+With parameter:
+A(): a = 1
+B(): b = 2
+C(int): c = 30
+</code></pre>
+<h3 id="key-observation"><a class="header" href="#key-observation">Key Observation</a></h3>
+<p>Notice that even when we call <code>C(int)</code> with a parameter, the base classes <code>A</code> and <code>B</code> still use their <strong>default constructors</strong>!</p>
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="execution-sequence-analysis"></a></p>
+<h2 id="3-execution-sequence-analysis"><a class="header" href="#3-execution-sequence-analysis">3. Execution Sequence Analysis</a></h2>
+<h3 id="case-1-c-c_obj-default-constructor"><a class="header" href="#case-1-c-c_obj-default-constructor">Case 1: <code>C c_obj{};</code> (Default Constructor)</a></h3>
+<h4 id="what-the-compiler-sees"><a class="header" href="#what-the-compiler-sees">What the Compiler Sees:</a></h4>
+<pre><code class="language-cpp">C() : c(3) {
+    std::cout &lt;&lt; "C(): c = " &lt;&lt; c &lt;&lt; std::endl;
+}
+</code></pre>
+<h4 id="what-the-compiler-does-implicit"><a class="header" href="#what-the-compiler-does-implicit">What the Compiler Does (Implicit):</a></h4>
+<pre><code class="language-cpp">C() : B(),     // ← Implicitly calls B's default constructor
+      c(3) {
+    std::cout &lt;&lt; "C(): c = " &lt;&lt; c &lt;&lt; std::endl;
+}
+</code></pre>
+<p>And <code>B()</code> does the same:</p>
+<pre><code class="language-cpp">B() : A(),     // ← Implicitly calls A's default constructor
+      b(2) {
+    std::cout &lt;&lt; "B(): b = " &lt;&lt; b &lt;&lt; std::endl;
+}
+</code></pre>
+<h4 id="execution-flow"><a class="header" href="#execution-flow">Execution Flow:</a></h4>
+<pre><code>Step 1: C() constructor called
+   │
+   ├──&gt; Step 2: Compiler sees no explicit base constructor call
+   │            Automatically calls B() (default)
+   │              │
+   │              ├──&gt; Step 3: B() constructor starts
+   │              │           Compiler sees no explicit base constructor call
+   │              │           Automatically calls A() (default)
+   │              │              │
+   │              │              ├──&gt; Step 4: A() constructor starts
+   │              │              │           Initializes: a = 1
+   │              │              │           Prints: "A(): a = 1"
+   │              │              └──&gt; A() constructor completes
+   │              │
+   │              ├──&gt; Step 5: B() constructor continues
+   │              │           Initializes: b = 2
+   │              │           Prints: "B(): b = 2"
+   │              └──&gt; B() constructor completes
+   │
+   ├──&gt; Step 6: C() constructor continues
+   │           Initializes: c = 3
+   │           Prints: "C(): c = 3"
+   └──&gt; C() constructor completes
+</code></pre>
+<p><strong>Visual Timeline:</strong></p>
+<pre><code>Time →
+[A() starts] → [a=1] → [Print "A()"] → [A() done]
+                                          ↓
+                       [B() starts] → [b=2] → [Print "B()"] → [B() done]
+                                                                 ↓
+                                              [C() starts] → [c=3] → [Print "C()"] → [C() done]
+</code></pre>
+<h3 id="case-2-c-c_obj_param30-parameterized-constructor"><a class="header" href="#case-2-c-c_obj_param30-parameterized-constructor">Case 2: <code>C c_obj_param{30};</code> (Parameterized Constructor)</a></h3>
+<h4 id="what-the-compiler-sees-1"><a class="header" href="#what-the-compiler-sees-1">What the Compiler Sees:</a></h4>
+<pre><code class="language-cpp">C(int c) : c(c) {
+    std::cout &lt;&lt; "C(int): c = " &lt;&lt; c &lt;&lt; std::endl;
+}
+</code></pre>
+<h4 id="what-the-compiler-does-implicit-1"><a class="header" href="#what-the-compiler-does-implicit-1">What the Compiler Does (Implicit):</a></h4>
+<pre><code class="language-cpp">C(int c) : B(),    // ← Still implicitly calls B's DEFAULT constructor!
+           c(c) {
+    std::cout &lt;&lt; "C(int): c = " &lt;&lt; c &lt;&lt; std::endl;
+}
+</code></pre>
+<h4 id="execution-flow-1"><a class="header" href="#execution-flow-1">Execution Flow:</a></h4>
+<pre><code>Step 1: C(int) constructor called with c = 30
+   │
+   ├──&gt; Step 2: Compiler sees no explicit base constructor call
+   │            Automatically calls B() (default, not B(int)!)
+   │              │
+   │              ├──&gt; Step 3: B() constructor starts
+   │              │           Automatically calls A() (default)
+   │              │              │
+   │              │              ├──&gt; Step 4: A() constructor
+   │              │              │           Initializes: a = 1
+   │              │              │           Prints: "A(): a = 1"
+   │              │              └──&gt; A() completes
+   │              │
+   │              ├──&gt; Step 5: B() constructor continues
+   │              │           Initializes: b = 2
+   │              │           Prints: "B(): b = 2"
+   │              └──&gt; B() completes
+   │
+   ├──&gt; Step 6: C(int) constructor continues
+   │           Initializes: c = 30 (uses the parameter!)
+   │           Prints: "C(int): c = 30"
+   └──&gt; C(int) completes
+</code></pre>
+<h3 id="important-rule"><a class="header" href="#important-rule">Important Rule</a></h3>
+<blockquote>
+<p><strong>If a derived class constructor doesn't EXPLICITLY call a base class constructor in its initializer list, the compiler AUTOMATICALLY calls the base class's DEFAULT constructor.</strong></p>
+</blockquote>
+<p>This means:</p>
+<ul>
+<li>You wrote: <code>C(int c) : c(c) { }</code></li>
+<li>Compiler executes: <code>C(int c) : B(), c(c) { }</code></li>
+<li><code>B()</code> then executes: <code>B() : A(), b(2) { }</code></li>
+</ul>
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="calling-parameterized-base-constructors"></a></p>
+<h2 id="4-calling-parameterized-base-constructors"><a class="header" href="#4-calling-parameterized-base-constructors">4. Calling Parameterized Base Constructors</a></h2>
+<p>To use parameterized constructors of base classes, you must <strong>explicitly call them</strong> in the initializer list.</p>
+<h3 id="modified-code"><a class="header" href="#modified-code">Modified Code</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class A {
+public:
+    A() : a(1) {
+        std::cout &lt;&lt; "A(): a = " &lt;&lt; a &lt;&lt; std::endl;
+    }
+    A(int a) : a(a) {
+        std::cout &lt;&lt; "A(int): a = " &lt;&lt; a &lt;&lt; std::endl;
+    }
+private:
+    int a;
+};
+
+class B : public A {
+public:
+    B() : A(), b(2) {  // Explicitly call A() (though it's implicit)
+        std::cout &lt;&lt; "B(): b = " &lt;&lt; b &lt;&lt; std::endl;
+    }
+    B(int b) : A(), b(b) {  // Explicitly call A()
+        std::cout &lt;&lt; "B(int): b = " &lt;&lt; b &lt;&lt; std::endl;
+    }
+    // New: Constructor that takes parameters for both B and A
+    B(int a_val, int b_val) : A(a_val), b(b_val) {
+        std::cout &lt;&lt; "B(int, int): b = " &lt;&lt; b &lt;&lt; std::endl;
+    }
+private:
+    int b;
+};
+
+class C : public B {
+public:
+    C() : B(), c(3) {  // Explicitly call B()
+        std::cout &lt;&lt; "C(): c = " &lt;&lt; c &lt;&lt; std::endl;
+    }
+    C(int c) : B(), c(c) {  // Explicitly call B()
+        std::cout &lt;&lt; "C(int): c = " &lt;&lt; c &lt;&lt; std::endl;
+    }
+    // New: Constructor that takes parameters for C and B
+    C(int b_val, int c_val) : B(b_val), c(c_val) {
+        std::cout &lt;&lt; "C(int, int): c = " &lt;&lt; c &lt;&lt; std::endl;
+    }
+    // New: Constructor that takes parameters for all classes
+    C(int a_val, int b_val, int c_val) : B(a_val, b_val), c(c_val) {
+        std::cout &lt;&lt; "C(int, int, int): c = " &lt;&lt; c &lt;&lt; std::endl;
+    }
+private:
+    int c;
+};
+
+int main(int argc, char* argv[]) {
+    std::cout &lt;&lt; "=== Case 1: Default constructors ===" &lt;&lt; std::endl;
+    C obj1{};
+    
+    std::cout &lt;&lt; "\n=== Case 2: Only C parameter ===" &lt;&lt; std::endl;
+    C obj2{30};
+    
+    std::cout &lt;&lt; "\n=== Case 3: B and C parameters ===" &lt;&lt; std::endl;
+    C obj3{20, 30};
+    
+    std::cout &lt;&lt; "\n=== Case 4: A, B, and C parameters ===" &lt;&lt; std::endl;
+    C obj4{10, 20, 30};
+    
+    return 0;
+}
+</code></pre>
+<h3 id="output-5"><a class="header" href="#output-5">Output</a></h3>
+<pre><code>=== Case 1: Default constructors ===
+A(): a = 1
+B(): b = 2
+C(): c = 3
+
+=== Case 2: Only C parameter ===
+A(): a = 1
+B(): b = 2
+C(int): c = 30
+
+=== Case 3: B and C parameters ===
+A(): a = 1
+B(int): b = 20
+C(int, int): c = 30
+
+=== Case 4: A, B, and C parameters ===
+A(int): a = 10
+B(int, int): b = 20
+C(int, int, int): c = 30
+</code></pre>
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="complete-example-with-explanation"></a></p>
+<h2 id="5-complete-example-with-explanation"><a class="header" href="#5-complete-example-with-explanation">5. Complete Example with Explanation</a></h2>
+<h3 id="detailed-analysis-of-each-case"><a class="header" href="#detailed-analysis-of-each-case">Detailed Analysis of Each Case</a></h3>
+<h4 id="case-1-c-obj1-all-default-constructors"><a class="header" href="#case-1-c-obj1-all-default-constructors">Case 1: <code>C obj1{};</code> (All Default Constructors)</a></h4>
+<pre><code class="language-cpp">C() : B(), c(3) {
+    std::cout &lt;&lt; "C(): c = " &lt;&lt; c &lt;&lt; std::endl;
+}
+</code></pre>
+<p><strong>Execution:</strong></p>
+<pre><code>A() called → a = 1
+B() called → b = 2
+C() called → c = 3
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>C()</code> calls <code>B()</code> (explicit in modified code, implicit in original)</li>
+<li><code>B()</code> calls <code>A()</code> (explicit in modified code, implicit in original)</li>
+<li>Each constructor uses default values</li>
+</ul>
+<hr />
+<h4 id="case-2-c-obj230-only-c-gets-parameter"><a class="header" href="#case-2-c-obj230-only-c-gets-parameter">Case 2: <code>C obj2{30};</code> (Only C Gets Parameter)</a></h4>
+<pre><code class="language-cpp">C(int c) : B(), c(c) {
+    std::cout &lt;&lt; "C(int): c = " &lt;&lt; c &lt;&lt; std::endl;
+}
+</code></pre>
+<p><strong>Execution:</strong></p>
+<pre><code>A() called → a = 1
+B() called → b = 2
+C(int) called → c = 30
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>C(int)</code> explicitly calls <code>B()</code> (default constructor)</li>
+<li><code>B()</code> implicitly calls <code>A()</code> (default constructor)</li>
+<li>Only <code>c</code> gets the parameter value</li>
+<li><code>a</code> and <code>b</code> still use defaults</li>
+</ul>
+<p><strong>Key Point:</strong> Passing a parameter to C doesn't automatically pass it to B or A!</p>
+<hr />
+<h4 id="case-3-c-obj320-30-b-and-c-get-parameters"><a class="header" href="#case-3-c-obj320-30-b-and-c-get-parameters">Case 3: <code>C obj3{20, 30};</code> (B and C Get Parameters)</a></h4>
+<pre><code class="language-cpp">C(int b_val, int c_val) : B(b_val), c(c_val) {
+    std::cout &lt;&lt; "C(int, int): c = " &lt;&lt; c &lt;&lt; std::endl;
+}
+</code></pre>
+<p>Which calls:</p>
+<pre><code class="language-cpp">B(int b) : A(), b(b) {
+    std::cout &lt;&lt; "B(int): b = " &lt;&lt; b &lt;&lt; std::endl;
+}
+</code></pre>
+<p><strong>Execution:</strong></p>
+<pre><code>A() called → a = 1
+B(int) called → b = 20
+C(int, int) called → c = 30
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>C(int, int)</code> explicitly calls <code>B(int)</code> with <code>b_val = 20</code></li>
+<li><code>B(int)</code> implicitly calls <code>A()</code> (default constructor)</li>
+<li><code>a</code> still uses default, but <code>b</code> and <code>c</code> get parameters</li>
+</ul>
+<hr />
+<h4 id="case-4-c-obj410-20-30-all-get-parameters"><a class="header" href="#case-4-c-obj410-20-30-all-get-parameters">Case 4: <code>C obj4{10, 20, 30};</code> (All Get Parameters)</a></h4>
+<pre><code class="language-cpp">C(int a_val, int b_val, int c_val) : B(a_val, b_val), c(c_val) {
+    std::cout &lt;&lt; "C(int, int, int): c = " &lt;&lt; c &lt;&lt; std::endl;
+}
+</code></pre>
+<p>Which calls:</p>
+<pre><code class="language-cpp">B(int a_val, int b_val) : A(a_val), b(b_val) {
+    std::cout &lt;&lt; "B(int, int): b = " &lt;&lt; b &lt;&lt; std::endl;
+}
+</code></pre>
+<p>Which calls:</p>
+<pre><code class="language-cpp">A(int a) : a(a) {
+    std::cout &lt;&lt; "A(int): a = " &lt;&lt; a &lt;&lt; std::endl;
+}
+</code></pre>
+<p><strong>Execution:</strong></p>
+<pre><code>A(int) called → a = 10
+B(int, int) called → b = 20
+C(int, int, int) called → c = 30
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>C(int, int, int)</code> explicitly calls <code>B(int, int)</code> with <code>a_val = 10, b_val = 20</code></li>
+<li><code>B(int, int)</code> explicitly calls <code>A(int)</code> with <code>a_val = 10</code></li>
+<li>All classes get their respective parameter values</li>
+</ul>
+<p><strong>This is the proper way to initialize the entire hierarchy with custom values!</strong></p>
+<hr />
+<h3 id="visual-representation-of-constructor-calls"><a class="header" href="#visual-representation-of-constructor-calls">Visual Representation of Constructor Calls</a></h3>
+<pre><code>Case 1: C obj1{}
+   C() 
+    └─&gt; B()
+         └─&gt; A()
+              └─&gt; a=1
+         └─&gt; b=2
+    └─&gt; c=3
+
+Case 2: C obj2{30}
+   C(int)  [param: 30]
+    └─&gt; B()
+         └─&gt; A()
+              └─&gt; a=1
+         └─&gt; b=2
+    └─&gt; c=30  ← Uses parameter
+
+Case 3: C obj3{20, 30}
+   C(int, int)  [params: 20, 30]
+    └─&gt; B(int)  [param: 20]
+         └─&gt; A()
+              └─&gt; a=1
+         └─&gt; b=20  ← Uses parameter
+    └─&gt; c=30  ← Uses parameter
+
+Case 4: C obj4{10, 20, 30}
+   C(int, int, int)  [params: 10, 20, 30]
+    └─&gt; B(int, int)  [params: 10, 20]
+         └─&gt; A(int)  [param: 10]
+              └─&gt; a=10  ← Uses parameter
+         └─&gt; b=20  ← Uses parameter
+    └─&gt; c=30  ← Uses parameter
+</code></pre>
+<hr />
+<h2 id="key-takeaways"><a class="header" href="#key-takeaways">Key Takeaways</a></h2>
+<h3 id="1-automatic-default-constructor-call"><a class="header" href="#1-automatic-default-constructor-call">1. Automatic Default Constructor Call</a></h3>
+<ul>
+<li>If you don't explicitly call a base class constructor, the compiler calls the <strong>default constructor</strong> automatically</li>
+<li>This happens even if you call a parameterized constructor of the derived class</li>
+</ul>
+<h3 id="2-explicit-base-constructor-call"><a class="header" href="#2-explicit-base-constructor-call">2. Explicit Base Constructor Call</a></h3>
+<ul>
+<li>To use a parameterized base constructor, you MUST explicitly call it in the initializer list:
+<pre><code class="language-cpp">DerivedClass(params) : BaseClass(params), members(values) {
+    // constructor body
+}
+</code></pre>
+</li>
+</ul>
+<h3 id="3-constructor-execution-order"><a class="header" href="#3-constructor-execution-order">3. Constructor Execution Order</a></h3>
+<ul>
+<li><strong>Always</strong> executes from base to derived (top-down in hierarchy)</li>
+<li>Base class is fully constructed before derived class constructor body runs</li>
+</ul>
+<h3 id="4-passing-parameters-up-the-hierarchy"><a class="header" href="#4-passing-parameters-up-the-hierarchy">4. Passing Parameters Up the Hierarchy</a></h3>
+<ul>
+<li>Parameters don't automatically propagate to base classes</li>
+<li>You must explicitly pass them through constructor calls:
+<pre><code class="language-cpp">C(int a, int b, int c) : B(a, b), c(c) { }
+</code></pre>
+</li>
+</ul>
+<h3 id="5-initializer-list-order"><a class="header" href="#5-initializer-list-order">5. Initializer List Order</a></h3>
+<ul>
+<li>Base class constructors are called <strong>before</strong> member initialization</li>
+<li>Even if you write members first in the list:
+<pre><code class="language-cpp">C() : c(3), B() { }  // B() still called before c initialization
+</code></pre>
+</li>
+</ul>
+<h3 id="best-practice"><a class="header" href="#best-practice">Best Practice</a></h3>
+<p>✓ <strong>DO:</strong></p>
+<ul>
+<li>Explicitly call base constructors when you need specific initialization</li>
+<li>Pass parameters through the hierarchy when needed</li>
+<li>Use initializer lists for all initialization</li>
+</ul>
+<p>✗ <strong>DON'T:</strong></p>
+<ul>
+<li>Rely on implicit default constructor calls when you need specific values</li>
+<li>Try to initialize base class members in derived class constructor body</li>
+<li>Forget that base constructors run first</li>
+</ul>
+<hr />
+<h2 id="summary-3"><a class="header" href="#summary-3">Summary</a></h2>
+<p><strong>Constructor execution in inheritance</strong> follows a strict order:</p>
+<ol>
+<li>Base class constructor (outermost first)</li>
+<li>Member variable initialization</li>
+<li>Constructor body execution</li>
+</ol>
+<p><strong>If not explicitly called</strong>, the compiler automatically invokes the <strong>default constructor</strong> of the base class. To use parameterized base constructors, you must explicitly call them in the initializer list.</p>
+<p>This ensures that the base class is fully constructed before the derived class tries to use it, maintaining the integrity of the inheritance hierarchy.</p>
+<p><strong>C++11 introduced constructor inheritance</strong> using the <code>using</code> keyword, which allows derived classes to inherit base class constructors, reducing boilerplate code. However, there are important limitations when constructors with the same signature exist in both base and derived classes.</p>
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="inheriting-constructors-cpp11"></a></p>
+<h2 id="6-inheriting-constructors-c11"><a class="header" href="#6-inheriting-constructors-c11">6. Inheriting Constructors (C++11)</a></h2>
+<h3 id="the-problem-before-c11"><a class="header" href="#the-problem-before-c11">The Problem Before C++11</a></h3>
+<p>Before C++11, if you wanted to use base class constructors in a derived class, you had to write forwarding constructors manually:</p>
+<pre><code class="language-cpp">class Base {
+public:
+    Base(int x) { }
+    Base(int x, int y) { }
+    Base(int x, int y, int z) { }
+};
+
+class Derived : public Base {
+public:
+    // Manually forward each constructor - tedious!
+    Derived(int x) : Base(x) { }
+    Derived(int x, int y) : Base(x, y) { }
+    Derived(int x, int y, int z) : Base(x, y, z) { }
+};
+</code></pre>
+<p><strong>Problems:</strong></p>
+<ul>
+<li>❌ Lots of boilerplate code</li>
+<li>❌ Error-prone (easy to forget a constructor)</li>
+<li>❌ Hard to maintain (every base constructor needs forwarding)</li>
+<li>❌ Repetitive and tedious</li>
+</ul>
+<h3 id="the-solution-using-to-inherit-constructors-c11"><a class="header" href="#the-solution-using-to-inherit-constructors-c11">The Solution: <code>using</code> to Inherit Constructors (C++11)</a></h3>
+<p>C++11 introduced the <code>using</code> declaration to inherit base class constructors:</p>
+<pre><code class="language-cpp">class Base {
+public:
+    Base(int x) { std::cout &lt;&lt; "Base(int): " &lt;&lt; x &lt;&lt; "\n"; }
+    Base(int x, int y) { std::cout &lt;&lt; "Base(int, int): " &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; "\n"; }
+    Base(int x, int y, int z) { std::cout &lt;&lt; "Base(int, int, int)\n"; }
+};
+
+class Derived : public Base {
+public:
+    using Base::Base;  // ✓ Inherit ALL base constructors!
+};
+
+int main() {
+    Derived d1(10);           // Calls Base(int)
+    Derived d2(10, 20);       // Calls Base(int, int)
+    Derived d3(10, 20, 30);   // Calls Base(int, int, int)
+}
+</code></pre>
+<h3 id="output-6"><a class="header" href="#output-6">Output</a></h3>
+<pre><code>Base(int): 10
+Base(int, int): 10, 20
+Base(int, int, int)
+</code></pre>
+<h3 id="how-it-eases-development"><a class="header" href="#how-it-eases-development">How It Eases Development</a></h3>
+<h4 id="before-c11-manual-forwarding"><a class="header" href="#before-c11-manual-forwarding">Before C++11 (Manual Forwarding)</a></h4>
+<pre><code class="language-cpp">class Base {
+public:
+    Base() { }
+    Base(int x) { }
+    Base(int x, double y) { }
+    Base(std::string s) { }
+};
+
+class Derived : public Base {
+    int member;
+public:
+    // Must manually write ALL of these!
+    Derived() : Base(), member(0) { }
+    Derived(int x) : Base(x), member(0) { }
+    Derived(int x, double y) : Base(x, y), member(0) { }
+    Derived(std::string s) : Base(s), member(0) { }
+};
+</code></pre>
+<h4 id="after-c11-inheriting-constructors"><a class="header" href="#after-c11-inheriting-constructors">After C++11 (Inheriting Constructors)</a></h4>
+<pre><code class="language-cpp">class Base {
+public:
+    Base() { }
+    Base(int x) { }
+    Base(int x, double y) { }
+    Base(std::string s) { }
+};
+
+class Derived : public Base {
+    int member = 0;  // Default member initialization
+public:
+    using Base::Base;  // ✓ One line instead of four constructors!
+};
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>✓ <strong>Less code</strong> - One line vs multiple constructors</li>
+<li>✓ <strong>Less maintenance</strong> - Add base constructor, automatically available</li>
+<li>✓ <strong>Fewer errors</strong> - No chance of forgetting to forward a constructor</li>
+<li>✓ <strong>Cleaner code</strong> - Intent is clear and concise</li>
+</ul>
+<h3 id="complete-example"><a class="header" href="#complete-example">Complete Example</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Person {
+protected:
+    std::string name;
+    int age;
+    
+public:
+    Person(std::string n) : name(n), age(0) {
+        std::cout &lt;&lt; "Person(string): " &lt;&lt; name &lt;&lt; "\n";
+    }
+    
+    Person(std::string n, int a) : name(n), age(a) {
+        std::cout &lt;&lt; "Person(string, int): " &lt;&lt; name &lt;&lt; ", " &lt;&lt; age &lt;&lt; "\n";
+    }
+    
+    void display() const {
+        std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; "\n";
+    }
+};
+
+class Employee : public Person {
+    int employeeId = 0;  // Default member initialization
+    
+public:
+    // Inherit all Person constructors
+    using Person::Person;
+    
+    // Can still add derived-specific constructors
+    Employee(std::string n, int a, int id) : Person(n, a), employeeId(id) {
+        std::cout &lt;&lt; "Employee(string, int, int): " &lt;&lt; name &lt;&lt; ", " &lt;&lt; age &lt;&lt; ", " &lt;&lt; id &lt;&lt; "\n";
+    }
+    
+    void display() const {
+        Person::display();
+        std::cout &lt;&lt; "Employee ID: " &lt;&lt; employeeId &lt;&lt; "\n";
+    }
+};
+
+int main() {
+    std::cout &lt;&lt; "=== Using inherited constructor ===" &lt;&lt; std::endl;
+    Employee emp1("Alice", 30);
+    emp1.display();
+    
+    std::cout &lt;&lt; "\n=== Using derived-specific constructor ===" &lt;&lt; std::endl;
+    Employee emp2("Bob", 25, 1001);
+    emp2.display();
+    
+    return 0;
+}
+</code></pre>
+<h3 id="output-7"><a class="header" href="#output-7">Output</a></h3>
+<pre><code>=== Using inherited constructor ===
+Person(string, int): Alice, 30
+Name: Alice, Age: 30
+Employee ID: 0
+
+=== Using derived-specific constructor ===
+Person(string, int): Bob, 25
+Employee(string, int, int): Bob, 25, 1001
+Name: Bob, Age: 25
+Employee ID: 1001
+</code></pre>
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<p><a id="limitations-of-inherited-constructors"></a></p>
+<h2 id="7-limitations-of-inherited-constructors"><a class="header" href="#7-limitations-of-inherited-constructors">7. Limitations of Inherited Constructors</a></h2>
+<h3 id="limitation-1-constructor-hiding-same-signature-conflict"><a class="header" href="#limitation-1-constructor-hiding-same-signature-conflict">Limitation 1: Constructor Hiding (Same Signature Conflict)</a></h3>
+<p><strong>Important Rule:</strong> If a derived class defines a constructor with the <strong>same signature</strong> as an inherited base constructor, the derived class constructor <strong>hides</strong> (overrides) the inherited one.</p>
+<h4 id="example-constructor-hiding"><a class="header" href="#example-constructor-hiding">Example: Constructor Hiding</a></h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Base {
+public:
+    Base(int x) {
+        std::cout &lt;&lt; "Base(int): " &lt;&lt; x &lt;&lt; "\n";
+    }
+    
+    Base(int x, int y) {
+        std::cout &lt;&lt; "Base(int, int): " &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; "\n";
+    }
+};
+
+class Derived : public Base {
+public:
+    using Base::Base;  // Inherit all Base constructors
+    
+    // This HIDES the inherited Base(int) constructor!
+    Derived(int x) {
+        std::cout &lt;&lt; "Derived(int): " &lt;&lt; x &lt;&lt; "\n";
+    }
+};
+
+int main() {
+    Derived d1(10);        // Calls Derived(int), NOT Base(int)
+    Derived d2(10, 20);    // Calls inherited Base(int, int)
+    
+    return 0;
+}
+</code></pre>
+<h3 id="output-8"><a class="header" href="#output-8">Output</a></h3>
+<pre><code>Derived(int): 10
+Base(int, int): 10, 20
+</code></pre>
+<h3 id="analysis"><a class="header" href="#analysis">Analysis</a></h3>
+<pre><code>using Base::Base;  // Brings in:
+                   // - Base(int)        ← HIDDEN by Derived(int)
+                   // - Base(int, int)   ← Still available
+
+Derived(int x) { }  // This HIDES Base(int)
+</code></pre>
+<p><strong>What Happens:</strong></p>
+<ol>
+<li><code>Derived d1(10)</code> - Calls <code>Derived(int)</code>, <strong>not</strong> the inherited <code>Base(int)</code></li>
+<li><code>Derived d2(10, 20)</code> - Calls inherited <code>Base(int, int)</code> (no conflict)</li>
+</ol>
+<p><strong>Key Point:</strong> The derived class constructor with matching signature takes precedence and completely hides the inherited base constructor.</p>
+<h3 id="detailed-example-with-multiple-scenarios"><a class="header" href="#detailed-example-with-multiple-scenarios">Detailed Example with Multiple Scenarios</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Base {
+public:
+    Base() {
+        std::cout &lt;&lt; "Base()\n";
+    }
+    
+    Base(int x) {
+        std::cout &lt;&lt; "Base(int): " &lt;&lt; x &lt;&lt; "\n";
+    }
+    
+    Base(int x, int y) {
+        std::cout &lt;&lt; "Base(int, int): " &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; "\n";
+    }
+    
+    Base(double d) {
+        std::cout &lt;&lt; "Base(double): " &lt;&lt; d &lt;&lt; "\n";
+    }
+};
+
+class Derived : public Base {
+    int member;
+    
+public:
+    using Base::Base;  // Inherit ALL Base constructors
+    
+    // Scenario 1: Same signature - HIDES Base(int)
+    Derived(int x) : Base(x * 2), member(x) {
+        std::cout &lt;&lt; "Derived(int): " &lt;&lt; x &lt;&lt; ", member = " &lt;&lt; member &lt;&lt; "\n";
+    }
+    
+    // Scenario 2: Different signature - coexists with inherited constructors
+    Derived(int x, int y, int z) : Base(x, y), member(z) {
+        std::cout &lt;&lt; "Derived(int, int, int): member = " &lt;&lt; z &lt;&lt; "\n";
+    }
+};
+
+int main() {
+    std::cout &lt;&lt; "=== Test 1: Derived(int) - Hidden ===" &lt;&lt; std::endl;
+    Derived d1(5);  // Calls Derived(int), Base(int) is hidden
+    
+    std::cout &lt;&lt; "\n=== Test 2: Base(int, int) - Inherited ===" &lt;&lt; std::endl;
+    Derived d2(10, 20);  // Calls inherited Base(int, int)
+    
+    std::cout &lt;&lt; "\n=== Test 3: Base(double) - Inherited ===" &lt;&lt; std::endl;
+    Derived d3(3.14);  // Calls inherited Base(double)
+    
+    std::cout &lt;&lt; "\n=== Test 4: Derived(int, int, int) - Derived-specific ===" &lt;&lt; std::endl;
+    Derived d4(1, 2, 3);  // Calls Derived(int, int, int)
+    
+    std::cout &lt;&lt; "\n=== Test 5: Base() - Inherited ===" &lt;&lt; std::endl;
+    Derived d5;  // Calls inherited Base()
+    
+    return 0;
+}
+</code></pre>
+<h3 id="output-9"><a class="header" href="#output-9">Output</a></h3>
+<pre><code>=== Test 1: Derived(int) - Hidden ===
+Base(int): 10
+Derived(int): 5, member = 5
+
+=== Test 2: Base(int, int) - Inherited ===
+Base(int, int): 10, 20
+
+=== Test 3: Base(double) - Inherited ===
+Base(double): 3.14
+
+=== Test 4: Derived(int, int, int) - Derived-specific ===
+Base(int, int): 1, 2
+Derived(int, int, int): member = 3
+
+=== Test 5: Base() - Inherited ===
+Base()
+</code></pre>
+<h3 id="analysis-of-each-test-case"><a class="header" href="#analysis-of-each-test-case">Analysis of Each Test Case</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Test</th><th>Constructor Called</th><th>Explanation</th></tr></thead><tbody>
+<tr><td><code>Derived d1(5)</code></td><td><code>Derived(int)</code></td><td>Derived class has <code>Derived(int)</code> which <strong>hides</strong> inherited <code>Base(int)</code></td></tr>
+<tr><td><code>Derived d2(10, 20)</code></td><td>Inherited <code>Base(int, int)</code></td><td>No conflict, uses inherited constructor</td></tr>
+<tr><td><code>Derived d3(3.14)</code></td><td>Inherited <code>Base(double)</code></td><td>No conflict, uses inherited constructor</td></tr>
+<tr><td><code>Derived d4(1, 2, 3)</code></td><td><code>Derived(int, int, int)</code></td><td>Derived-specific constructor (not inherited)</td></tr>
+<tr><td><code>Derived d5</code></td><td>Inherited <code>Base()</code></td><td>No conflict, uses inherited constructor</td></tr>
+</tbody></table>
+</div>
+<h3 id="limitation-2-cannot-inherit-from-multiple-bases-with-same-signature"><a class="header" href="#limitation-2-cannot-inherit-from-multiple-bases-with-same-signature">Limitation 2: Cannot Inherit from Multiple Bases with Same Signature</a></h3>
+<p>If multiple base classes have constructors with the same signature, you cannot inherit them:</p>
+<pre><code class="language-cpp">class Base1 {
+public:
+    Base1(int x) { }
+};
+
+class Base2 {
+public:
+    Base2(int x) { }
+};
+
+class Derived : public Base1, public Base2 {
+public:
+    using Base1::Base1;  // Brings Base1(int)
+    using Base2::Base2;  // ❌ ERROR: Ambiguous - both have (int)
+};
+</code></pre>
+<p><strong>Solution:</strong> Define your own constructor to resolve ambiguity:</p>
+<pre><code class="language-cpp">class Derived : public Base1, public Base2 {
+public:
+    Derived(int x) : Base1(x), Base2(x) { }
+};
+</code></pre>
+<h3 id="limitation-3-private-and-protected-constructors"><a class="header" href="#limitation-3-private-and-protected-constructors">Limitation 3: Private and Protected Constructors</a></h3>
+<p>Inherited constructors maintain their access level:</p>
+<pre><code class="language-cpp">class Base {
+protected:
+    Base(int x) { }  // Protected constructor
+};
+
+class Derived : public Base {
+public:
+    using Base::Base;  // Base(int) is still PROTECTED in Derived
+};
+
+int main() {
+    // Derived d(10);  // ❌ ERROR: Base(int) is protected
+}
+</code></pre>
+<h3 id="limitation-4-default-member-initialization"><a class="header" href="#limitation-4-default-member-initialization">Limitation 4: Default Member Initialization</a></h3>
+<p>When using inherited constructors, derived class members must use <strong>default member initialization</strong>:</p>
+<pre><code class="language-cpp">class Base {
+public:
+    Base(int x) { }
+};
+
+class Derived : public Base {
+    int member;  // ❌ Uninitialized when using inherited constructors!
+    
+public:
+    using Base::Base;
+};
+
+// Better:
+class Derived : public Base {
+    int member = 0;  // ✓ Default member initialization
+    
+public:
+    using Base::Base;
+};
+</code></pre>
+<h3 id="when-not-to-use-inherited-constructors"><a class="header" href="#when-not-to-use-inherited-constructors">When NOT to Use Inherited Constructors</a></h3>
+<p>❌ <strong>Don't use inherited constructors when:</strong></p>
+<ul>
+<li>Derived class needs to initialize its own members in specific ways</li>
+<li>You need different behavior than just forwarding to base</li>
+<li>Multiple bases have constructors with same signature</li>
+<li>You need to perform additional initialization logic</li>
+</ul>
+<p>✓ <strong>DO use inherited constructors when:</strong></p>
+<ul>
+<li>Derived class doesn't add new data members (or they have defaults)</li>
+<li>You simply want to forward all base constructors</li>
+<li>No special initialization logic is needed</li>
+<li>You want to reduce boilerplate code</li>
+</ul>
+<h3 id="best-practices-summary"><a class="header" href="#best-practices-summary">Best Practices Summary</a></h3>
+<pre><code class="language-cpp">class Base {
+public:
+    Base(int x) { }
+    Base(int x, int y) { }
+};
+
+// ✓ GOOD: Simple forwarding, members have defaults
+class Derived1 : public Base {
+    int member = 0;
+public:
+    using Base::Base;  // Clean and simple
+};
+
+// ✓ GOOD: Mix inherited and custom constructors
+class Derived2 : public Base {
+    int member = 0;
+public:
+    using Base::Base;  // Inherit most constructors
+    
+    // Add custom constructor when needed
+    Derived2(int x, int y, int z) : Base(x, y), member(z) { }
+};
+
+// ✓ GOOD: Override when you need different behavior
+class Derived3 : public Base {
+    int member;
+public:
+    using Base::Base;  // Inherit Base(int, int)
+    
+    // Override Base(int) with custom behavior
+    Derived3(int x) : Base(x * 2), member(x) { }
+};
+
+// ❌ BAD: Inherited constructors can't initialize this properly
+class Derived4 : public Base {
+    int member;  // No default, will be uninitialized!
+public:
+    using Base::Base;  // ❌ member not initialized
+};
+</code></pre>
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<p><a id="destructors-order-inheritance"></a></p>
+<h2 id="7understanding-destructor-execution-order"><a class="header" href="#7understanding-destructor-execution-order">7.Understanding Destructor Execution Order</a></h2>
+<p>When an object of a <strong>derived class</strong> is destroyed, destructors are called in the <strong>reverse order of construction</strong>.</p>
+<h3 id="-order-of-destruction"><a class="header" href="#-order-of-destruction">🧩 Order of Destruction:</a></h3>
+<ol>
+<li><strong>Derived class destructor</strong> — called <strong>first</strong></li>
+<li><strong>Base class destructor</strong> — called <strong>last</strong></li>
+</ol>
+<p>This ensures that the derived class cleans up its resources before the base class is destroyed.</p>
+<hr />
+<h3 id="-example-code"><a class="header" href="#-example-code">📘 Example Code</a></h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+
+class Parent {
+public:
+    Parent() { std::cout &lt;&lt; "Inside base class constructor\n"; }
+    ~Parent() { std::cout &lt;&lt; "Inside base class destructor\n"; }
+};
+
+class Child : public Parent {
+public:
+    Child() { std::cout &lt;&lt; "Inside derived class constructor\n"; }
+    ~Child() { std::cout &lt;&lt; "Inside derived class destructor\n"; }
+};
+
+int main() {
+    Child obj;
+    return 0;
+}
+</code></pre>
+<hr />
+<h3 id="-expected-output"><a class="header" href="#-expected-output">🖥️ Expected Output</a></h3>
+<pre><code>Inside base class constructor
+Inside derived class constructor
+Inside derived class destructor
+Inside base class destructor
+</code></pre>
+<hr />
+<h3 id="-why-destructors-are-called-in-reverse-order"><a class="header" href="#-why-destructors-are-called-in-reverse-order">💡 Why Destructors Are Called in Reverse Order</a></h3>
+<ul>
+<li>During <strong>construction</strong>, the base class is created <strong>first</strong>, forming a foundation for the derived class.</li>
+<li>During <strong>destruction</strong>, the <strong>derived destructor</strong> runs first to clean up resources that might depend on the base class still being valid.</li>
+<li>After that, the <strong>base class destructor</strong> runs to finalize the cleanup.</li>
+</ul>
+<p>This reverse order:</p>
+<ul>
+<li>Prevents undefined behavior caused by destroying the base while derived resources still exist.</li>
+<li>Maintains <strong>symmetry and safety</strong> — the base’s lifetime always outlasts the derived part.</li>
+<li>Applies similarly to <strong>data members</strong>, which are also destroyed in the reverse order of their construction.</li>
+</ul>
+<hr />
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
+<hr />
+<h2 id="complete-summary"><a class="header" href="#complete-summary">Complete Summary</a></h2>
+<h3 id="constructor-execution-rules"><a class="header" href="#constructor-execution-rules">Constructor Execution Rules</a></h3>
+<ol>
+<li><strong>Execution Order</strong>: Base → Derived (construction), Derived → Base (destruction)</li>
+<li><strong>Default Constructor</strong>: Automatically called if not explicitly specified</li>
+<li><strong>Explicit Calls</strong>: Use initializer list to call specific base constructors</li>
+<li><strong>C++11 Inheritance</strong>: Use <code>using Base::Base;</code> to inherit all base constructors</li>
+</ol>
+<h3 id="inheriting-constructors-c11"><a class="header" href="#inheriting-constructors-c11">Inheriting Constructors (C++11)</a></h3>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>✓ Reduces boilerplate code</li>
+<li>✓ Automatic forwarding of base constructors</li>
+<li>✓ Easier maintenance</li>
+<li>✓ Less error-prone</li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>⚠️ Same signature in derived class hides inherited constructor</li>
+<li>⚠️ Cannot inherit from multiple bases with same signature</li>
+<li>⚠️ Access levels are preserved</li>
+<li>⚠️ Derived members need default initialization</li>
+</ul>
+<p><strong>Golden Rule:</strong> Inherited constructors are a convenience feature for simple cases. When you need custom initialization logic, write explicit constructors.</p>
+<h3 id="destructor-execution-order"><a class="header" href="#destructor-execution-order">Destructor execution order</a></h3>
+<p>The <strong>reverse order of destructor calls</strong> ensures:</p>
+<ul>
+<li>Consistent and safe cleanup</li>
+<li>Proper handling of dependencies</li>
+<li>No premature destruction of essential components</li>
+</ul>
+<p>In short, <strong>destruction happens bottom-up</strong>, mirroring the <strong>top-down</strong> order of construction.</p>
+<p><a href="5_constructor_and_inheritance.html#table-of-contents">↑ Back to Table of Contents</a></p>
 
                     </main>
 
