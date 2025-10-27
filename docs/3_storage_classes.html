@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Storage Classes - C++: Learn The Right Way</title>
+        <title>Storage Classes - C++ Learn The Right Way</title>
 
 
         <!-- Custom HTML head -->
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">C++: Learn The Right Way</h1>
+                    <h1 class="menu-title">C++ Learn The Right Way</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -175,246 +175,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="understanding-memory-layout-and-storage-classes-in-c"><a class="header" href="#understanding-memory-layout-and-storage-classes-in-c">Understanding Memory Layout and Storage Classes in C++</a></h1>
-<p>C++ programs are organized in memory into several <strong>sections</strong> or
-<strong>segments</strong>. Understanding these helps us know where variables are
-stored, how they persist, and their lifetimes.</p>
-<hr />
-<h2 id="-sections-of-a-c-program-in-memory"><a class="header" href="#-sections-of-a-c-program-in-memory">🧩 Sections of a C++ Program in Memory</a></h2>
-<p>A typical C++ program's memory layout looks like this:</p>
-<pre><code>+---------------------------+
-|        Stack              |
-|   (local variables)       |
-+---------------------------+
-|        Heap               |
-| (dynamic allocations)     |
-+---------------------------+
-|   Uninitialized Data (.bss)|
-| (global/static = 0)       |
-+---------------------------+
-|   Initialized Data (.data) |
-| (global/static ≠ 0)       |
-+---------------------------+
-|         Code (.text)       |
-| (compiled instructions)    |
-+---------------------------+
-</code></pre>
-<h3 id="1-code-section-text"><a class="header" href="#1-code-section-text">1. <strong>Code Section (.text)</strong></a></h3>
-<ul>
-<li>Contains the <strong>compiled instructions</strong> of your program.</li>
-<li>Read-only to prevent accidental modification of executable code.</li>
-<li>Example: function bodies.</li>
-</ul>
-<pre><code class="language-cpp">void greet() { 
-    std::cout &lt;&lt; "Hello, World!"; 
-}
-</code></pre>
-<h3 id="2-initialized-data-section-data"><a class="header" href="#2-initialized-data-section-data">2. <strong>Initialized Data Section (.data)</strong></a></h3>
-<ul>
-<li>Stores <strong>global</strong> and <strong>static</strong> variables <strong>initialized</strong> with a
-non-zero value.</li>
-<li>Exists throughout the program lifetime.</li>
-</ul>
-<pre><code class="language-cpp">int global_var = 10;  // Stored in .data
-</code></pre>
-<h3 id="3-uninitialized-data-section-bss"><a class="header" href="#3-uninitialized-data-section-bss">3. <strong>Uninitialized Data Section (.bss)</strong></a></h3>
-<ul>
-<li>Stores <strong>global</strong> and <strong>static</strong> variables <strong>initialized to zero</strong>
-or <strong>not initialized</strong>.</li>
-<li>Allocated at runtime, initialized to zero automatically.</li>
-</ul>
-<pre><code class="language-cpp">static int counter;   // Stored in .bss (default 0)
-</code></pre>
-<h3 id="4-heap-section"><a class="header" href="#4-heap-section">4. <strong>Heap Section</strong></a></h3>
-<ul>
-<li>Used for <strong>dynamic memory allocation</strong> via <code>new</code>, <code>malloc</code>, etc.</li>
-<li>Managed manually by the programmer.</li>
-<li>Grows upward.</li>
-</ul>
-<pre><code class="language-cpp">int* ptr = new int(5); // Stored in heap
-</code></pre>
-<h3 id="5-stack-section"><a class="header" href="#5-stack-section">5. <strong>Stack Section</strong></a></h3>
-<ul>
-<li>Used for <strong>function calls</strong> and <strong>local variables</strong>.</li>
-<li>Memory is automatically managed (pushed and popped).</li>
-<li>Grows downward.</li>
-</ul>
-<pre><code class="language-cpp">void foo() {
-    int local = 42; // Stored in stack
-}
-</code></pre>
-<hr />
-<h2 id="-storage-classes-in-c"><a class="header" href="#-storage-classes-in-c">⚙️ Storage Classes in C++</a></h2>
-<p>Storage classes define the <strong>scope</strong>, <strong>lifetime</strong>, and <strong>visibility</strong>
-of variables.</p>
-<div class="table-wrapper"><table><thead><tr><th>Storage Class</th><th>Keyword</th><th>Default Value</th><th>Scope</th><th>Lifetime</th><th>Memory Section</th></tr></thead><tbody>
-<tr><td>Automatic</td><td><code>auto</code> (default)</td><td>Garbage</td><td>Local</td><td>Until function returns</td><td>Stack</td></tr>
-<tr><td>Register</td><td><code>register</code></td><td>Garbage</td><td>Local</td><td>Until function returns</td><td>CPU Register / Stack</td></tr>
-<tr><td>Static (local)</td><td><code>static</code></td><td>Zero</td><td>Local</td><td>Entire program</td><td><code>.data</code> or <code>.bss</code></td></tr>
-<tr><td>Static (global)</td><td><code>static</code></td><td>Zero</td><td>Global</td><td>Entire program</td><td><code>.data</code> or <code>.bss</code></td></tr>
-<tr><td>Extern</td><td><code>extern</code></td><td>Depends</td><td>Global</td><td>Entire program</td><td><code>.data</code> or <code>.bss</code></td></tr>
-<tr><td>Mutable</td><td><code>mutable</code></td><td>Depends</td><td>Class member</td><td>Until object destroyed</td><td>Heap/Stack depending on object</td></tr>
-</tbody></table>
-</div>
-<hr />
-<h2 id="-mapping-storage-classes-to-memory-sections"><a class="header" href="#-mapping-storage-classes-to-memory-sections">🧠 Mapping Storage Classes to Memory Sections</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Example</th><th>Storage Class</th><th>Memory Section</th></tr></thead><tbody>
-<tr><td><code>int x = 5;</code> (inside main)</td><td>auto</td><td>Stack</td></tr>
-<tr><td><code>static int count;</code></td><td>static</td><td>.bss</td></tr>
-<tr><td><code>int global = 10;</code></td><td>extern/global</td><td>.data</td></tr>
-<tr><td><code>int* p = new int(3);</code></td><td>auto + heap allocation</td><td>Heap</td></tr>
-<tr><td><code>register int r = 5;</code></td><td>register</td><td>Register / Stack</td></tr>
-</tbody></table>
-</div>
-<h2 id="-example-program"><a class="header" href="#-example-program">🔍 Example Program</a></h2>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-int global_var = 10;        // .data
-static int static_global;   // .bss
-
-void demo() {
-    int local = 5;          // stack
-    static int static_local = 7; // .data
-    int* heap_ptr = new int(42); // heap
-    cout &lt;&lt; "Local: " &lt;&lt; local &lt;&lt; ", Heap: " &lt;&lt; *heap_ptr &lt;&lt; endl;
-    delete heap_ptr;
-}
-
-int main() {
-    demo();
-    return 0;
-}
-</code></pre>
-<hr />
-<h2 id="-diagram-complete-memory-layout"><a class="header" href="#-diagram-complete-memory-layout">🧭 Diagram: Complete Memory Layout</a></h2>
-<pre><code>        +----------------------------------+
-        |           Stack                  |
-        |   - Function call frames         |
-        |   - Local variables              |
-        +----------------------------------+
-        |           Heap                   |
-        |   - Dynamic memory               |
-        +----------------------------------+
-        |   Uninitialized (.bss)           |
-        |   - static int x;                |
-        |   - int global_uninit;           |
-        +----------------------------------+
-        |   Initialized (.data)            |
-        |   - int global_init = 5;         |
-        |   - static int local_init = 7;   |
-        +----------------------------------+
-        |           Code (.text)           |
-        |   - main(), demo(), etc.         |
-        +----------------------------------+
-</code></pre>
-<hr />
-<h2 id="-summary"><a class="header" href="#-summary">🧩 Summary</a></h2>
-<ul>
-<li><strong>Stack:</strong> Local and temporary data.</li>
-<li><strong>Heap:</strong> Dynamic runtime allocations.</li>
-<li><strong>.data:</strong> Initialized globals/statics.</li>
-<li><strong>.bss:</strong> Zero-initialized globals/statics.</li>
-<li><strong>.text:</strong> Program instructions.</li>
-</ul>
-<hr />
-<h2 id="-understanding-static-variables-in-depth"><a class="header" href="#-understanding-static-variables-in-depth">🧱 Understanding Static Variables in Depth</a></h2>
-<h3 id="what-makes-static-special"><a class="header" href="#what-makes-static-special">What Makes <code>static</code> Special?</a></h3>
-<ul>
-<li>A <strong>static variable</strong> inside a function is <strong>initialized only
-once</strong>, not every time the function is called.</li>
-<li>It <strong>retains its value</strong> between function calls.</li>
-<li>It has <strong>local scope</strong> (not visible outside the function) but
-<strong>global lifetime</strong>.</li>
-</ul>
-<h3 id="key-points"><a class="header" href="#key-points">Key Points:</a></h3>
-<ul>
-<li>Initialized only once at program startup (if not explicitly
-initialized, it defaults to zero).</li>
-<li>Memory is allocated in the <strong>.data</strong> (if initialized) or <strong>.bss</strong>
-(if uninitialized) section.</li>
-<li>Value persists across multiple calls to the same function.</li>
-</ul>
-<h3 id="example"><a class="header" href="#example">Example:</a></h3>
-<pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-void counterFunction() {
-    static int count = 0; // initialized once
-    count++;
-    cout &lt;&lt; "Count = " &lt;&lt; count &lt;&lt; endl;
-}
-
-int main() {
-    counterFunction();  // Output: Count = 1
-    counterFunction();  // Output: Count = 2
-    counterFunction();  // Output: Count = 3
-    return 0;
-}
-</code></pre>
-<h3 id="how-it-works-internally"><a class="header" href="#how-it-works-internally">How It Works Internally:</a></h3>
-<ol>
-<li>The first time <code>counterFunction()</code> is called, <code>count</code> is initialized
-to <code>0</code>.</li>
-<li>On subsequent calls, <code>count</code> retains its last value instead of
-reinitializing.</li>
-<li>This behavior makes static variables ideal for maintaining <strong>state</strong>
-between function calls.</li>
-</ol>
-<h3 id="visual-representation"><a class="header" href="#visual-representation">Visual Representation:</a></h3>
-<pre><code>+---------------------------------------------+
-| Function Call Stack                         |
-|   local variables -&gt; destroyed after return  |
-+---------------------------------------------+
-| .data section                               |
-|   static int count = 0;  ← persists forever |
-+---------------------------------------------+
-</code></pre>
-<p>This shows that even though <code>count</code> is declared inside a function, its
-memory <strong>does not live on the stack</strong>.<br />
-Instead, it resides in the <strong>data segment</strong>, making it available
-throughout the program's execution.</p>
-<hr />
-<h3 id="summary-table-for-static"><a class="header" href="#summary-table-for-static">Summary Table for <code>static</code></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Property</th><th>Local Static</th><th>Global Static</th></tr></thead><tbody>
-<tr><td>Scope</td><td>Within function</td><td>Within translation unit (.cpp file)</td></tr>
-<tr><td>Lifetime</td><td>Entire program</td><td>Entire program</td></tr>
-<tr><td>Initialization</td><td>Once only</td><td>Once only</td></tr>
-<tr><td>Memory Section</td><td>.data / .bss</td><td>.data / .bss</td></tr>
-<tr><td>Typical Use</td><td>Retain value between function calls</td><td>Hide variable/function from other files</td></tr>
-</tbody></table>
-</div>
-<hr />
-<p>Static variables are often misunderstood in C++, but mastering them
-helps in writing efficient and predictable code that maintains internal
-state without global exposure.</p>
-<h1 id="note-on-register-variables-in-c"><a class="header" href="#note-on-register-variables-in-c">Note on <code>register</code> Variables in C++</a></h1>
-<ul>
-<li>Declaring a variable with the <code>register</code> keyword:</li>
-</ul>
-<pre><code class="language-cpp">register int counter = 0;
-</code></pre>
-<ul>
-<li>
-<p><strong>Does NOT guarantee</strong> that the variable will reside in a CPU register.</p>
-</li>
-<li>
-<p>It is only a <strong>compiler optimization hint</strong>.</p>
-</li>
-<li>
-<p>Modern compilers often ignore this keyword and manage registers automatically.</p>
-</li>
-<li>
-<p>Reasons it might not be placed in a register:</p>
-<ol>
-<li>Limited number of CPU registers.</li>
-<li>Compiler optimization strategies determine better storage location.</li>
-</ol>
-</li>
-<li>
-<p>Therefore, <code>register</code> mainly serves as historical or readability guidance rather than a strict directive.</p>
-</li>
-</ul>
+                        <h1 id="storage-classes"><a class="header" href="#storage-classes">Storage Classes</a></h1>
 
                     </main>
 
@@ -445,22 +206,6 @@ state without global exposure.</p>
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
