@@ -21,7 +21,7 @@ Control flow statements allow your program to make decisions and repeat actions.
 - **Jump Statements**: break, continue (controlling loop behavior)
 
 ---
-
+<a id="if-else"></a>
 ## Decision Making - if-else
 
 ### Basic if Statement
@@ -209,7 +209,7 @@ if (marks >= 50 && attendance >= 75) {
     cout << "Eligible for certificate" << endl;
 }
 ```
-
+[↑ Back to Table of Contents](#table-of-contents)
 ---
 
 ## Short-Circuit Evaluation (IMPORTANT!)
