@@ -24,3 +24,6 @@ Unlike many C++ tutorials, this ebook:
 ## 🌐 Read Online
 👉 [**Read the ebook here**](https://sagardesd.github.io/Cpp_Learn_The_Right_Way/)  
 (*auto-updated whenever new content is added!*)
+
+## Note:
+**The book is work in progress and not complete !!!**
