@@ -1,8 +1,8 @@
 # Summary
 
-- [Data Types, Variables, and Input/Output in C++](./1_datatypes.md)
-- [Control Flow](./2_control_flow.md)
-- [Storage Classes](./3_storage_classes.md)
+- [Data Types, Variables, and Input/Output in C++](./datatypes.md)
+- [Control Flow](./control_flow.md)
+- [Storage Classes](./storage_classes.md)
 - [Pointers](./cpp_pointers_tutorial_detail.md)
-- [Constuctors In-depth](./4_constrctor.md)
-- [Inheritance and Construtors](./5_constructor_and_inheritance.md)
+- [Constuctors In-depth](./constrctor.md)
+- [Inheritance and Construtors](./constructor_and_inheritance.md)
