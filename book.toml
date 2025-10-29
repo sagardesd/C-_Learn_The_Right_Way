@@ -1,6 +1,7 @@
 [book]
 title = "C++ Learn The Right Way"
 author = "Sagar Kumar Madala"
+language = "en"
 src = "mds"
 
 [build]
@@ -9,3 +10,4 @@ build-dir = "docs"
 [output.html]
 default-theme = "light"
 site-url = "/Cpp_Learn_The_Right_Way/"
+git-repository-url = "https://github.com/sagardesd/Cpp_Learn_The_Right_Way"
